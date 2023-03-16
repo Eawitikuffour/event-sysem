@@ -1,0 +1,63 @@
+<div class="p-4">
+  <img
+    src="assets/images/logo.png"
+    alt="Image"
+    height="40"
+    class="mr-0 lg:mr-6"
+  />
+  <div
+    class="border-2 border-dashed surface-border border-round surface-card"
+    style="min-height: 20rem"
+  >
+    <div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+      <div class="surface-card p-4 shadow-2 border-round p-fluid">
+        <h2 style="text-align: center">
+          If you have registered online, type your email/phone number and click
+          on the Submit button
+        </h2>
+        <div class="grid formgrid p-fluid">
+          <div class="field mb-4 col-12 md:col-6">
+            <input
+              pInputText
+              type="text"
+              placeholder="Enter Email/Phone to search"
+              (keyup)="search($event)"
+            />
+
+            <div>
+              <div *ngFor="let result of results$ | async | keyvalue">
+                {{ result.key }}<br />
+                <input
+                  pInputText
+                  type="text"
+                  [disabled]="true"
+                  [(ngModel)]="result.value"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="field mb-4 col-12 md:col-2">
+            <button pButton type="button" label="Submit"></button>
+          </div>
+        </div>
+        <h2 style="text-align: center">
+          Click on the Register button if you have not registered online
+        </h2>
+        <p-toolbar styleClass="mb-4 gap-2">
+          <ng-template pTemplate="left">
+            <button
+              pButton
+              pRipple
+              label="Register"
+              icon="pi pi-plus"
+              pTooltip="Add new person"
+              (click)="register()"
+              class="p-button-success mr-2"
+            ></button>
+          </ng-template>
+        </p-toolbar>
+      </div>
+    </div>
+  </div>
+</div>

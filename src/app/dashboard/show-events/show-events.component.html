@@ -1,0 +1,92 @@
+<div class="card">
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        pTooltip="click to add new event"
+        (click)="addNewEvent()"
+      ></button>
+    </ng-template>
+
+    <!-- <ng-template pTemplate="right">
+            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+        </ng-template> -->
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="events"
+    [rows]="10"
+    [paginator]="true"
+    [scrollable]="true"
+    scrollHeight="400px"
+    responsiveLayout="scroll"
+    [globalFilterFields]="[
+      'name',
+      'country.name',
+      'representative.name',
+      'status'
+    ]"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedEvent"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Events</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" placeholder="Search..." />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 200px">Event Name</th>
+        <th style="min-width: 300px">Description</th>
+        <th style="min-width: 200px">Venue</th>
+        <th style="min-width: 200px">Date</th>
+        <th style="min-width: 200px">Expected Number</th>
+        <th style="min-width: 200px">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-events>
+      <tr>
+        <td>{{ events.Event.event_name }}</td>
+        <td>{{ events.Event.description }}</td>
+        <td>{{ events.Event.venue }}</td>
+        <td>{{ events.Event.start_date }}</td>
+        <td>{{ events.Event.number_of_participants }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success mr-2"
+            pTooltip="Click to edit events"
+            (click)="editEvent(events.Event)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            pTooltip="click to delete event"
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+            (click)="deleteEvent(events.Event.id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        <!-- In total there are {{products ? products.length : 0 }} products. -->
+      </div>
+    </ng-template>
+  </p-table>
+</div>

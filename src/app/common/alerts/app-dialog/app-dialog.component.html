@@ -1,0 +1,13 @@
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+  key="default"
+></p-confirmDialog>
+<p-confirmDialog
+  [style]="{ minWidth: '40vw' }"
+  key="positionDialog"
+  [position]="appAlertService.position"
+  rejectButtonStyleClass="p-button-outlined"
+></p-confirmDialog>
+
+<p-confirmPopup key="popup"></p-confirmPopup>

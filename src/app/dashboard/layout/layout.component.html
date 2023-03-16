@@ -1,0 +1,39 @@
+<div class="min-h-screen flex flex-column surface-ground">
+  <div
+    class="surface-overlay py-3 px-6 flex align-items-center justify-content-between relative lg:static"
+  >
+    <a
+      pRipple
+      class="cursor-pointer block lg:hidden text-700"
+      pStyleClass="#app-sidebar-12"
+      enterClass="hidden"
+      enterActiveClass="fadeinleft"
+      leaveToClass="hidden"
+      leaveActiveClass="fadeoutleft"
+    >
+      <i class="pi pi-bars text-4xl"></i>
+    </a>
+    <img
+      src="assets/images/logo.png"
+      alt="Image"
+      height="40"
+      class="mr-0 lg:mr-6"
+    />
+    <a
+      pRipple
+      class="cursor-pointer block lg:hidden text-700"
+      pStyleClass="@next"
+      enterClass="hidden"
+      leaveToClass="hidden"
+    >
+      <i class="pi pi-ellipsis-v text-2xl"></i>
+    </a>
+  </div>
+
+  <div class="flex relative lg:static p-5 flex-auto">
+    <app-side-bar></app-side-bar>
+    <div class="flex flex-column flex-auto">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
