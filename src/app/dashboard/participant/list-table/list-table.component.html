@@ -1,4 +1,4 @@
-<!-- <div class="card">
+<div class="card">
   <p-table
     #dt
     [value]="attendance"
@@ -20,7 +20,20 @@
   >
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
-        <h5 class="m-0">Participants List</h5>
+        <span>
+          <p-dropdown
+            [options]="events"
+            [formControl]="eventControl"
+            placeholder="Select Event"
+            optionLabel="event_name"
+            [showClear]="true"
+          ></p-dropdown>
+          <p-button
+            label="Filter"
+            (click)="filterEvents()"
+            styleClass="p-button-success"
+          ></p-button>
+        </span>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
           <input pInputText type="text" placeholder="Search..." />
@@ -48,9 +61,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
-      <div class="flex align-items-center justify-content-between">
-
-      </div>
+      <div class="flex align-items-center justify-content-between"></div>
     </ng-template>
   </p-table>
-</div> -->
+</div>

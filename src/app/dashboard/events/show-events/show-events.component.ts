@@ -1,9 +1,11 @@
-import { EventDetails } from './../modal/eventDetails';
+
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
+import { EventDetails } from '../../modal/eventDetails';
 import { AddEventComponent } from '../addEvent/addEvent.component';
 import { EditEventComponent } from '../editEvent/editEvent.component';
-import { DashboardService } from '../service/dashboard.service';
+import { EventService } from '../service/event.service';
+
 
 @Component({
   selector: 'app-show-events',
@@ -17,11 +19,11 @@ export class ShowEventsComponent implements OnInit {
   selectedEvent: any;
   constructor(
     public dialogService: DialogService,
-    private dashboardService: DashboardService
+    private eventService: EventService,
   ) {}
 
   ngOnInit() {
-    this.dashboardService.getAllEvents().subscribe((data: any) => {
+    this.eventService.getAllEvents().subscribe((data: any) => {
       this.events = data;
       console.log(this.events);
     });
@@ -43,6 +45,6 @@ export class ShowEventsComponent implements OnInit {
     });
   }
   deleteEvent(id: number) {
-    this.dashboardService.deleteEvent(id).subscribe();
+    this.eventService.deleteEvent(id).subscribe();
   }
 }

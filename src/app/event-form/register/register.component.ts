@@ -1,38 +1,56 @@
-import { debounce, debounceTime, map, Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { DashboardService } from 'src/app/dashboard/service/dashboard.service';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'underscore';
+import { EventFormService } from '../service/eventForm.service';
+import { ParticipantService } from 'src/app/dashboard/participant/service/participant.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  // data: any[] = [];
-  // options = [];
-  results$: Observable<any> | undefined;
-  // subject = new Subject();
+
+  results: Observable<any> | undefined;
+  event_name!: string;
+  eventDetails: any;
+  showForm = false;
 
   constructor(
     private route: Router,
-    private participantService: DashboardService,
-    private fb: FormBuilder
+    private participantService: ParticipantService,
+    private fb: FormBuilder,
+    private eventService: EventFormService,
+    private acitvatedRoute: ActivatedRoute,
   ) {
     this.search = _.debounce(this.search, 1000);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.acitvatedRoute.params.subscribe((params) => {
+      if (params){
+        this.event_name = params['event_name'];
+        this.eventService.getEvent(this.event_name).subscribe((response:any) =>{
+          console.log(response);
+           if(response && Object.keys(response).length){
+              this.eventDetails = response;
+              this.showForm = true;
+
+           }
+        });
+      }
+     })
+  }
 
   search(event: any) {
     const searchText = event.target.value;
-    this.results$ = this.participantService.searchParticipant(searchText);
-    // console.log(this.results$.length);
+    this.results = this.participantService.searchParticipant(searchText);
+    console.log(this.results);
   }
 
   register() {
-    return this.route.navigate(['/participant/add-new']);
+    return this.route.navigate([`/participant/add-new/${this.eventDetails.event_name}`]);
   }
 }

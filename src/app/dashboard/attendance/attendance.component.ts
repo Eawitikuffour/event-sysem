@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../service/dashboard.service';
+import { ParticipantService } from '../participant/service/participant.service';
 
-export interface Attendance {
-  name: string;
-  gender: string;
-  email: string;
-  institution: string;
-  telNumber: string;
-}
+
+// export interface Attendance {
+//   name: string;
+//   gender: string;
+//   email: string;
+//   institution: string;
+//   telNumber: string;
+// }
 
 @Component({
   selector: 'app-attendance',
@@ -15,12 +16,12 @@ export interface Attendance {
   styleUrls: ['./attendance.component.scss'],
 })
 export class AttendanceComponent implements OnInit {
-  attendance: Attendance[] = [];
+  // attendance: Attendance[] = [];
   selectedAttendance: any;
-  constructor(private dashboardService: DashboardService) {}
+  constructor(private participantService: ParticipantService) {}
   ngOnInit() {
-    this.dashboardService.getAllParticpant().subscribe((data: any) => {
-      this.attendance = data;
+    this.participantService.getAllParticpant().subscribe((data: any) => {
+      // this.attendance = data;
     });
   }
 }

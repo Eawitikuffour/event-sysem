@@ -11,6 +11,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [EventFormComponent, RegisterComponent],
@@ -26,6 +27,7 @@ import { TableModule } from 'primeng/table';
     TooltipModule,
     AutoCompleteModule,
     TableModule,
+    CardModule,
   ],
   exports: [EventFormComponent],
 })

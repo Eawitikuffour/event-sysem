@@ -7,8 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { AppAlertService } from 'src/app/common/alerts/service/app-alert.service';
-import { EventDetails } from '../modal/eventDetails';
-import { DashboardService } from '../service/dashboard.service';
+import { EventDetails } from '../../modal/eventDetails';
+import { EventService } from '../service/event.service';
+
 
 @Component({
   selector: 'app-addEvent',
@@ -21,7 +22,7 @@ export class AddEventComponent implements OnInit, AfterViewInit {
   eventForm!: FormGroup;
   constructor(
     private fb: FormBuilder,
-    private dashboardService: DashboardService,
+    private eventService: EventService,
     private alert: AppAlertService
   ) {}
 
@@ -45,7 +46,7 @@ export class AddEventComponent implements OnInit, AfterViewInit {
   addEvent() {
     const data = this.eventForm.getRawValue();
     console.log(data);
-    this.dashboardService.addEvent(data).subscribe((res: any) => {
+    this.eventService.addEvent(data).subscribe((res: any) => {
       this.alert.showToast('event added successfully');
     });
   }

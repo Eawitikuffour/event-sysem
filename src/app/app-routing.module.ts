@@ -1,8 +1,6 @@
 import { EventFormModule } from './event-form/event-form.module';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ShowEventsComponent } from './dashboard/show-events/show-events.component';
-import { AttendanceComponent } from './dashboard/attendance/attendance.component';
 import { EventFormComponent } from './event-form/event-form/event-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './event-form/register/register.component';
@@ -14,33 +12,22 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    loadChildren: () => import('./dashboard/dashboard.module').then((m) =>m.DashboardModule),
   },
-  {
-    path: 'dashboard/show-events',
-    component: ShowEventsComponent,
-  },
-  {
-    path: 'dashboard/show-attendance',
-    component: AttendanceComponent,
-  },
-  { path: 'add-event', component: ShowEventsComponent },
-  { path: 'attendance', component: AttendanceComponent },
+
   { path: 'attendance-form', component: EventFormComponent },
-  // {
-  //   path: 'eventForm',
-  //   loadChildren: () =>
-  //     import('./event-form/event-form.module').then((m) => m.EventFormModule),
-  // },
+
   {
-    path: 'participant/add-new',
+    path: 'participant/add-new/:event_name',
     component: EventFormComponent,
   },
   {
-    path: 'participant',
+    path: 'participant/:event_name',
     component: RegisterComponent,
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'Participant', loadChildren: () => import('./dashboard/participant/participant.module').then(m => m.ParticipantModule) },
+  { path: 'events', loadChildren: () => import('./dashboard/events/events.module').then(m => m.EventsModule) },
 ];
 
 @NgModule({

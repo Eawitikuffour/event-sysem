@@ -6,3 +6,10 @@ export interface EventDetails {
   number_of_participants: number;
   description: string;
 }
+export interface Attendance {
+  name: string;
+  gender: string;
+  email: string;
+  institution: string;
+  telNumber: string;
+}

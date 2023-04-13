@@ -7,7 +7,8 @@ import {
 } from '@angular/forms';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { AddEventComponent } from '../addEvent/addEvent.component';
-import { DashboardService } from '../service/dashboard.service';
+import { EventService } from '../service/event.service';
+
 
 @Component({
   selector: 'app-editEvent',
@@ -20,7 +21,7 @@ export class EditEventComponent implements OnInit {
   data: any;
   constructor(
     private fb: FormBuilder,
-    private dashboardService: DashboardService,
+    private eventService: EventService,
     public config: DynamicDialogConfig
   ) {}
 

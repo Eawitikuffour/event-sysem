@@ -9,8 +9,12 @@
     class="border-2 border-dashed surface-border border-round surface-card"
     style="min-height: 20rem"
   >
-    <div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
-      <div class="text-900 font-medium text-xl mb-3">Create Participant</div>
+    <div class="surface-ground px-4 py-8 md:px-6 lg:px-8" *ngIf="showForm">
+      <p-card style="text-align: center;">
+            <h1>{{eventDetails.event_name}}</h1>
+            <h2>{{eventDetails.description}}</h2>
+      </p-card><br>
+      <div class="text-900 font-medium text-xl mb-3">Participant Form</div>
       <div
         class="surface-card p-4 shadow-2 border-round p-fluid"
         [formGroup]="eventForm"
@@ -132,7 +136,7 @@
                   formData['phone_number'].errors['minlength']
                 "
               >
-                Please, Enter 10 digit Mobile Number.
+                Please, Enter at least 10 digit Mobile Number.
               </div>
             </div>
           </div>
@@ -145,6 +149,20 @@
               type="text"
               pInputText
             />
+          </div>
+          <div class="field mb-4 col-12 md:col-6">
+            <!-- <label for="gender" class="font-medium text-900"
+              >Select Gender</label
+            > -->
+            <p-dropdown
+              [options]="joiningEvent"
+              formControlName="gender"
+              placeholder="How would you like to join the event?"
+              optionLabel="viewValue"
+              [showClear]="true"
+
+            >
+            </p-dropdown>
           </div>
         </div>
         <button
