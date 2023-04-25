@@ -9,15 +9,18 @@
     class="border-2 border-dashed surface-border border-round surface-card"
     style="min-height: 20rem"
   >
-    <div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
-      <div class="surface-card p-4 shadow-2 border-round p-fluid" *ngIf="showForm">
-        <p-card style="text-align: center;"> 
-          <h1>{{eventDetails.event_name}}</h1>
-          <h2>{{eventDetails.description}}</h2>
-        </p-card><br>
+    <div class="surface-ground px-4 py-4 md:px-6 lg:px-4">
+      <div
+        class="surface-card p-4 shadow-2 border-round p-fluid"
+        *ngIf="showForm"
+      >
+        <p-card style="text-align: center">
+          <h1>{{ eventDetails.event_name }}</h1>
+          <h2>{{ eventDetails.description }}</h2> </p-card
+        ><br />
         <h2 style="text-align: center">
-          If you have registered online, type your email/phone number and click
-          on the Submit button
+          If you have registered already, type your email/phone to confirm your
+          details
         </h2>
         <div class="grid formgrid p-fluid">
           <div class="field mb-4 col-12 md:col-6">
@@ -28,26 +31,102 @@
               (keyup)="search($event)"
             />
 
-            <div>
-              <div *ngFor="let result of results | async | keyvalue">
-                {{ result.key }}<br />
-                <input
-                  pInputText
-                  type="text"
-                  [disabled]="true"
-                  [(ngModel)]="result.value"
-                />
-             
+            <div *ngFor="let result of results | async | keyvalue">
+              {{ result.key }}<br />
+              <input
+                pInputText
+                type="text"
+                [disabled]="true"
+                [(ngModel)]="result.value"
+              />
+              <!-- <p>{{ data.Name }}</p> -->
+              <!-- <div class="grid formgrid p-fluid">
+                <div class="field mb-4 col-12 md:col-12">
+                  <label for="name" class="font-medium text-900"
+                    >Full Name</label
+                  >
+                  <input
+                    id="name"
+                    type="text"
+                    pInputText
+                    pInputText
+                    [(ngModel)]="data.Name"
+                  />
+                </div>
               </div>
+              <div class="field mb-4 col-12 md:col-12">
+                <label for="gender" class="font-medium text-900">Gender</label>
+                <input
+                  id="name"
+                  type="text"
+                  pInputText
+                  pInputText
+                  [(ngModel)]="data.Gender"
+                />
+              </div>
+              <div class="field mb-4 col-12 md:col-12">
+                <label for="Email" class="font-medium text-900">Email</label>
+                <input
+                  id="name"
+                  type="text"
+                  pInputText
+                  pInputText
+                  [(ngModel)]="data.Email"
+                />
+              </div>
+              <div class="field mb-4 col-12 md:col-12">
+                <label for="occupation" class="font-medium text-900"
+                  >Organization</label
+                >
+                <input
+                  id="occupation"
+                  type="text"
+                  pInputText
+                  [(ngModel)]="data.Organization"
+                />
+              </div>
+              <div class="field mb-4 col-12 md:col-12">
+                <label for="phoneNumber" class="font-medium text-900"
+                  >Contact</label
+                >
+                <input
+                  id="phone_number"
+                  type="text"
+                  pInputText
+                  [(ngModel)]="data.Contact"
+                />
+              </div>
+
+              <div class="field mb-4 col-12 md:col-12">
+                <label for="location" class="font-medium text-900"
+                  >Location</label
+                >
+                <input
+                  id="location"
+                  type="text"
+                  pInputText
+                  [(ngModel)]="data.Location"
+                />
+              </div> -->
+              <!-- <div class="field mb-4 col-12 md:col-6">
+                    <p-dropdown
+                      [options]="joiningEvent"
+                      formControlName="gender"
+                      placeholder="How would you like to join the event?"
+                      optionLabel="viewValue"
+                      [showClear]="true"
+                    >
+                    </p-dropdown>
+                  </div> -->
             </div>
           </div>
 
-          <div class="field mb-4 col-12 md:col-2">
+          <!-- <div class="field mb-4 col-12 md:col-2">
             <button pButton type="button" label="Submit"></button>
-          </div>
+          </div> -->
         </div>
         <h2 style="text-align: center">
-          Click on the Register button if you have not registered online
+          Click on the Register button if you have not registered
         </h2>
         <p-toolbar styleClass="mb-4 gap-2">
           <ng-template pTemplate="left">

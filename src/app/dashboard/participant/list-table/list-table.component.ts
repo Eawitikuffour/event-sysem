@@ -24,7 +24,7 @@ export class ListTableComponent {
       this.events = data;
     });
     this.participantService.getAllParticpant().subscribe((data: any) => {
-      this.events = data;
+      this.attendance = data;
     });
   }
 

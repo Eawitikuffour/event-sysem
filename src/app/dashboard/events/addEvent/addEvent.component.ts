@@ -10,7 +10,6 @@ import { AppAlertService } from 'src/app/common/alerts/service/app-alert.service
 import { EventDetails } from '../../modal/eventDetails';
 import { EventService } from '../service/event.service';
 
-
 @Component({
   selector: 'app-addEvent',
   templateUrl: './addEvent.component.html',
@@ -32,7 +31,7 @@ export class AddEventComponent implements OnInit, AfterViewInit {
       venue: ['', [Validators.required, Validators.minLength(5)]],
       start_date: new FormControl(''),
       end_date: new FormControl(''),
-      number_of_participants: new UntypedFormControl(1),
+      number_of_participants: new UntypedFormControl(),
       description: new FormControl(''),
     });
   }

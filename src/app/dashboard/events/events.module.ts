@@ -15,13 +15,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { ShowEventsComponent } from './show-events/show-events.component';
 
-
 @NgModule({
-  declarations: [
-    AddEventComponent,
-    AddEventComponent,
-    ShowEventsComponent,
-  ],
+  declarations: [AddEventComponent, AddEventComponent, ShowEventsComponent],
   exports: [AddEventComponent],
   imports: [
     CommonModule,
@@ -37,6 +32,6 @@ import { ShowEventsComponent } from './show-events/show-events.component';
     ReactiveFormsModule,
     CalendarModule,
     TooltipModule,
-  ]
+  ],
 })
-export class EventsModule { }
+export class EventsModule {}

@@ -10,8 +10,13 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './components/interceptor';
 import { AlertsModule } from './common/alerts/alerts.module';
+import { EventsModule } from './dashboard/events/events.module';
+import { ConfirmDialogComponent } from './components/confirmDialog/confirmDialog.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ConfirmDialogComponent],
+  exports: [ConfirmDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -20,8 +25,10 @@ import { AlertsModule } from './common/alerts/alerts.module';
     EventFormModule,
     LoginModule,
     DashboardModule,
+    EventsModule,
     HttpClientModule,
     AlertsModule,
+    ConfirmDialogModule,
   ],
   providers: [
     {
