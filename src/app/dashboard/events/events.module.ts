@@ -14,6 +14,8 @@ import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { ShowEventsComponent } from './show-events/show-events.component';
+import { StoreModule } from '@ngrx/store';
+import { eventsReducer } from './state/events.reducer';
 
 @NgModule({
   declarations: [AddEventComponent, AddEventComponent, ShowEventsComponent],
@@ -32,6 +34,7 @@ import { ShowEventsComponent } from './show-events/show-events.component';
     ReactiveFormsModule,
     CalendarModule,
     TooltipModule,
+    StoreModule.forFeature('events', eventsReducer),
   ],
 })
 export class EventsModule {}

@@ -13,6 +13,7 @@ import { AlertsModule } from './common/alerts/alerts.module';
 import { EventsModule } from './dashboard/events/events.module';
 import { ConfirmDialogComponent } from './components/confirmDialog/confirmDialog.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [AppComponent, ConfirmDialogComponent],
@@ -29,6 +30,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     HttpClientModule,
     AlertsModule,
     ConfirmDialogModule,
+    StoreModule.forRoot({}),
   ],
   providers: [
     {
