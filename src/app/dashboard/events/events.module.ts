@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { EventsRoutingModule } from './events-routing.module';
-import { AddEventComponent } from './addEvent/addEvent.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -14,9 +13,11 @@ import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { ShowEventsComponent } from './show-events/show-events.component';
+import { EditEventComponent } from './editEvent/editEvent.component';
+import { AddEventComponent } from './addEvent/addEvent.component';
 
 @NgModule({
-  declarations: [AddEventComponent, AddEventComponent, ShowEventsComponent],
+  declarations: [ShowEventsComponent, EditEventComponent, AddEventComponent],
   exports: [AddEventComponent],
   imports: [
     CommonModule,

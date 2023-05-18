@@ -1,11 +1,13 @@
-
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { EventDetails } from '../../modal/eventDetails';
-import { AddEventComponent } from '../addEvent/addEvent.component';
 import { EditEventComponent } from '../editEvent/editEvent.component';
 import { EventService } from '../service/event.service';
-
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { EventState } from '../../../store/event.state';
+import { DeleteEvents, GetEvents } from 'src/app/store/event.action';
+import { AddEventComponent } from '../addEvent/addEvent.component';
 
 @Component({
   selector: 'app-show-events',
@@ -15,17 +17,19 @@ import { EventService } from '../service/event.service';
 })
 export class ShowEventsComponent implements OnInit {
   events: EventDetails[] = [];
+  @Select(EventState.selectStateData) events$: Observable<any> | undefined;
 
   selectedEvent: any;
   constructor(
     public dialogService: DialogService,
     private eventService: EventService,
+    private store: Store
   ) {}
 
   ngOnInit() {
-    this.eventService.getAllEvents().subscribe((data: any) => {
+    this.store.dispatch(new GetEvents());
+    this.events$?.subscribe((data: any) => {
       this.events = data;
-      console.log(this.events);
     });
   }
   addNewEvent() {
@@ -33,7 +37,6 @@ export class ShowEventsComponent implements OnInit {
       styleClass:
         'w-screen md:w-6 h-screen md:h-auto px-4 pb-4 no-dialog-header',
       header: 'Add New Event',
-      // width: '40%',
     });
   }
   editEvent(_event: EventDetails) {
@@ -41,10 +44,10 @@ export class ShowEventsComponent implements OnInit {
       styleClass:
         'w-screen md:w-6 h-screen md:h-auto px-4 pb-4 no-dialog-header',
       header: 'Update Event',
-      // width: '40%',
+      data: _event,
     });
   }
   deleteEvent(id: number) {
-    this.eventService.deleteEvent(id).subscribe();
+    this.store.dispatch(new DeleteEvents(id));
   }
 }

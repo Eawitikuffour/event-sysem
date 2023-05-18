@@ -1,0 +1,97 @@
+import { Injectable } from '@angular/core';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
+
+import { tap } from 'rxjs/operators';
+import {
+  AddEvents,
+  DeleteEvents,
+  GetEvents,
+  UpdateEvents,
+} from './event.action';
+import { EventService } from '../dashboard/events/service/event.service';
+
+export class EventStateModel {
+  events: any;
+}
+
+@State<EventStateModel>({
+  name: 'appstate',
+  defaults: {
+    events: [],
+  },
+})
+@Injectable()
+export class EventState {
+  constructor(private eventService: EventService) {}
+
+  @Selector()
+  static selectStateData(state: EventStateModel) {
+    return state.events;
+  }
+
+  @Action(GetEvents)
+  getDataFromState(ctx: StateContext<EventStateModel>) {
+    return this.eventService.getAllEvents().pipe(
+      tap((returnData) => {
+        const state = ctx.getState();
+
+        ctx.setState({
+          ...state,
+          events: returnData, //here the data coming from the API will get assigned to the events variable inside the appstate
+        });
+      })
+    );
+  }
+
+  @Action(AddEvents)
+  addDataToState(ctx: StateContext<EventStateModel>, { payload }: AddEvents) {
+    return this.eventService.addEvent(payload).pipe(
+      tap((returnData) => {
+        const state = ctx.getState();
+        ctx.patchState({
+          events: [...state.events, returnData],
+        });
+      })
+    );
+  }
+
+  @Action(UpdateEvents)
+  updateDataOfState(
+    ctx: StateContext<EventStateModel>,
+    { payload, id, i }: UpdateEvents
+  ) {
+    return this.eventService.updateEvent(payload).pipe(
+      tap((returnData) => {
+        const state = ctx.getState();
+
+        let userList = [...state.events];
+        userList[0] = payload;
+
+        ctx.setState({
+          ...state,
+          events: userList,
+        });
+      })
+    );
+  }
+
+  @Action(DeleteEvents)
+  deleteDataFromState(
+    ctx: StateContext<EventStateModel>,
+    { id }: DeleteEvents
+  ) {
+    return this.eventService.deleteEvent(id).pipe(
+      tap((returnData) => {
+        const state = ctx.getState();
+        const filteredArray = state.events.filter(
+          (contents: any) => contents.id !== id
+        );
+
+        ctx.setState({
+          ...state,
+          events: filteredArray,
+        });
+      })
+    );
+  }
+}

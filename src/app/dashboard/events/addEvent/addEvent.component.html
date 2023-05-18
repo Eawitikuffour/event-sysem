@@ -23,22 +23,24 @@
           formControlName="description"
         ></textarea>
       </div>
-      <div class="field mb-4 col-12 md:col-12">
+      <!-- <div class="field mb-4 col-12 md:col-12">
         <label for="invoice_date" class="font-medium text-900"
           >Start Date</label
         >
         <p-calendar
           formControlName="start_date"
           id="invoice_date"
-          [inline]="true"
           [showIcon]="true"
+          selectionMode="range"
         ></p-calendar>
-      </div>
-      <div class="field mb-4 col-12 md:col-12">
-        <label for="invoice_date" class="font-medium text-900">End Date</label>
+      </div> -->
+      <div class="field col-12 md:col-12 justify-content-center">
+        <label for="invoice_date" class="font-medium text-900"
+          >Select Start & End Date</label
+        >
         <p-calendar
-          formControlName="end_date"
-          [inline]="true"
+          formControlName="date"
+          selectionMode="range"
           id="invoice_date"
           [showIcon]="true"
         ></p-calendar>
@@ -64,13 +66,15 @@
         ></p-inputNumber>
       </div>
     </div>
-    <button
-      pButton
-      pRipple
-      label="Create Event"
-      (click)="addEvent()"
-      icon="pi pi-file"
-      class="w-auto"
-    ></button>
+    <div *ngIf="!data">
+      <button
+        pButton
+        pRipple
+        label="Create Event"
+        (click)="addEvent()"
+        icon="pi pi-file"
+        class="w-auto"
+      ></button>
+    </div>
   </div>
 </div>
