@@ -1,0 +1,90 @@
+<div class="surface-ground px-3 py-2 md:px-3 lg:px-3">
+  <div class="surface-card p-4 shadow-2 border-round p-fluid">
+    <p-toolbar styleClass="mb-4 gap-2">
+      <ng-template pTemplate="left">
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button-success mr-2"
+          (click)="addNewField()"
+          pTooltip="click to add new event"
+        ></button>
+      </ng-template>
+    </p-toolbar>
+    <div class="card-container" [formGroup]="participantFieldsForm">
+      <ng-container formArrayName="participantFields">
+        <ng-container
+          *ngFor="let fieldsForm of participantFields.controls; let i = index"
+        >
+          <span class="flex flex-row" [formGroupName]="i">
+            <div class="flex mb-4 col-12 md:col-3">
+              <input
+                id="field_name"
+                formControlName="fieldName"
+                type="text"
+                pInputText
+                pTooltip="Enter Field Name"
+                placeholder="exx. Contact"
+              />
+            </div>
+            <div class="flex mb-4 col-12 md:col-3">
+              <p-dropdown
+                [options]="textFieldType"
+                formControlName="fieldType"
+                placeholder="Select Field Type"
+                optionLabel="viewValue"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="flex mb-4 col-12 md:col-3">
+              <p-dropdown
+                [options]="TextFieldValidation"
+                formControlName="fieldValidation"
+                placeholder="is Field Required?"
+                optionLabel="viewValue"
+                [showClear]="true"
+              >
+              </p-dropdown>
+            </div>
+            <div class="flex mb-4 col-12 md:col-1">
+              <p-inputNumber
+                placeholder="ex 15"
+                formControlName="fieldMaxLength"
+                pTooltip="Specify maximum characters for the field"
+                inputId="integeronly"
+              >
+              </p-inputNumber>
+            </div>
+            <div class="flex mb-4 col-12 md:col-1">
+              <p-inputNumber
+                inputId="integeronly"
+                formControlName="fieldMinLength"
+                placeholder="ex 3"
+                pTooltip="Specify minimum characters for the field"
+              >
+              </p-inputNumber>
+            </div>
+            <div class="flex mb-4 col-12 md:col-1">
+              <p-button
+                icon="pi pi-trash"
+                pTooltip="Delete details"
+                styleClass="p-button-rounded p-button-danger"
+                (click)="deleteField(i)"
+              ></p-button>
+            </div>
+          </span>
+        </ng-container>
+        <div class="flex align-items-end" style="text-align: end">
+          <p-button
+            label="Submit"
+            icon="pi pi-check"
+            (click)="submitFields()"
+          ></p-button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

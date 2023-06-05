@@ -11,11 +11,6 @@
         (click)="addNewEvent()"
       ></button>
     </ng-template>
-
-    <!-- <ng-template pTemplate="right">
-            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
-        </ng-template> -->
   </p-toolbar>
 
   <p-table
@@ -64,6 +59,14 @@
         <td>{{ events.start_date }}</td>
         <td>{{ events.number_of_participants }}</td>
         <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-plus"
+            class="p-button-rounded p-button-secondary mr-2"
+            pTooltip="Click to add participant details"
+            (click)="addNewParticipant()"
+          ></button>
           <button
             pButton
             pRipple

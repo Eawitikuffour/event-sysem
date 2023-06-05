@@ -65,16 +65,30 @@
           class="flex-1"
         ></p-inputNumber>
       </div>
-    </div>
-    <div *ngIf="!data">
-      <button
-        pButton
-        pRipple
-        label="Create Event"
-        (click)="addEvent()"
-        icon="pi pi-file"
-        class="w-auto"
-      ></button>
+
+      <div class="field mb-4 col-12 md:col-6">
+        <label for="customer_email" class="font-medium text-900"
+          >Upload Event's Image</label
+        >
+        <p-fileUpload
+          mode="basic"
+          chooseLabel="Choose"
+          name="demo[]"
+          accept="image/*"
+        ></p-fileUpload>
+      </div>
+      <div class="field mb-4 col-12 md:col-4 m-0" *ngIf="!data">
+        <br />
+        <button
+          pButton
+          pRipple
+          styleClass="p-button-success"
+          label="Create Event"
+          (click)="addEvent()"
+          icon="pi pi-file"
+          class="p-button-success w-auto"
+        ></button>
+      </div>
     </div>
   </div>
 </div>

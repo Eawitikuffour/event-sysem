@@ -5,13 +5,16 @@ import { RegisteredListComponent } from './registered-list/registered-list.compo
 import { AttendanceListComponent } from './attendance-list/attendance-list.component';
 import { VirtualListComponent } from './virtual-list/virtual-list.component';
 import { PresentListComponent } from './present-list/present-list.component';
-import {TableModule} from 'primeng/table';
-import {InputTextModule} from 'primeng/inputtext';
-import {DropdownModule} from 'primeng/dropdown';
-import {ButtonModule} from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListTableComponent } from './list-table/list-table.component';
-
+import { AddParticipantComponent } from './addParticipant/addParticipant.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ToolbarModule } from 'primeng/toolbar';
+import { TooltipModule } from 'primeng/tooltip';
 @NgModule({
   declarations: [
     RegisteredListComponent,
@@ -19,8 +22,9 @@ import { ListTableComponent } from './list-table/list-table.component';
     VirtualListComponent,
     PresentListComponent,
     ListTableComponent,
-
+    AddParticipantComponent,
   ],
+  exports: [AddParticipantComponent],
   imports: [
     CommonModule,
     ParticipantRoutingModule,
@@ -29,8 +33,10 @@ import { ListTableComponent } from './list-table/list-table.component';
     DropdownModule,
     ButtonModule,
     ReactiveFormsModule,
-    FormsModule
-
-  ]
+    FormsModule,
+    InputNumberModule,
+    ToolbarModule,
+    TooltipModule,
+  ],
 })
-export class ParticipantModule { }
+export class ParticipantModule {}

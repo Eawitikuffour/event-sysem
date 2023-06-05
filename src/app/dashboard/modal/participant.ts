@@ -6,3 +6,10 @@ export interface Participant {
   organization: string;
   registry_from: string;
 }
+
+export interface ParticipantDataType {
+  textField: string;
+  inputNumber: string;
+  dropDown: string;
+  date: string;
+}
