@@ -11,10 +11,16 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListTableComponent } from './list-table/list-table.component';
-import { AddParticipantComponent } from './addParticipant/addParticipant.component';
+import { AddParticipantComponent } from './participantForm/addParticipant/addParticipant.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
+import { DateComponent } from './participantForm/addParticipant/fieldType/date/date.component';
+import { DropdownComponent } from './participantForm/addParticipant/fieldType/dropdown/dropdown.component';
+import { NumberComponent } from './participantForm/addParticipant/fieldType/number/number.component';
+import { RegisterParticipantFormComponent } from './participantForm/addParticipant/registerParticipantForm/registerParticipantForm.component';
+import { TextAreaComponent } from './participantForm/addParticipant/fieldType/textArea/textArea.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 @NgModule({
   declarations: [
     RegisteredListComponent,
@@ -23,13 +29,20 @@ import { TooltipModule } from 'primeng/tooltip';
     PresentListComponent,
     ListTableComponent,
     AddParticipantComponent,
+    DateComponent,
+    DropdownComponent,
+    NumberComponent,
+
+    RegisterParticipantFormComponent,
+    TextAreaComponent,
   ],
-  exports: [AddParticipantComponent],
+  exports: [AddParticipantComponent, RegisterParticipantFormComponent],
   imports: [
     CommonModule,
     ParticipantRoutingModule,
     TableModule,
     InputTextModule,
+    InputTextareaModule,
     DropdownModule,
     ButtonModule,
     ReactiveFormsModule,

@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 import { EventState } from '../../../store/event.state';
 import { DeleteEvents, GetEvents } from 'src/app/store/event.action';
 import { AddEventComponent } from '../addEvent/addEvent.component';
-import { AddParticipantComponent } from '../../participant/addParticipant/addParticipant.component';
+import { AddParticipantComponent } from '../../participant/participantForm/addParticipant/addParticipant.component';
+import { RegisterParticipantFormComponent } from '../../participant/participantForm/addParticipant/registerParticipantForm/registerParticipantForm.component';
 
 @Component({
   selector: 'app-show-events',
@@ -46,6 +47,13 @@ export class ShowEventsComponent implements OnInit {
       styleClass:
         'w-screen md:w-10 h-screen md:h-12 px-4 pb-4 no-dialog-header',
       header: 'Add New Participant',
+    });
+  }
+  viewParticipantForm() {
+    const ref = this.dialogService.open(RegisterParticipantFormComponent, {
+      styleClass:
+        'w-screen md:w-6 h-screen md:h-auto px-4 pb-4 no-dialog-header',
+      header: 'Participant Details',
     });
   }
   editEvent(_event: EventDetails) {

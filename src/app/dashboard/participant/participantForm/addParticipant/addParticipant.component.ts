@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ParticipantDataType } from '../../modal/participant';
+import { ParticipantDataType } from '../../../modal/participant';
 import {
   FormGroup,
   FormArray,

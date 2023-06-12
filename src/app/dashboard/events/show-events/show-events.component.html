@@ -47,8 +47,8 @@
         <th style="min-width: 300px">Description</th>
         <th style="min-width: 200px">Venue</th>
         <th style="min-width: 200px">Date</th>
-        <th style="min-width: 200px">Expected Number</th>
-        <th style="min-width: 200px">Actions</th>
+        <th style="min-width: 150px">Expected Number</th>
+        <th style="min-width: 250px">Actions</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-events>
@@ -66,6 +66,14 @@
             class="p-button-rounded p-button-secondary mr-2"
             pTooltip="Click to add participant details"
             (click)="addNewParticipant()"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-eye"
+            class="p-button-rounded p-button-help mr-2"
+            pTooltip="Click to add participant details"
+            (click)="viewParticipantForm()"
           ></button>
           <button
             pButton
