@@ -1,24 +1,26 @@
 <div class="surface-ground px-3 py-2 md:px-3 lg:px-3">
-  <!-- <div class="text-900 font-medium text-xl mb-3">Create Invoice</div> -->
   <div class="surface-card p-4 shadow-2 border-round p-fluid">
     <div
       class="grid formgrid p-fluid"
-      *ngFor="let field of fields"
-      [ngSwitch]="field.fieldType"
+      *ngFor="let field of fieldsArray"
+      [ngSwitch]="field.field_type"
     >
       <div class="field mb-4 col-12 md:col-12" *ngSwitchCase="'textField'">
         <label for="customer_name" class="font-medium text-900">{{
-          field.fieldName
+          field.field_name
         }}</label>
 
-        <app-textArea [textFieldName]="field.fieldName"></app-textArea>
+        <app-textArea [placeholder]="field.field_name"></app-textArea>
       </div>
-      <div class="field mb-4 col-12 md:col-12" *ngSwitchCase="'dropDown'">
+      <!-- <div class="field mb-4 col-12 md:col-12" *ngSwitchCase="'dropDown'">
         <label for="customer_name" class="font-medium text-900">{{
           field.fieldName
         }}</label>
-        <app-dropdown [textFieldName]="field.fieldName"></app-dropdown>
-      </div>
+        <app-dropdown
+          [placeholder]="field.fieldName"
+          [textFieldFormControl]="control"
+        ></app-dropdown>
+      </div> -->
     </div>
   </div>
 </div>

@@ -10,6 +10,7 @@ import { DeleteEvents, GetEvents } from 'src/app/store/event.action';
 import { AddEventComponent } from '../addEvent/addEvent.component';
 import { AddParticipantComponent } from '../../participant/participantForm/addParticipant/addParticipant.component';
 import { RegisterParticipantFormComponent } from '../../participant/participantForm/addParticipant/registerParticipantForm/registerParticipantForm.component';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-show-events',
@@ -32,6 +33,7 @@ export class ShowEventsComponent implements OnInit {
     this.store.dispatch(new GetEvents());
     this.events$?.subscribe((data: any) => {
       this.events = data;
+      console.log(this.events);
     });
   }
   addNewEvent() {
@@ -42,18 +44,20 @@ export class ShowEventsComponent implements OnInit {
     });
   }
 
-  addNewParticipant() {
+  addNewParticipant(id: number) {
     const ref = this.dialogService.open(AddParticipantComponent, {
       styleClass:
         'w-screen md:w-10 h-screen md:h-12 px-4 pb-4 no-dialog-header',
       header: 'Add New Participant',
+      data: id,
     });
   }
-  viewParticipantForm() {
+  viewParticipantForm(id: number) {
     const ref = this.dialogService.open(RegisterParticipantFormComponent, {
       styleClass:
         'w-screen md:w-6 h-screen md:h-auto px-4 pb-4 no-dialog-header',
       header: 'Participant Details',
+      data: id,
     });
   }
   editEvent(_event: EventDetails) {

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-textArea',
@@ -6,7 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./textArea.component.scss'],
 })
 export class TextAreaComponent implements OnInit {
-  @Input() textFieldName = '';
+  @Input() placeholder = '';
+
+  @Input() textFieldFormControl = new UntypedFormControl('', []);
   constructor() {}
 
   ngOnInit() {}

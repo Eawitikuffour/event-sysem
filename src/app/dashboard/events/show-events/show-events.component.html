@@ -65,7 +65,7 @@
             icon="pi pi-plus"
             class="p-button-rounded p-button-secondary mr-2"
             pTooltip="Click to add participant details"
-            (click)="addNewParticipant()"
+            (click)="addNewParticipant(events.id)"
           ></button>
           <button
             pButton
@@ -73,7 +73,7 @@
             icon="pi pi-eye"
             class="p-button-rounded p-button-help mr-2"
             pTooltip="Click to add participant details"
-            (click)="viewParticipantForm()"
+            (click)="viewParticipantForm(events.id)"
           ></button>
           <button
             pButton

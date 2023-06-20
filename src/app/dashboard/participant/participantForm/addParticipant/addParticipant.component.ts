@@ -7,6 +7,8 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { ParticipantService } from '../../service/participant.service';
 
 @Component({
   selector: 'app-addParticipant',
@@ -14,11 +16,10 @@ import {
   styleUrls: ['./addParticipant.component.scss'],
 })
 export class AddParticipantComponent implements OnInit {
-  participantFieldsForm = this.formBuilder.group({
-    participantFields: this.formBuilder.array([]),
-  });
+  public participantFieldsArray!: FormArray;
+  public participantFieldsForm!: FormGroup;
+
   i!: number;
-  // participantFieldsArray!: FormArray;
 
   textFieldType: any[] = [
     { value: 'textField', viewValue: 'Text Field' },
@@ -32,15 +33,28 @@ export class AddParticipantComponent implements OnInit {
     { value: 1, viewValue: 'No' },
   ];
 
-  constructor(private formBuilder: FormBuilder) {}
-
+  constructor(
+    private formBuilder: FormBuilder,
+    public config: DynamicDialogConfig,
+    private participantService: ParticipantService
+  ) {
+    this.participantFieldsForm = this.formBuilder.group({
+      participantFieldsArray: this.formBuilder.array([]),
+    });
+  }
+  data: any;
   ngOnInit() {
+    this.data = this.config.data;
+    console.log(this.data);
+    this.participantFieldsForm = this.formBuilder.group({
+      participantFieldsArray: this.formBuilder.array([]),
+    });
     // this.createParticipantForm();
   }
 
   get participantFields() {
     return this.participantFieldsForm.controls[
-      'participantFields'
+      'participantFieldsArray'
     ] as FormArray;
   }
 
@@ -54,21 +68,40 @@ export class AddParticipantComponent implements OnInit {
     });
   }
   addNewField() {
-    const fieldsForm = this.formBuilder.group({
-      fieldName: ['', Validators.required],
-      fieldType: ['', Validators.required],
-      fieldValidation: ['', Validators.required],
-      fieldMaxLength: [],
-      fieldMinLength: [],
-    });
-    this.participantFields.push(fieldsForm);
+    this.participantFieldsArray = this.participantFieldsForm.controls[
+      'participantFieldsArray'
+    ] as FormArray;
+    this.participantFieldsArray.push(this.createParticipantForm());
   }
 
   deleteField(i: number) {
-    this.participantFields.removeAt(i);
+    this.participantFieldsArray.removeAt(i);
   }
 
   submitFields() {
-    console.log(this.participantFieldsForm.getRawValue());
+    const data = {
+      field_name: '',
+      field_type: '',
+      field_validation: '',
+      field_max_length: '',
+      field_min_length: '',
+      event_id: this.data,
+    };
+    let next = '';
+
+    (
+      this.participantFieldsForm.get('participantFieldsArray') as FormArray
+    ).controls.forEach((field) => {
+      console.log(field.value);
+      data.field_name += next + field.value.fieldName;
+      data.field_type += next + field.value.fieldType.value;
+      data.field_validation += next + field.value.fieldValidation.value;
+      data.field_min_length += next + field.value.fieldMinLength;
+      data.field_max_length += next + field.value.fieldMaxLength;
+      next = '|';
+    });
+    this.participantService
+      .addParticipantsFields(data)
+      .subscribe((res) => console.log(res));
   }
 }

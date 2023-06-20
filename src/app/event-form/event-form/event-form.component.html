@@ -9,7 +9,8 @@
     class="border-2 border-dashed surface-border border-round surface-card"
     style="min-height: 20rem"
   >
-    <div class="surface-ground px-4 py-4 md:px-6 lg:px-4" *ngIf="showForm">
+    <app-registerParticipantForm></app-registerParticipantForm>
+    <!-- <div class="surface-ground px-4 py-4 md:px-6 lg:px-4" *ngIf="showForm">
       <p-card style="text-align: center">
         <h1>{{ eventDetails.event_name }}</h1>
         <h2>{{ eventDetails.description }}</h2> </p-card
@@ -151,9 +152,6 @@
             />
           </div>
           <div class="field mb-4 col-12 md:col-6">
-            <!-- <label for="gender" class="font-medium text-900"
-              >Select Gender</label
-            > -->
             <p-dropdown
               [options]="joiningEvent"
               placeholder="How would you like to join the event?"
@@ -174,8 +172,9 @@
         ></button>
       </div>
     </div>
+  </div> -->
   </div>
-</div>
 
-<p-toast></p-toast>
-<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+  <p-toast></p-toast>
+  <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
+</div>

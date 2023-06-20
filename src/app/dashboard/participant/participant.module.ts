@@ -21,6 +21,7 @@ import { NumberComponent } from './participantForm/addParticipant/fieldType/numb
 import { RegisterParticipantFormComponent } from './participantForm/addParticipant/registerParticipantForm/registerParticipantForm.component';
 import { TextAreaComponent } from './participantForm/addParticipant/fieldType/textArea/textArea.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+
 @NgModule({
   declarations: [
     RegisteredListComponent,
@@ -32,7 +33,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     DateComponent,
     DropdownComponent,
     NumberComponent,
-
     RegisterParticipantFormComponent,
     TextAreaComponent,
   ],

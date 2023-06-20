@@ -1,7 +1,7 @@
 export interface ParticipantFields {
-  fieldName: string;
-  fieldMaxLength: number;
-  fieldMinLenght: number;
-  fieldType: any;
-  fieldValidation: any;
+  field_name: string;
+  field_max_length: number;
+  field_min_length: number;
+  field_type: any;
+  field_validation: any;
 }

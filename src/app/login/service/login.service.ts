@@ -8,7 +8,8 @@ import { User } from '../model/user';
   providedIn: 'root',
 })
 export class LoginService {
-  private loginUrl = `${environment.API_URL_BASE}/login`;
+  private loginUrl = `${environment.API_URL_BASE}/admin/login`;
+  // private loginUrl = `${environment.API_URL_BASE}/login`;
 
   constructor(private http: HttpClient) {}
   loggedInUser: any;

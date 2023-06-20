@@ -45,6 +45,18 @@
           [showIcon]="true"
         ></p-calendar>
       </div>
+      <div class="field col-12 md:col-12 justify-content-center">
+        <label for="invoice_date" class="font-medium text-900"
+          >Registration Time</label
+        >
+        <p-calendar
+          formControlName="registration_time"
+          [showTime]="true"
+          [showIcon]="true"
+          [showSeconds]="true"
+        ></p-calendar>
+      </div>
+
       <div class="field mb-4 col-12 md:col-12">
         <label for="customer_email" class="font-medium text-900">Venue</label>
         <input
@@ -65,12 +77,38 @@
           class="flex-1"
         ></p-inputNumber>
       </div>
+      <div class="field mb-4 col-12 md:col-12">
+        <label for="country2" class="font-medium text-900"
+          >Means of Joining Event</label
+        >
+        <p-dropdown
+          [options]="joiningEvent"
+          formControlName="how_to_join"
+          optionLabel="viewValue"
+          [showClear]="true"
+          placeholder="how to join event"
+        >
+        </p-dropdown>
+      </div>
 
       <div class="field mb-4 col-12 md:col-6">
         <label for="customer_email" class="font-medium text-900"
-          >Upload Event's Image</label
+          >Upload Event's Flyer</label
         >
         <p-fileUpload
+          formControlName="flyer"
+          mode="basic"
+          chooseLabel="Choose"
+          name="demo[]"
+          accept="image/*"
+        ></p-fileUpload>
+      </div>
+      <div class="field mb-4 col-12 md:col-6">
+        <label for="customer_email" class="font-medium text-900"
+          >Upload Program's Outline</label
+        >
+        <p-fileUpload
+          formControlName="program_outline"
           mode="basic"
           chooseLabel="Choose"
           name="demo[]"

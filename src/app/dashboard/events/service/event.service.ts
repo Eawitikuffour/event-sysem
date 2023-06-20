@@ -8,8 +8,8 @@ import { EventDetails } from '../../modal/eventDetails';
 export class EventService {
   private addEventURL = `${environment.API_URL_BASE}/event/add`;
   private updateEventURL = `${environment.API_URL_BASE}/event/update`;
-  // private getAllEvents = `${environment.API_URL_BASE}/event`;
-  private getEventURL = `${environment.API_URL_BASE}/event/`;
+  private deleteEventURL = `${environment.API_URL_BASE}/event/delete/`;
+  private getEventURL = `${environment.API_URL_BASE}/event/getAllEvents`;
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +22,7 @@ export class EventService {
   }
 
   deleteEvent(id: number) {
-    return this.http.delete(this.getEventURL + id);
+    return this.http.delete(this.deleteEventURL + id);
   }
 
   getEvent(id: number) {

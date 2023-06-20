@@ -26,6 +26,12 @@ export class AddEventComponent implements OnInit, AfterViewInit {
   @Input()
   data!: EventDetails;
   eventForm!: FormGroup;
+
+  joiningEvent: any[] = [
+    { value: 'Onsite', viewValue: 'Onsite' },
+    { value: 'Virtual means', viewValue: 'Virtual means' },
+  ];
+
   constructor(
     private fb: FormBuilder,
     private eventService: EventService,
@@ -38,8 +44,12 @@ export class AddEventComponent implements OnInit, AfterViewInit {
       event_name: ['', [Validators.required, Validators.minLength(5)]],
       venue: ['', [Validators.required, Validators.minLength(5)]],
       date: new FormControl(''),
-      number_of_participants: new UntypedFormControl(),
+      number_of_participants: new FormControl(''),
+      registration_time: new FormControl(''),
+      how_to_join: new FormControl(''),
       description: new FormControl(''),
+      flyer: new FormControl(''),
+      program_outline: new FormControl(''),
     });
   }
   ngAfterViewInit(): void {
@@ -59,10 +69,14 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     const data = {
       event_name: EventForm.event_name,
       venue: EventForm.venue,
-      start_date: EventForm.date[0],
-      end_date: EventForm.date[1],
-      number_of_participants: EventForm.number_of_participants,
+      start_date: EventForm.date[0].toString(),
+      end_date: EventForm.date[1].toString(),
+      number_of_participants: EventForm.number_of_participants.toString(),
       description: EventForm.description,
+      registration_time: EventForm.registration_time,
+      how_to_join: EventForm.how_to_join.value,
+      flyer: EventForm.flyer,
+      program_outline: EventForm.program_outline,
     };
 
     this.store.dispatch(new AddEvents(data));

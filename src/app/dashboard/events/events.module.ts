@@ -16,6 +16,7 @@ import { ShowEventsComponent } from './show-events/show-events.component';
 import { EditEventComponent } from './editEvent/editEvent.component';
 import { AddEventComponent } from './addEvent/addEvent.component';
 import { FileUploadModule } from 'primeng/fileupload';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [ShowEventsComponent, EditEventComponent, AddEventComponent],
@@ -35,6 +36,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     CalendarModule,
     TooltipModule,
     FileUploadModule,
+    DropdownModule,
   ],
 })
 export class EventsModule {}
