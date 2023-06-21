@@ -5,176 +5,67 @@
     height="40"
     class="mr-0 lg:mr-6"
   />
-  <div
-    class="border-2 border-dashed surface-border border-round surface-card"
-    style="min-height: 20rem"
-  >
-    <app-registerParticipantForm></app-registerParticipantForm>
-    <!-- <div class="surface-ground px-4 py-4 md:px-6 lg:px-4" *ngIf="showForm">
-      <p-card style="text-align: center">
-        <h1>{{ eventDetails.event_name }}</h1>
-        <h2>{{ eventDetails.description }}</h2> </p-card
-      ><br />
-      <div class="text-900 font-medium text-xl mb-3">Participant Form</div>
-      <div
-        class="surface-card p-4 shadow-2 border-round p-fluid"
-        [formGroup]="eventForm"
-      >
-        <div class="grid formgrid p-fluid">
-          <div class="field mb-4 col-12 md:col-6">
-            <label for="name" class="font-medium text-900">Full Name</label>
-            <input
-              id="name"
-              type="text"
-              pInputText
-              pInputText
-              formControlName="name"
-            />
-            <div
-              *ngIf="formData['name'].touched && formData['name'].invalid"
-              class="alert alert-danger"
-              style="color: red"
-            >
-              <div
-                *ngIf="
-                  formData['name'].errors && formData['name'].errors['required']
-                "
-              >
-                Full name is required
-              </div>
+  <div class="surface-card p-4 shadow-2 border-round p-fluid">
+    <div
+      class="grid formgrid p-fluid"
+      *ngFor="let field of fieldsArray"
+      [ngSwitch]="field.field_type"
+    >
+      <div class="field mb-4 col-12 md:col-6" *ngSwitchCase="'textField'">
+        <label for="customer_name" class="font-medium text-900">{{
+          field.field_name
+        }}</label>
 
-              <div
-                *ngIf="
-                  formData['name'].errors &&
-                  formData['name'].errors['minlength']
-                "
-              >
-                Please, Enter 5 or more characters.
-              </div>
-            </div>
-          </div>
-          <div class="field mb-4 col-12 md:col-6">
-            <label for="gender" class="font-medium text-900"
-              >Select Gender</label
-            >
-            <p-dropdown
-              [options]="gender"
-              formControlName="gender"
-              placeholder="Select Gender"
-              optionLabel="viewValue"
-              [showClear]="true"
-              placeholder="Select Gender"
-            >
-            </p-dropdown>
-          </div>
-          <div class="field mb-4 col-12 md:col-6">
-            <label for="email" class="font-medium text-900">Email</label>
-            <input id="email" type="text" pInputText formControlName="email" />
-            <div
-              *ngIf="formData['email'].touched && formData['email'].invalid"
-              class="alert alert-danger"
-              style="color: red"
-            >
-              <div
-                *ngIf="
-                  formData['email'].errors &&
-                  formData['email'].errors['required']
-                "
-              >
-                Email is required.
-              </div>
-
-              <div
-                *ngIf="
-                  formData['email'].errors && formData['email'].errors['email']
-                "
-              >
-                Please enter valid email
-              </div>
-            </div>
-          </div>
-          <div class="field mb-4 col-12 md:col-6">
-            <label for="occupation" class="font-medium text-900"
-              >organization</label
-            >
-            <input
-              formControlName="organization"
-              id="occupation"
-              type="text"
-              pInputText
-            />
-          </div>
-          <div class="field mb-4 col-12 md:col-6">
-            <label for="phoneNumber" class="font-medium text-900"
-              >Contact</label
-            >
-            <input
-              formControlName="phone_number"
-              id="phone_number"
-              type="text"
-              pInputText
-            />
-            <div
-              *ngIf="
-                formData['phone_number'].touched &&
-                formData['phone_number'].invalid
-              "
-              class="alert alert-danger"
-              style="color: red"
-            >
-              <div
-                *ngIf="
-                  formData['phone_number'].errors &&
-                  formData['phone_number'].errors['required']
-                "
-              >
-                Mobile Number is required.
-              </div>
-
-              <div
-                *ngIf="
-                  formData['phone_number'].errors &&
-                  formData['phone_number'].errors['minlength']
-                "
-              >
-                Please, Enter at least 10 digit Mobile Number.
-              </div>
-            </div>
-          </div>
-
-          <div class="field mb-4 col-12 md:col-6">
-            <label for="location" class="font-medium text-900">Location</label>
-            <input
-              formControlName="registry_from"
-              id="location"
-              type="text"
-              pInputText
-            />
-          </div>
-          <div class="field mb-4 col-12 md:col-6">
-            <p-dropdown
-              [options]="joiningEvent"
-              placeholder="How would you like to join the event?"
-              optionLabel="viewValue"
-              [showClear]="true"
-            >
-            </p-dropdown>
-          </div>
-        </div>
-        <button
-          pButton
-          pRipple
-          [disabled]="eventForm.invalid"
-          label="Register"
-          icon="pi pi-file"
-          class="w-auto"
-          (click)="confirm()"
-        ></button>
+        <app-textArea [placeholder]="field.field_name"></app-textArea>
+      </div>
+      <div class="field mb-4 col-12 md:col-6" *ngSwitchCase="'dropdown'">
+        <label for="customer_name" class="font-medium text-900">{{
+          field.field_name
+        }}</label>
+        <app-dropdown [placeholder]="field.field_name"></app-dropdown>
+      </div>
+      <div class="field mb-4 col-12 md:col-6" *ngSwitchCase="'date'">
+        <label for="customer_name" class="font-medium text-900">{{
+          field.field_name
+        }}</label>
+        <app-date [placeholder]="field.field_name"></app-date>
+      </div>
+      <div class="field mb-4 col-12 md:col-6" *ngSwitchCase="'inputNumber'">
+        <label for="customer_name" class="font-medium text-900">{{
+          field.field_name
+        }}</label>
+        <app-number [placeholder]="field.field_name"></app-number>
       </div>
     </div>
-  </div> -->
   </div>
 
   <p-toast></p-toast>
   <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 </div>
+<!--
+<div class="surface-ground px-3 py-2 md:px-3 lg:px-3">
+  <div class="surface-card p-4 shadow-2 border-round p-fluid">
+    <div
+      class="grid formgrid p-fluid"
+      *ngFor="let field of fieldsArray"
+      [ngSwitch]="field.field_type"
+    >
+      <div class="field mb-4 col-12 md:col-12" *ngSwitchCase="'textField'">
+        <label for="customer_name" class="font-medium text-900">{{
+          field.field_name
+        }}</label>
+
+        <app-textArea [placeholder]="field.field_name"></app-textArea>
+      </div>
+      <div class="field mb-4 col-12 md:col-12" *ngSwitchCase="'dropDown'">
+        <label for="customer_name" class="font-medium text-900">{{
+          field.fieldName
+        }}</label>
+        <app-dropdown
+          [placeholder]="field.fieldName"
+          [textFieldFormControl]="control"
+        ></app-dropdown>
+      </div>
+    </div>
+  </div>
+</div> -->

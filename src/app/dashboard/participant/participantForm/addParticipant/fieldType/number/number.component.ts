@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-number',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./number.component.scss'],
 })
 export class NumberComponent implements OnInit {
+  @Input() placeholder = '';
+  @Input() control = new UntypedFormControl('', []);
   constructor() {}
 
   ngOnInit() {}

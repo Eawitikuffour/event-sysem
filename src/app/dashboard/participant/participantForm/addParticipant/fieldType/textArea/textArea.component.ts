@@ -9,7 +9,7 @@ import { FormControl, UntypedFormControl, Validators } from '@angular/forms';
 export class TextAreaComponent implements OnInit {
   @Input() placeholder = '';
 
-  @Input() textFieldFormControl = new UntypedFormControl('', []);
+  @Input() control = new UntypedFormControl('', []);
   constructor() {}
 
   ngOnInit() {}

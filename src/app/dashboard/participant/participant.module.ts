@@ -18,9 +18,10 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DateComponent } from './participantForm/addParticipant/fieldType/date/date.component';
 import { DropdownComponent } from './participantForm/addParticipant/fieldType/dropdown/dropdown.component';
 import { NumberComponent } from './participantForm/addParticipant/fieldType/number/number.component';
-import { RegisterParticipantFormComponent } from './participantForm/addParticipant/registerParticipantForm/registerParticipantForm.component';
 import { TextAreaComponent } from './participantForm/addParticipant/fieldType/textArea/textArea.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ViewParticipantFormComponent } from './participantForm/addParticipant/viewParticipantForm/viewParticipantForm.component';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -33,10 +34,16 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     DateComponent,
     DropdownComponent,
     NumberComponent,
-    RegisterParticipantFormComponent,
+    TextAreaComponent,
+    ViewParticipantFormComponent,
+  ],
+  exports: [
+    AddParticipantComponent,
+    DateComponent,
+    DropdownComponent,
+    NumberComponent,
     TextAreaComponent,
   ],
-  exports: [AddParticipantComponent, RegisterParticipantFormComponent],
   imports: [
     CommonModule,
     ParticipantRoutingModule,
@@ -50,6 +57,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     InputNumberModule,
     ToolbarModule,
     TooltipModule,
+    CalendarModule,
   ],
 })
 export class ParticipantModule {}

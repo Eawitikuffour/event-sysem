@@ -8,7 +8,7 @@ import { UntypedFormControl } from '@angular/forms';
 })
 export class DropdownComponent implements OnInit {
   @Input() placeholder = '';
-  @Input() textFieldFormControl = new UntypedFormControl('', []);
+  @Input() control = new UntypedFormControl('', []);
   constructor() {}
 
   ngOnInit() {}

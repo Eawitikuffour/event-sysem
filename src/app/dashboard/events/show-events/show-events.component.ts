@@ -9,8 +9,7 @@ import { EventState } from '../../../store/event.state';
 import { DeleteEvents, GetEvents } from 'src/app/store/event.action';
 import { AddEventComponent } from '../addEvent/addEvent.component';
 import { AddParticipantComponent } from '../../participant/participantForm/addParticipant/addParticipant.component';
-import { RegisterParticipantFormComponent } from '../../participant/participantForm/addParticipant/registerParticipantForm/registerParticipantForm.component';
-import { Console } from 'console';
+import { ViewParticipantFormComponent } from '../../participant/participantForm/addParticipant/viewParticipantForm/viewParticipantForm.component';
 
 @Component({
   selector: 'app-show-events',
@@ -53,7 +52,7 @@ export class ShowEventsComponent implements OnInit {
     });
   }
   viewParticipantForm(id: number) {
-    const ref = this.dialogService.open(RegisterParticipantFormComponent, {
+    const ref = this.dialogService.open(ViewParticipantFormComponent, {
       styleClass:
         'w-screen md:w-6 h-screen md:h-auto px-4 pb-4 no-dialog-header',
       header: 'Participant Details',

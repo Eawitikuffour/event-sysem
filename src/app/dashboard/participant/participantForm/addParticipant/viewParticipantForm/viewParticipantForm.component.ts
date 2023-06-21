@@ -6,10 +6,10 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-registerParticipantForm',
-  templateUrl: './registerParticipantForm.component.html',
-  styleUrls: ['./registerParticipantForm.component.scss'],
+  templateUrl: './viewParticipantForm.component.html',
+  styleUrls: ['./viewParticipantForm.component.scss'],
 })
-export class RegisterParticipantFormComponent implements OnInit {
+export class ViewParticipantFormComponent implements OnInit {
   fieldsArray: ParticipantFields[] = [];
   fields: any;
   @Input() form: any;

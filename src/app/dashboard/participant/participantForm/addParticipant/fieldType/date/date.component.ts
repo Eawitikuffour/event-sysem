@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-date',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./date.component.scss'],
 })
 export class DateComponent implements OnInit {
+  @Input() placeholder = '';
+  @Input() contol = new UntypedFormControl('', []);
   constructor() {}
 
   ngOnInit() {}

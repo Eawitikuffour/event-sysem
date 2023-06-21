@@ -1,3 +1,4 @@
+// import { ParticipantFields } from './../../dashboard/participant/participantForm/modal/participantsForm';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -14,6 +15,10 @@ import {
   ConfirmEventType,
   MessageService,
 } from 'primeng/api';
+// import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { ParticipantService } from '../../dashboard/participant/service/participant.service';
+import { ParticipantFields } from '../../dashboard/participant/participantForm/modal/participantsForm';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-event-form',
@@ -21,18 +26,10 @@ import {
   styleUrls: ['./event-form.component.scss'],
 })
 export class EventFormComponent implements OnInit {
+  fieldsArray: ParticipantFields[] = [];
+  fields: any;
   eventForm!: FormGroup;
-  gender: any[] = [
-    { value: 'male', viewValue: 'Male' },
-    { value: 'female', viewValue: 'Female' },
-  ];
-
-  joiningEvent: any[] = [
-    { value: 'Onsite', viewValue: 'Onsite' },
-    { value: 'Virtual means', viewValue: 'Virtual means' },
-  ];
-  event_name!: string;
-  eventDetails: any;
+  event_id!: any;
   showForm = false;
 
   constructor(
@@ -42,96 +39,96 @@ export class EventFormComponent implements OnInit {
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    // public config: DynamicDialogConfig,
+    private participantService: ParticipantService
   ) {}
   ngOnInit() {
     this.route.params.subscribe((params) => {
       if (params) {
-        this.event_name = params['event_name'];
-        this.eventService
-          .getEvent(this.event_name)
+        this.event_id = params['event_id'];
+        console.log(this.event_id);
+        this.participantService
+          .getParticipantFields(this.event_id)
           .subscribe((response: any) => {
             console.log(response);
-            if (response && Object.keys(response).length) {
-              this.eventDetails = response;
-              this.showForm = true;
-              this.createEventForm();
+            if (response && response.length && response[0]) {
+              this.fields = response[0];
+              if (
+                this.fields.field_name ||
+                this.fields.field_type ||
+                this.fields.field_max_length ||
+                this.fields.field_min_length ||
+                this.fields.field_validation
+              ) {
+                const fieldNameArray = this.fields.field_name.split('|');
+                const fieldTypeArray = this.fields.field_type.split('|');
+                const fieldMaxArray = this.fields.field_max_length.split('|');
+                const fieldMixArray = this.fields.field_min_length.split('|');
+                const fieldValidationArray =
+                  this.fields.field_validation.split('|');
+
+                for (let index = 0; index < fieldNameArray.length; index++) {
+                  this.fieldsArray.push({
+                    field_name: fieldNameArray[index],
+                    field_type: fieldTypeArray[index],
+                    field_max_length: fieldMaxArray[index],
+                    field_min_length: fieldMixArray[index],
+                    field_validation: fieldValidationArray[index],
+                  });
+                }
+              }
             }
           });
       }
     });
   }
 
-  createEventForm() {
-    this.eventForm = this.fb.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('[a-zA-Z ]*'),
-          Validators.minLength(5),
-        ],
-      ],
-      gender: new FormControl('', Validators.required),
-      phone_number: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]*$'),
-          Validators.minLength(10),
-        ],
-      ],
-      email: ['', [Validators.required, Validators.email]],
-      organization: new FormControl(''),
-      registry_from: new FormControl(''),
-    });
-  }
+  // confirm() {
+  //   console.log('test');
+  //   this.confirmationService.confirm({
+  //     message: 'Are you sure you want to submit form?',
+  //     header: 'Confirmation',
+  //     icon: 'pi pi-exclamation-triangle',
+  //     accept: () => {
+  //       this.register();
+  //       this.messageService.add({
+  //         severity: 'info',
+  //         summary: 'Confirmed',
+  //         detail: 'You have submitted form',
+  //       });
+  //       this.router.navigate(['/confirmation']);
+  //     },
+  //     reject: (type: any) => {
+  //       switch (type) {
+  //         case ConfirmEventType.REJECT:
+  //           this.messageService.add({
+  //             severity: 'error',
+  //             summary: 'Rejected',
+  //             detail: 'You have rejected',
+  //           });
+  //           break;
+  //         case ConfirmEventType.CANCEL:
+  //           this.messageService.add({
+  //             severity: 'warn',
+  //             summary: 'Cancelled',
+  //             detail: 'You have cancelled',
+  //           });
+  //           break;
+  //       }
+  //     },
+  //   });
+  // }
+  // register() {
+  //   const data = this.eventForm.getRawValue();
+  //   data.gender = data.gender.value;
 
-  confirm() {
-    console.log('test');
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to submit form?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.register();
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: 'You have submitted form',
-        });
-        this.router.navigate(['/confirmation']);
-      },
-      reject: (type: any) => {
-        switch (type) {
-          case ConfirmEventType.REJECT:
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Rejected',
-              detail: 'You have rejected',
-            });
-            break;
-          case ConfirmEventType.CANCEL:
-            this.messageService.add({
-              severity: 'warn',
-              summary: 'Cancelled',
-              detail: 'You have cancelled',
-            });
-            break;
-        }
-      },
-    });
-  }
-  register() {
-    const data = this.eventForm.getRawValue();
-    data.gender = data.gender.value;
+  //   this.eventService.addParticipant(data).subscribe((res: any) => {
+  //     this.alert.showToast('data added successfully');
+  //   });
+  // }
 
-    this.eventService.addParticipant(data).subscribe((res: any) => {
-      this.alert.showToast('data added successfully');
-    });
-  }
-
-  get formData() {
-    return this.eventForm.controls;
-  }
+  // get formData() {
+  //   return this.eventForm.controls;
+  // }
 }

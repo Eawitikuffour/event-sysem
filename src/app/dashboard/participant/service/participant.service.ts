@@ -28,7 +28,7 @@ export class ParticipantService {
     return this.http.post(this.addParticipantsFieldsURL, data);
   }
 
-  getParticipantFields(id: number) {
+  getParticipantFields(id: any) {
     return this.http.get(this.getParticipantFieldURL + id);
   }
 }
