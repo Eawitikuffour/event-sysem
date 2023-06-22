@@ -15,6 +15,7 @@ import { ConfirmDialogComponent } from './components/confirmDialog/confirmDialog
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgxsModule } from '@ngxs/store';
 import { EventState } from './store/event.state';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent, ConfirmDialogComponent],
@@ -28,6 +29,7 @@ import { EventState } from './store/event.state';
     LoginModule,
     DashboardModule,
     EventsModule,
+    SharedModule,
     HttpClientModule,
     AlertsModule,
     ConfirmDialogModule,

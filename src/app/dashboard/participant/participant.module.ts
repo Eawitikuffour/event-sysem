@@ -15,13 +15,14 @@ import { AddParticipantComponent } from './participantForm/addParticipant/addPar
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
-import { DateComponent } from './participantForm/addParticipant/fieldType/date/date.component';
-import { DropdownComponent } from './participantForm/addParticipant/fieldType/dropdown/dropdown.component';
-import { NumberComponent } from './participantForm/addParticipant/fieldType/number/number.component';
-import { TextAreaComponent } from './participantForm/addParticipant/fieldType/textArea/textArea.component';
+// import { DateComponent } from '../../shared/fieldType/date/date.component';
+// import { DropdownComponent } from '../../shared/fieldType/dropdown/dropdown.component';
+// import { NumberComponent } from '../../shared/fieldType/number/number.component';
+// import { TextAreaComponent } from '../../shared/fieldType/textArea/textArea.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ViewParticipantFormComponent } from './participantForm/addParticipant/viewParticipantForm/viewParticipantForm.component';
 import { CalendarModule } from 'primeng/calendar';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -31,18 +32,18 @@ import { CalendarModule } from 'primeng/calendar';
     PresentListComponent,
     ListTableComponent,
     AddParticipantComponent,
-    DateComponent,
-    DropdownComponent,
-    NumberComponent,
-    TextAreaComponent,
+    // DateComponent,
+    // DropdownComponent,
+    // NumberComponent,
+    // TextAreaComponent,
     ViewParticipantFormComponent,
   ],
   exports: [
     AddParticipantComponent,
-    DateComponent,
-    DropdownComponent,
-    NumberComponent,
-    TextAreaComponent,
+    // DateComponent,
+    // DropdownComponent,
+    // NumberComponent,
+    // TextAreaComponent,
   ],
   imports: [
     CommonModule,
@@ -55,9 +56,10 @@ import { CalendarModule } from 'primeng/calendar';
     ReactiveFormsModule,
     FormsModule,
     InputNumberModule,
+    CalendarModule,
     ToolbarModule,
     TooltipModule,
-    CalendarModule,
+    SharedModule,
   ],
 })
 export class ParticipantModule {}

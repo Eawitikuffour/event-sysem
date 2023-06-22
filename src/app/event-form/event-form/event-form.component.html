@@ -5,7 +5,10 @@
     height="40"
     class="mr-0 lg:mr-6"
   />
-  <div class="surface-card p-4 shadow-2 border-round p-fluid">
+  <div
+    class="surface-card p-4 shadow-2 border-round p-fluid"
+    [formGroup]="eventForm"
+  >
     <div
       class="grid formgrid p-fluid"
       *ngFor="let field of fieldsArray"
@@ -16,29 +19,45 @@
           field.field_name
         }}</label>
 
-        <app-textArea [placeholder]="field.field_name"></app-textArea>
+        <app-textArea
+          [placeholder]="field.field_name"
+          [controlName]="field.field_name"
+          [form]="eventForm"
+        ></app-textArea>
       </div>
       <div class="field mb-4 col-12 md:col-6" *ngSwitchCase="'dropdown'">
         <label for="customer_name" class="font-medium text-900">{{
           field.field_name
         }}</label>
-        <app-dropdown [placeholder]="field.field_name"></app-dropdown>
+        <app-dropdown
+          [placeholder]="field.field_name"
+          [controlName]="field.field_name"
+          [form]="eventForm"
+        ></app-dropdown>
       </div>
       <div class="field mb-4 col-12 md:col-6" *ngSwitchCase="'date'">
         <label for="customer_name" class="font-medium text-900">{{
           field.field_name
         }}</label>
-        <app-date [placeholder]="field.field_name"></app-date>
+        <app-date
+          [placeholder]="field.field_name"
+          [controlName]="field.field_name"
+          [form]="eventForm"
+        ></app-date>
       </div>
       <div class="field mb-4 col-12 md:col-6" *ngSwitchCase="'inputNumber'">
         <label for="customer_name" class="font-medium text-900">{{
           field.field_name
         }}</label>
-        <app-number [placeholder]="field.field_name"></app-number>
+        <app-number
+          [placeholder]="field.field_name"
+          [controlName]="field.field_name"
+          [form]="eventForm"
+        ></app-number>
       </div>
     </div>
   </div>
-
+  <p-button label="Submit" (click)="submitForm()"></p-button>
   <p-toast></p-toast>
   <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
 </div>

@@ -1,5 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, UntypedFormControl, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  UntypedFormControl,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-textArea',
@@ -9,7 +14,9 @@ import { FormControl, UntypedFormControl, Validators } from '@angular/forms';
 export class TextAreaComponent implements OnInit {
   @Input() placeholder = '';
 
-  @Input() control = new UntypedFormControl('', []);
+  @Input()
+  controlName: FormControl | any = new FormControl();
+  @Input() form!: FormGroup;
   constructor() {}
 
   ngOnInit() {}

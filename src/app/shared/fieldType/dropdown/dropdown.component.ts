@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-dropdown',
@@ -8,7 +8,9 @@ import { UntypedFormControl } from '@angular/forms';
 })
 export class DropdownComponent implements OnInit {
   @Input() placeholder = '';
-  @Input() control = new UntypedFormControl('', []);
+  @Input()
+  controlName: FormControl | any = new FormControl();
+  @Input() form!: FormGroup;
   constructor() {}
 
   ngOnInit() {}

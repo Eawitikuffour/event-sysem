@@ -18,7 +18,6 @@ import {
 // import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ParticipantService } from '../../dashboard/participant/service/participant.service';
 import { ParticipantFields } from '../../dashboard/participant/participantForm/modal/participantsForm';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-event-form',
@@ -81,7 +80,45 @@ export class EventFormComponent implements OnInit {
             }
           });
       }
+      this.createForm(this.fieldsArray);
     });
+  }
+
+  createForm(controls: ParticipantFields[]) {
+    this.eventForm = this.fb.group({});
+    for (const control of controls) {
+      const fieldValidators = [];
+      for (const [value] of Object.values(control)) {
+        if (control.field_max_length) {
+          fieldValidators.push(Validators.max(value));
+        }
+        if (control.field_min_length) {
+          fieldValidators.push(Validators.max(value));
+        }
+        if (control.field_validation) {
+          fieldValidators.push(Validators.required);
+        }
+        // else {
+        //   return control;
+        // }
+      }
+      this.eventForm.addControl(
+        control.field_name,
+        this.fb.control(
+          {
+            value: control.field_name,
+            disabled: false,
+          },
+          fieldValidators
+        )
+      );
+    }
+  }
+
+  submitForm() {
+    if (this.eventForm.valid) {
+      console.log(this.eventForm.value);
+    }
   }
 
   // confirm() {

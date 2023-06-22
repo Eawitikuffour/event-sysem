@@ -17,6 +17,7 @@ import { ToastModule } from 'primeng/toast';
 // import { ConfirmationService, MessageService } from 'primeng/api';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { ParticipantModule } from '../dashboard/participant/participant.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [EventFormComponent, RegisterComponent, ThankYouComponent],
@@ -36,6 +37,7 @@ import { ParticipantModule } from '../dashboard/participant/participant.module';
     ConfirmDialogModule,
     ToastModule,
     ParticipantModule,
+    SharedModule,
   ],
   exports: [EventFormComponent],
   // providers: [ConfirmationService, MessageService],
