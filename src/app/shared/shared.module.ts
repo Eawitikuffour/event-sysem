@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedComponent } from './shared.component';
 import { DateComponent } from './fieldType/date/date.component';
 import { DropdownComponent } from './fieldType/dropdown/dropdown.component';
 import { NumberComponent } from './fieldType/number/number.component';
@@ -32,7 +31,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     TextAreaComponent,
   ],
   declarations: [
-    SharedComponent,
     DateComponent,
     DropdownComponent,
     NumberComponent,

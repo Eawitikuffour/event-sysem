@@ -1,90 +1,65 @@
-<div class="p-4">
-  <img
-    src="assets/images/logo.png"
-    alt="Image"
-    height="40"
-    class="mr-0 lg:mr-6"
-  />
-  <div
-    class="surface-card p-4 shadow-2 border-round p-fluid"
-    [formGroup]="eventForm"
-  >
-    <div
-      class="grid formgrid p-fluid"
-      *ngFor="let field of fieldsArray"
-      [ngSwitch]="field.field_type"
-    >
-      <div class="field mb-4 col-12 md:col-6" *ngSwitchCase="'textField'">
-        <label for="customer_name" class="font-medium text-900">{{
-          field.field_name
-        }}</label>
+<ng-container *ngIf="loading$ | async; else elseTemplate">
+  <div class="flex justify-content-center align-items-center mt-8">
+    <i
+      class="pi pi-spin pi-spinner text-primary"
+      style="font-size: 5rem"
+    ></i></div
+></ng-container>
 
-        <app-textArea
-          [placeholder]="field.field_name"
-          [controlName]="field.field_name"
-          [form]="eventForm"
-        ></app-textArea>
-      </div>
-      <div class="field mb-4 col-12 md:col-6" *ngSwitchCase="'dropdown'">
-        <label for="customer_name" class="font-medium text-900">{{
-          field.field_name
-        }}</label>
-        <app-dropdown
-          [placeholder]="field.field_name"
-          [controlName]="field.field_name"
-          [form]="eventForm"
-        ></app-dropdown>
-      </div>
-      <div class="field mb-4 col-12 md:col-6" *ngSwitchCase="'date'">
-        <label for="customer_name" class="font-medium text-900">{{
-          field.field_name
-        }}</label>
-        <app-date
-          [placeholder]="field.field_name"
-          [controlName]="field.field_name"
-          [form]="eventForm"
-        ></app-date>
-      </div>
-      <div class="field mb-4 col-12 md:col-6" *ngSwitchCase="'inputNumber'">
-        <label for="customer_name" class="font-medium text-900">{{
-          field.field_name
-        }}</label>
-        <app-number
-          [placeholder]="field.field_name"
-          [controlName]="field.field_name"
-          [form]="eventForm"
-        ></app-number>
-      </div>
-    </div>
-  </div>
-  <p-button label="Submit" (click)="submitForm()"></p-button>
-  <p-toast></p-toast>
-  <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
-</div>
-<!--
-<div class="surface-ground px-3 py-2 md:px-3 lg:px-3">
-  <div class="surface-card p-4 shadow-2 border-round p-fluid">
-    <div
-      class="grid formgrid p-fluid"
-      *ngFor="let field of fieldsArray"
-      [ngSwitch]="field.field_type"
-    >
-      <div class="field mb-4 col-12 md:col-12" *ngSwitchCase="'textField'">
-        <label for="customer_name" class="font-medium text-900">{{
-          field.field_name
-        }}</label>
+<ng-template #elseTemplate>
+  <div class="p-4">
+    <img
+      src="assets/images/logo.png"
+      alt="Image"
+      height="40"
+      class="mr-0 lg:mr-6"
+    />
+    <div class="grid formgrid p-fluid">
+      <form
+        class="w-full"
+        *ngIf="eventForm && controlLength > 0"
+        [formGroup]="eventForm"
+      >
+        <div *ngFor="let control of fieldsArray">
+          <app-dropdown
+            [label]="control.field_name"
+            [placeholder]="control.field_name"
+            [controlName]="control.field_name"
+            [form]="eventForm"
+            *ngIf="control.field_type === 'dropdown'"
+          ></app-dropdown>
 
-        <app-textArea [placeholder]="field.field_name"></app-textArea>
-      </div>
-      <div class="field mb-4 col-12 md:col-12" *ngSwitchCase="'dropDown'">
-        <label for="customer_name" class="font-medium text-900">{{
-          field.fieldName
-        }}</label>
-        <app-dropdown
-          [placeholder]="field.fieldName"
-          [textFieldFormControl]="control"
-        ></app-dropdown>
-      </div>
+          <app-textArea
+            [label]="control.field_name"
+            [placeholder]="control.field_name"
+            [controlName]="control.field_name"
+            [form]="eventForm"
+            *ngIf="control.field_type === 'textField'"
+          ></app-textArea>
+
+          <app-date
+            [label]="control.field_name"
+            [placeholder]="control.field_name"
+            [controlName]="control.field_name"
+            [form]="eventForm"
+            *ngIf="control.field_type === 'date'"
+          ></app-date>
+        </div>
+      </form>
     </div>
+
+    <div class="col-12 md:col-10 margin">
+      <button
+        pButton
+        pRipple
+        class="w-6"
+        type="button"
+        label="Submit"
+        (click)="submitForm()"
+      ></button>
+    </div>
+
+    <p-toast></p-toast>
+    <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
   </div>
-</div> -->
+</ng-template>

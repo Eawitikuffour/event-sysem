@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -10,9 +15,13 @@ import {
   selector: 'app-textArea',
   templateUrl: './textArea.component.html',
   styleUrls: ['./textArea.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextAreaComponent implements OnInit {
-  @Input() placeholder = '';
+  @Input()
+  label!: string;
+  @Input()
+  placeholder!: string;
 
   @Input()
   controlName: FormControl | any = new FormControl();

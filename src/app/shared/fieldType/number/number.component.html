@@ -1,8 +1,10 @@
-<span [formGroup]="form">
-  <p-inputNumber
-    inputId="integeronly"
-    [placeholder]="'Enter numbers only'"
-    [formControl]="controlName"
-  >
-  </p-inputNumber>
-</span>
+<div class="field mb-4 col-12" [formGroup]="form">
+  <label [for]="controlName" class="font-medium text-900"> {{ label }}</label>
+  <div class="col-12">
+    <p-inputNumber
+      inputId="integeronly"
+      [placeholder]="'Enter ' + placeholder"
+      [formControlName]="controlName"
+    ></p-inputNumber>
+  </div>
+</div>

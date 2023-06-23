@@ -1,7 +1,13 @@
-<span [formGroup]="form">
-  <p-dropdown
-    optionLabel="name"
-    [placeholder]="'Select ' + placeholder"
-    [formControl]="controlName"
-  ></p-dropdown>
-</span>
+<div class="field mb-4 col-12" [formGroup]="form">
+  <label [for]="controlName" class="font-medium text-900"> {{ label }}</label>
+  <div class="col-12">
+    <p-dropdown
+      [options]="selectableOptions"
+      [formControlName]="controlName"
+      [placeholder]="'Select ' + placeholder"
+      [optionLabel]="optionLabel"
+      [showClear]="true"
+      styleClass="w-full "
+    ></p-dropdown>
+  </div>
+</div>

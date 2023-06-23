@@ -1,6 +1,16 @@
-<span [formGroup]="form">
-  <p-calendar
-    [placeholder]="'Select' + placeholder"
-    [formControl]="controlName"
-  ></p-calendar>
-</span>
+<div class="field mb-4 col-12" [formGroup]="form">
+  <label [for]="controlName" class="font-medium text-900"> {{ label }}</label>
+
+  <div class="col-12">
+    <p-calendar
+      [showIcon]="true"
+      inputId="icon"
+      styleClass="w-full"
+      [placeholder]="'Select ' + placeholder"
+      [timeOnly]="timeOnly"
+      [hourFormat]="hourFormat"
+      [formControlName]="controlName"
+      [minDate]="today"
+    ></p-calendar>
+  </div>
+</div>
