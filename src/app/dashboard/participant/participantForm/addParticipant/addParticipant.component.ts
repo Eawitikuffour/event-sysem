@@ -93,7 +93,7 @@ export class AddParticipantComponent implements OnInit {
       this.participantFieldsForm.get('participantFieldsArray') as FormArray
     ).controls.forEach((field) => {
       console.log(field.value);
-      data.field_name += next + field.value.fieldName;
+      data.field_name += next + field.value.fieldName.toLowerCase();
       data.field_type += next + field.value.fieldType.value;
       data.field_validation += next + field.value.fieldValidation.value;
       data.field_min_length += next + field.value.fieldMinLength;

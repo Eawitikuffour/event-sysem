@@ -8,8 +8,8 @@ import { environment } from 'src/environments/environment';
 export class ParticipantService {
   private getParticipantURL = `${environment.API_URL_BASE}/participant/`;
   private searchParticpantsURL = `${environment.API_URL_BASE}/search_participant/`;
-  private addParticipantsFieldsURL = `${environment.API_URL_BASE}/participant/addParticipantFields`;
-  private getParticipantFieldURL = `${environment.API_URL_BASE}/participant/getParticipantFieldByEventId/`;
+  private addParticipantsFieldsURL = `${environment.API_URL_BASE}/participantfields/addParticipantFields`;
+  private getParticipantFieldURL = `${environment.API_URL_BASE}/participantfields/getParticipantFieldByEventId/`;
   constructor(private http: HttpClient) {}
 
   getParticipant(id: number) {

@@ -37,7 +37,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   fieldsArray!: ParticipantFields[];
   fields!: any;
   eventForm!: FormGroup;
-  event_id!: any;
+  event_name!: string;
   showForm = false;
 
   loading$ = new BehaviorSubject(false);
@@ -62,12 +62,13 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     this.loading$.next(true);
     this.route.params.subscribe((params) => {
       if (params) {
-        this.event_id = params['event_id'];
-        this.participantService
-          .getParticipantFields(this.event_id)
+        this.event_name = params['event_name'];
+        this.eventService
+          .getEvent(this.event_name)
           .subscribe((response: any) => {
-            if (response && response.length && response[0]) {
-              this.fields = response[0];
+            if (response) {
+              this.fields = response;
+              console.log(this.fields);
               this.getFieldArray();
             }
           });
@@ -93,6 +94,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
         field_validation: fieldValidationArray[index],
       });
     }
+    console.log(this.fieldsArray);
     this.fieldsArray = fieldArray;
     if (fieldArray) {
       this.createForm(fieldArray);

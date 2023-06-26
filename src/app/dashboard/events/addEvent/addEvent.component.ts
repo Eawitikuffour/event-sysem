@@ -59,31 +59,50 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // onFileChange(event: any) {
+  //   if (event.target.files.length > 0) {
+  //     const file = event.target.files[0];
+
+  //     this.eventForm.patchValue({
+  //       fileSource: file,
+  //     });
+  //   }
+  // }
+
   addEvent() {
-    const EventForm = this.eventForm.getRawValue();
+    // const EventForm = this.eventForm.getRawValue();
+    // const data = {
+    //   event_name: EventForm.event_name,
+    //   venue: EventForm.venue,
+    //   start_date: EventForm.date[0].toString(),
+    //   end_date: EventForm.date[1].toString(),
+    //   number_of_participants: EventForm.number_of_participants.toString(),
+    //   description: EventForm.description,
+    //   registration_time: EventForm.registration_time,
+    //   how_to_join: EventForm.how_to_join.value,
+    //   flyer: EventForm.flyer,
+    //   program_outline: EventForm.program_outline,
+    // };
 
-    // const data = this.eventForm.getRawValue();
-    // data.start_date = data.end_date[0].toLocaleString().split(',')[0];
-    // data.end_date = data.end_date[1].toLocaleString().split(',')[0];
+    const data = new FormData();
+    data.append('event_name', this.eventForm.value.event_name);
+    data.append('venue', this.eventForm.value.venue);
+    data.append('start_date', this.eventForm.value.date[0].toString());
+    data.append('end_date', this.eventForm.value.date[1].toString());
+    data.append('registration_time', this.eventForm.value.registration_time);
 
-    const data = {
-      event_name: EventForm.event_name,
-      venue: EventForm.venue,
-      start_date: EventForm.date[0].toString(),
-      end_date: EventForm.date[1].toString(),
-      number_of_participants: EventForm.number_of_participants.toString(),
-      description: EventForm.description,
-      registration_time: EventForm.registration_time,
-      how_to_join: EventForm.how_to_join.value,
-      flyer: EventForm.flyer,
-      program_outline: EventForm.program_outline,
-    };
+    data.append('how_to_join', this.eventForm.value.how_to_join.value);
+    data.append(
+      'number_of_participants',
+      this.eventForm.value.number_of_participants
+    );
+    data.append('description', this.eventForm.value.description);
+
+    data.append('flyer', this.eventForm.value.flyer);
+    data.append('program_outline', this.eventForm.value.program_outline);
 
     this.store.dispatch(new AddEvents(data));
-    this.eventForm.reset();
-    console.log(data);
-
-    // console.log(this.eventForm.getRawValue().end_date[0]);
-    // console.log(this.eventForm.getRawValue().end_date[1]);
+    // this.eventForm.reset();
+    // console.log(data);
   }
 }

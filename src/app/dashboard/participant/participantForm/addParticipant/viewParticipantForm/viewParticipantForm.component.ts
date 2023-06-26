@@ -26,8 +26,9 @@ export class ViewParticipantFormComponent implements OnInit {
     this.participantService
       .getParticipantFields(this.data)
       .subscribe((response: any) => {
-        if (response && response.length && response[0]) {
-          this.fields = response[0];
+        if (response) {
+          this.fields = response;
+          console.log(this.fields);
           if (
             this.fields.field_name ||
             this.fields.field_type ||

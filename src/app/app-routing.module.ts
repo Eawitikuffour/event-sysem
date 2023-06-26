@@ -25,7 +25,7 @@ const routes: Routes = [
   // { path: 'attendance-form', component: EventFormComponent },
 
   {
-    path: 'participant/add-new/:event_id',
+    path: 'participant/add-new/:event_name',
     component: EventFormComponent,
   },
   {

@@ -9,18 +9,19 @@
         <label for="customer_name" class="font-medium text-900">{{
           field.field_name
         }}</label>
-
-        <app-textArea [placeholder]="field.field_name"></app-textArea>
       </div>
-      <!-- <div class="field mb-4 col-12 md:col-12" *ngSwitchCase="'dropDown'">
+      <div class="field mb-4 col-12 md:col-12" *ngSwitchCase="'dropDown'">
         <label for="customer_name" class="font-medium text-900">{{
-          field.fieldName
+          field.field_name
         }}</label>
-        <app-dropdown
-          [placeholder]="field.fieldName"
-          [textFieldFormControl]="control"
-        ></app-dropdown>
-      </div> -->
+        <app-dropdown [placeholder]="field.field_name"></app-dropdown>
+      </div>
+      <div class="field mb-4 col-12 md:col-12" *ngSwitchCase="'date'">
+        <label for="customer_name" class="font-medium text-900">{{
+          field.field_name
+        }}</label>
+        <app-date [placeholder]="field.field_name"></app-date>
+      </div>
     </div>
   </div>
 </div>

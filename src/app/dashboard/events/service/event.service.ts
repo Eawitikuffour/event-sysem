@@ -6,7 +6,7 @@ import { EventDetails } from '../../modal/eventDetails';
   providedIn: 'root',
 })
 export class EventService {
-  private addEventURL = `${environment.API_URL_BASE}/event/add`;
+  private addEventURL = `${environment.API_URL_BASE}/event/addEventWithFile`;
   private updateEventURL = `${environment.API_URL_BASE}/event/update`;
   private deleteEventURL = `${environment.API_URL_BASE}/event/delete/`;
   private getEventURL = `${environment.API_URL_BASE}/event/getAllEvents`;

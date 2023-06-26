@@ -14,21 +14,16 @@
       height="40"
       class="mr-0 lg:mr-6"
     />
-    <div class="grid formgrid p-fluid">
+    <div
+      class="border-2 surface-border border-round surface-card grid formgrid p-fluid align-items-center justify-content-center"
+    >
       <form
-        class="w-full"
+        class="surface-ground px-4 py-4 md:px-6 lg:px-4"
+        style="width: 60%"
         *ngIf="eventForm && controlLength > 0"
         [formGroup]="eventForm"
       >
         <div *ngFor="let control of fieldsArray">
-          <app-dropdown
-            [label]="control.field_name"
-            [placeholder]="control.field_name"
-            [controlName]="control.field_name"
-            [form]="eventForm"
-            *ngIf="control.field_type === 'dropdown'"
-          ></app-dropdown>
-
           <app-textArea
             [label]="control.field_name"
             [placeholder]="control.field_name"
@@ -36,7 +31,13 @@
             [form]="eventForm"
             *ngIf="control.field_type === 'textField'"
           ></app-textArea>
-
+          <app-dropdown
+            [label]="control.field_name"
+            [placeholder]="control.field_name"
+            [controlName]="control.field_name"
+            [form]="eventForm"
+            *ngIf="control.field_type === 'dropdown'"
+          ></app-dropdown>
           <app-date
             [label]="control.field_name"
             [placeholder]="control.field_name"
@@ -45,10 +46,20 @@
             *ngIf="control.field_type === 'date'"
           ></app-date>
         </div>
+        <div>
+          <button
+            pButton
+            pRipple
+            type="button"
+            class="w-3"
+            label="Submit"
+            (click)="submitForm()"
+          ></button>
+        </div>
       </form>
     </div>
 
-    <div class="col-12 md:col-10 margin">
+    <!-- <div>
       <button
         pButton
         pRipple
@@ -57,7 +68,7 @@
         label="Submit"
         (click)="submitForm()"
       ></button>
-    </div>
+    </div> -->
 
     <p-toast></p-toast>
     <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
