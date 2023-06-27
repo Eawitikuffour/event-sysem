@@ -22,7 +22,7 @@ RUN npm run build
 FROM nginx:alpine
 # COPY --from=builder /var/src/src /user/share/nginx/html
 
-COPY --from=builder /var/src/dist/AppraisalManagement /user/share/nginx/html
+COPY --from=builder /var/src/dist/event-system /user/share/nginx/html
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 
