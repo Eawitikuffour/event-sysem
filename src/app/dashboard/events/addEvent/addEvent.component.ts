@@ -26,7 +26,8 @@ export class AddEventComponent implements OnInit, AfterViewInit {
   @Input()
   data!: EventDetails;
   eventForm!: FormGroup;
-
+  flyer: any;
+  program_outline: any;
   joiningEvent: any[] = [
     { value: 'Onsite', viewValue: 'Onsite' },
     { value: 'Virtual means', viewValue: 'Virtual means' },
@@ -69,7 +70,7 @@ export class AddEventComponent implements OnInit, AfterViewInit {
   //   }
   // }
 
-  addEvent() {
+  addEvent(event?: any) {
     // const EventForm = this.eventForm.getRawValue();
     // const data = {
     //   event_name: EventForm.event_name,
@@ -98,11 +99,22 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     );
     data.append('description', this.eventForm.value.description);
 
-    data.append('flyer', this.eventForm.value.flyer);
-    data.append('program_outline', this.eventForm.value.program_outline);
+    data.append('flyer_name', this.flyer.toString());
+    data.append('program_outline_name', this.program_outline.toString());
 
     this.store.dispatch(new AddEvents(data));
     // this.eventForm.reset();
-    // console.log(data);
+    console.log(data);
+  }
+
+  onChangeFyler(event: any) {
+    if (event.target.files.length > 0) {
+      this.flyer = event.target.files[0].name;
+    }
+  }
+  onChangeProgramOutline(event: any) {
+    if (event.target.files.length > 0) {
+      this.program_outline = event.target.files[0].name;
+    }
   }
 }

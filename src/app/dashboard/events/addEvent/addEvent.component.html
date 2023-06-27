@@ -91,30 +91,36 @@
         </p-dropdown>
       </div>
 
-      <div class="field mb-4 col-12 md:col-6">
+      <div class="field mb-4 col-12 md:col-12">
         <label for="customer_email" class="font-medium text-900"
           >Upload Event's Flyer</label
         >
-        <p-fileUpload
+        <!-- <p-fileUpload
           formControlName="flyer"
           mode="basic"
           chooseLabel="Choose"
           accept="image/*"
-        ></p-fileUpload>
+        ></p-fileUpload> -->
+        <input pInputText type="file" (change)="onChangeFyler($event)" />
       </div>
-      <div class="field mb-4 col-12 md:col-6">
+      <div class="field mb-4 col-12 md:col-12">
         <label for="customer_email" class="font-medium text-900"
           >Upload Program's Outline</label
         >
-        <p-fileUpload
+        <input
+          pInputText
+          type="file"
+          (change)="onChangeProgramOutline($event)"
+        />
+        <!-- <p-fileUpload
           formControlName="program_outline"
           mode="basic"
           chooseLabel="Choose"
           name="demo[]"
           accept="image/*"
-        ></p-fileUpload>
+        ></p-fileUpload> -->
       </div>
-      <div class="field mb-4 col-12 md:col-4 m-0" *ngIf="!data">
+      <div class="field mb-4 col-12 md:col-6 m-0" *ngIf="!data">
         <br />
         <button
           pButton
