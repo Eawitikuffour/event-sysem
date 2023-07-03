@@ -1,11 +1,11 @@
 <div class="field mb-4 col-12" [formGroup]="form">
-  <label [for]="controlName" class="font-medium text-900"> {{ label }}</label>
+  <label [for]="control" class="font-medium text-900"> {{ formLabel }}</label>
   <div class="col-12">
     <p-dropdown
-      [options]="selectableOptions"
-      [formControlName]="controlName"
+      [options]="selectableOption"
+      [formControlName]="control"
       [placeholder]="'Select ' + placeholder"
-      [optionLabel]="optionLabel"
+      [optionLabel]="optionsLabel"
       [showClear]="true"
       styleClass="w-full "
     ></p-dropdown>

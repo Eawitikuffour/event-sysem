@@ -14,21 +14,21 @@ import { FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
 })
 export class DropdownComponent implements OnInit {
   @Input()
-  controlName: FormControl | any = new FormControl();
+  control: FormControl | any = new FormControl();
 
   @Input()
-  label!: string;
+  formLabel!: string;
 
   @Input() form!: FormGroup;
 
   @Input()
-  selectableOptions!: any[];
+  selectableOption!: any[];
 
   @Input()
-  placeholder: string = 'Select store type';
+  placeholder: string = 'Select option';
 
   @Input()
-  optionLabel!: string;
+  optionsLabel!: string;
   constructor() {}
 
   ngOnInit() {}

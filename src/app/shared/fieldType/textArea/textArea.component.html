@@ -1,11 +1,11 @@
 <div class="field mb-4 col-12" [formGroup]="form">
-  <label [for]="controlName" class="font-medium text-900"> {{ label }}</label>
+  <label [for]="control" class="font-medium text-900"> {{ label }}</label>
   <div class="col-12">
     <input
       type="text"
       pInputText
       [placeholder]="'Enter ' + placeholder"
-      [formControlName]="controlName"
+      [formControlName]="control"
       class="w-full"
     />
   </div>

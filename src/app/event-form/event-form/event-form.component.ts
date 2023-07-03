@@ -26,6 +26,7 @@ import { ParticipantService } from '../../dashboard/participant/service/particip
 import { ParticipantFields } from '../../dashboard/participant/participantForm/modal/participantsForm';
 import { mockData } from './data';
 import { BehaviorSubject } from 'rxjs';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-event-form',
@@ -38,9 +39,12 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   fields!: any;
   eventForm!: FormGroup;
   event_name!: string;
+  eventData!: any;
   showForm = false;
+  flyer!: any;
+  image: any;
 
-  loading$ = new BehaviorSubject(false);
+  loading = new BehaviorSubject(false);
 
   constructor(
     private cdref: ChangeDetectorRef,
@@ -49,22 +53,20 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     private eventService: EventFormService,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-    private router: Router,
-    // public config: DynamicDialogConfig,
-    private participantService: ParticipantService
+    private messageService: MessageService
   ) {}
   ngAfterViewInit(): void {
     this.cdref.detectChanges();
+    this.getEventDetails();
   }
 
-  getDataFromServer() {
-    this.loading$.next(true);
+  getEventParticipantFields() {
+    this.loading.next(true);
     this.route.params.subscribe((params) => {
       if (params) {
         this.event_name = params['event_name'];
         this.eventService
-          .getEvent(this.event_name)
+          .getParticipantField(this.event_name)
           .subscribe((response: any) => {
             if (response) {
               this.fields = response;
@@ -73,6 +75,14 @@ export class EventFormComponent implements OnInit, AfterViewInit {
             }
           });
       }
+    });
+  }
+
+  getEventDetails() {
+    this.eventService.getEvent(this.event_name).subscribe((data: any) => {
+      this.eventData = data.flyer;
+
+      console.log(this.eventData);
     });
   }
 
@@ -94,15 +104,17 @@ export class EventFormComponent implements OnInit, AfterViewInit {
         field_validation: fieldValidationArray[index],
       });
     }
-    console.log(this.fieldsArray);
+    console.log(fieldNameArray);
+
     this.fieldsArray = fieldArray;
     if (fieldArray) {
       this.createForm(fieldArray);
-      this.loading$.next(false);
+      this.loading.next(false);
     }
   }
   ngOnInit() {
-    this.getDataFromServer();
+    this.getEventParticipantFields();
+    this.getEventDetails();
   }
 
   createForm(controls: ParticipantFields[]) {

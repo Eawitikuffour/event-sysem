@@ -14,10 +14,10 @@ import { FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
 })
 export class DateComponent implements OnInit {
   @Input()
-  label!: string;
+  formLabel!: string;
 
   @Input()
-  controlName: FormControl | any = new FormControl();
+  control: FormControl | any = new FormControl();
   @Input() form!: FormGroup;
 
   @Input()

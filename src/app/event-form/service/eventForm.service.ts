@@ -8,8 +8,9 @@ import { Participant } from 'src/app/dashboard/modal/participant';
 })
 export class EventFormService {
   private addParicipantURL = `${environment.API_URL_BASE}/participant/add`;
-  private getEventURL = `${environment.API_URL_BASE}/event_url/`;
+  private getEventURL = `${environment.API_URL_BASE}/event/getEventByName/`;
   private getParticipantFieldURL = `${environment.API_URL_BASE}/participantfields/getParticipantFieldByEventName/`;
+
   constructor(private http: HttpClient) {}
 
   addParticipant(participant: Participant) {
@@ -17,8 +18,10 @@ export class EventFormService {
   }
 
   getEvent(event_name: string) {
-    return this.http.get(this.getParticipantFieldURL + event_name);
+    return this.http.get(this.getEventURL + event_name);
   }
 
-  getParticipantField() {}
+  getParticipantField(event_name: string) {
+    return this.http.get(this.getParticipantFieldURL + event_name);
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import {
   AddEvents,
   DeleteEvents,
@@ -9,6 +9,9 @@ import {
   UpdateEvents,
 } from './event.action';
 import { EventService } from '../dashboard/events/service/event.service';
+import { AppAlertService } from '../common/alerts/service/app-alert.service';
+import { PrimeNgAlerts } from '../common/alerts/app-config';
+import { error } from 'console';
 
 export class EventStateModel {
   events: any;
@@ -22,7 +25,10 @@ export class EventStateModel {
 })
 @Injectable()
 export class EventState {
-  constructor(private eventService: EventService) {}
+  constructor(
+    private eventService: EventService,
+    private alert: AppAlertService
+  ) {}
 
   @Selector()
   static selectStateData(state: EventStateModel) {
@@ -37,7 +43,7 @@ export class EventState {
 
         ctx.setState({
           ...state,
-          events: returnData, //here the data coming from the API will get assigned to the events variable inside the appstate
+          events: returnData,
         });
       })
     );
@@ -47,6 +53,10 @@ export class EventState {
   addDataToState(ctx: StateContext<EventStateModel>, { payload }: AddEvents) {
     return this.eventService.addEvent(payload).pipe(
       tap((returnData) => {
+        this.alert.showToast(
+          'event added successfully',
+          PrimeNgAlerts.UNOBSTRUSIVE
+        );
         const state = ctx.getState();
         ctx.patchState({
           events: [...state.events, returnData],

@@ -77,14 +77,15 @@
             </div>
           </span>
         </ng-container>
-        <div class="field align-items-end" style="text-align: end">
-          <p-button
-            label="Submit"
-            icon="pi pi-check"
-            (click)="submitFields()"
-          ></p-button>
-        </div>
       </ng-container>
     </div>
+  </div>
+  <div class="field align-items-end m-3" style="text-align: end">
+    <p-button
+      [disabled]="participantFieldsForm.invalid"
+      label="Submit"
+      icon="pi pi-check"
+      (click)="submitFields()"
+    ></p-button>
   </div>
 </div>

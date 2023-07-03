@@ -24,7 +24,7 @@ export class TextAreaComponent implements OnInit {
   placeholder!: string;
 
   @Input()
-  controlName: FormControl | any = new FormControl();
+  control: FormControl | any = new FormControl();
   @Input() form!: FormGroup;
   constructor() {}
 

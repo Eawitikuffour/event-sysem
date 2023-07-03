@@ -125,6 +125,7 @@
         <button
           pButton
           pRipple
+          [disabled]="eventForm.invalid"
           styleClass="p-button-success"
           label="Create Event"
           (click)="addEvent()"
