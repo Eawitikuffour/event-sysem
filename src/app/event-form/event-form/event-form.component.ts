@@ -122,18 +122,28 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
     for (const control of controls) {
       const fieldValidators = [];
-      if (control.field_max_length) {
-        fieldValidators.push(Validators.max(control.field_max_length));
+      if (control.maxLength) {
+        fieldValidators.push(Validators.maxLength(control.maxLength));
       }
-      if (control.field_min_length) {
-        fieldValidators.push(Validators.min(control.field_min_length));
+      if (control.minLength) {
+        fieldValidators.push(Validators.minLength(control.minLength));
       }
-      if (control.field_validation) {
+      if (control.maximum) {
+        fieldValidators.push(Validators.max(control.maximum));
+      }
+      if (control.minimum) {
+        fieldValidators.push(Validators.min(control.minimum));
+      }
+
+      if (control.fieldValidation) {
         fieldValidators.push(Validators.required);
       }
-      const formControl = new FormControl(control.field_name, fieldValidators);
+      if (control.email) {
+        fieldValidators.push(Validators.email);
+      }
+      const formControl = new FormControl(control.fieldName, fieldValidators);
 
-      this.eventForm.addControl(control.field_name, formControl);
+      this.eventForm.addControl(control.fieldName, formControl);
       console.log(this.eventForm);
       // this.eventForm.addControl(control.field_name, this.fb.control(''));
     }

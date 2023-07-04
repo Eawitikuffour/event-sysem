@@ -15,11 +15,11 @@
     </p-toolbar>
     <div class="card-container" [formGroup]="participantFieldsForm">
       <ng-container formArrayName="participantFieldsArray">
-        <ng-container
+        <p-card
           *ngFor="let fieldsForm of participantFields.controls; let i = index"
         >
           <span class="grid formgrid p-fluid" [formGroupName]="i">
-            <div class="field mb-4 col-12 md:col-3">
+            <div class="field mb-4 col-12 md:col-5">
               <input
                 id="field_name"
                 formControlName="fieldName"
@@ -29,7 +29,7 @@
                 placeholder="ex. Contact"
               />
             </div>
-            <div class="field mb-4 col-12 md:col-3">
+            <div class="field mb-4 col-12 md:col-5">
               <p-dropdown
                 [options]="textFieldType"
                 formControlName="fieldType"
@@ -39,35 +39,17 @@
               >
               </p-dropdown>
             </div>
-            <div class="field mb-4 col-12 md:col-3">
+            <!-- <div class="field mb-4 col-12 md:col-5">
               <p-dropdown
                 [options]="TextFieldValidation"
                 formControlName="fieldValidation"
-                placeholder="is Field Required?"
+                placeholder="Validation Required"
                 optionLabel="viewValue"
                 [showClear]="true"
               >
               </p-dropdown>
-            </div>
-            <div class="field mb-4 col-12 md:col-1">
-              <p-inputNumber
-                placeholder="ex. 15"
-                formControlName="fieldMaxLength"
-                pTooltip="Specify maximum characters for the field"
-                inputId="integeronly"
-              >
-              </p-inputNumber>
-            </div>
-            <div class="field mb-4 col-12 md:col-1">
-              <p-inputNumber
-                inputId="integeronly"
-                formControlName="fieldMinLength"
-                placeholder="ex 3"
-                pTooltip="Specify minimum characters for the field"
-              >
-              </p-inputNumber>
-            </div>
-            <div class="field mb-4 col-12 md:col-1">
+            </div> -->
+            <div class="field mb-4 col-12 md:col-2">
               <p-button
                 icon="pi pi-trash"
                 pTooltip="Delete details"
@@ -76,7 +58,21 @@
               ></p-button>
             </div>
           </span>
-        </ng-container>
+          <span class="grid formgrid p-fluid">
+            <div class="field mb-4 col-12 md:col-6">
+              <label>Validators</label>
+              <app-validators
+                #validationForm
+                [form]="participantFieldsForm"
+                [participantForm]="participantForm"
+              ></app-validators>
+            </div>
+            <div class="field mb-4 col-12 md:col-6">
+              <label>Values for dropdown</label>
+              <p-chips></p-chips>
+            </div>
+          </span>
+        </p-card>
       </ng-container>
     </div>
   </div>

@@ -32,25 +32,25 @@
       >
         <div *ngFor="let control of fieldsArray">
           <app-textArea
-            [label]="control.field_name"
-            [placeholder]="control.field_name"
-            [control]="control.field_name"
+            [label]="control.fieldName"
+            [placeholder]="control.fieldName"
+            [control]="control.fieldName"
             [form]="eventForm"
-            *ngIf="control.field_type === 'textField'"
+            *ngIf="control.fieldType === 'textField'"
           ></app-textArea>
           <app-dropdown
-            [formLabel]="control.field_name"
-            [placeholder]="control.field_name"
-            [control]="control.field_name"
+            [formLabel]="control.fieldName"
+            [placeholder]="control.fieldName"
+            [control]="control.fieldName"
             [form]="eventForm"
-            *ngIf="control.field_type === 'dropdown'"
+            *ngIf="control.fieldType === 'dropdown'"
           ></app-dropdown>
           <app-date
-            [formLabel]="control.field_name"
-            [placeholder]="control.field_name"
-            [control]="control.field_name"
+            [formLabel]="control.fieldName"
+            [placeholder]="control.fieldName"
+            [control]="control.fieldName"
             [form]="eventForm"
-            *ngIf="control.field_type === 'date'"
+            *ngIf="control.fieldType === 'date'"
           ></app-date>
         </div>
         <div>

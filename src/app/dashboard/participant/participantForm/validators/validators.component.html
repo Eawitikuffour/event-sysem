@@ -1,0 +1,74 @@
+<span class="grid formgrid p-fluid" [formGroup]="form">
+  <div class="field mb-4 col-12 md:col-4">
+    <p-checkbox
+      name="group1"
+      formControlName="required"
+      value="required"
+      inputId="required"
+    ></p-checkbox>
+
+    <label for="required">Required</label>
+  </div>
+
+  <div class="field mb-4 col-12 md:col-4">
+    <p-checkbox
+      name="group1"
+      formControlName="email"
+      value="email"
+      inputId="email"
+    ></p-checkbox>
+
+    <label for="email">Email</label>
+  </div>
+
+  <div class="field mb-4 col-12 md:col-4">
+    <!-- <p-checkbox
+      name="min"
+      formControlName="maxLength"
+      value="maxLength"
+      inputId="maxLength"
+    ></p-checkbox> -->
+
+    <label for="maxLength">Max Length</label>
+    <p-inputNumber inputId="integeronly" formControlName="maxLength">
+    </p-inputNumber>
+  </div>
+
+  <div class="field mb-4 col-12 md:col-4">
+    <!-- <p-checkbox
+      name="min"
+      value="minLength"
+      inputId="minLength"
+      formControlName="minLength"
+    ></p-checkbox> -->
+
+    <label for="miniLength">Min Length</label>
+    <p-inputNumber inputId="integeronly" formControlName="minLength">
+    </p-inputNumber>
+  </div>
+
+  <div class="field mb-4 col-12 md:col-4">
+    <!-- <p-checkbox
+      name="max"
+      formControlName="maximum"
+      value="maximum"
+      inputId="max"
+    ></p-checkbox> -->
+
+    <label for="max">Maximum </label>
+    <p-inputNumber inputId="integeronly" formControlName="maximum">
+    </p-inputNumber>
+  </div>
+  <div class="field mb-4 col-12 md:col-4">
+    <!-- <p-checkbox
+      name="min"
+      formControlName="minimum"
+      value="minimum"
+      inputId="min"
+    ></p-checkbox> -->
+
+    <label for="min">Minimum</label>
+    <p-inputNumber inputId="integeronly" formControlName="minimum">
+    </p-inputNumber>
+  </div>
+</span>

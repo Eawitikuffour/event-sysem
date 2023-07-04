@@ -11,7 +11,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListTableComponent } from './list-table/list-table.component';
-import { AddParticipantComponent } from './participantForm/addParticipant/addParticipant.component';
+// import { AddParticipantFieldComponent } from './participantForm/addParticipant/addParticipant.component';
+import { AddParticipantFieldComponent } from './participantForm/addParticipant/addParticipantField.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
@@ -19,7 +20,10 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ViewParticipantFormComponent } from './participantForm/addParticipant/viewParticipantForm/viewParticipantForm.component';
 import { CalendarModule } from 'primeng/calendar';
 import { SharedModule } from 'src/app/shared/shared.module';
-
+import { CardModule } from 'primeng/card';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ValidatorsComponent } from './participantForm/validators/validators.component';
+import { ChipsModule } from 'primeng/chips';
 @NgModule({
   declarations: [
     RegisteredListComponent,
@@ -27,10 +31,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
     VirtualListComponent,
     PresentListComponent,
     ListTableComponent,
-    AddParticipantComponent,
+    AddParticipantFieldComponent,
     ViewParticipantFormComponent,
+    ValidatorsComponent,
   ],
-  exports: [AddParticipantComponent],
+  exports: [AddParticipantFieldComponent],
   imports: [
     CommonModule,
     ParticipantRoutingModule,
@@ -46,6 +51,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ToolbarModule,
     TooltipModule,
     SharedModule,
+    CardModule,
+    CheckboxModule,
+    ChipsModule,
   ],
 })
 export class ParticipantModule {}
