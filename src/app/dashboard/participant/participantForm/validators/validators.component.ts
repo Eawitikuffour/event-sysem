@@ -15,9 +15,9 @@ import { ParticipantFields } from '../modal/participantsForm';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ValidatorsComponent implements OnInit, AfterViewInit {
-  @Input() form!: FormGroup;
+  form!: FormGroup;
 
-  @Input() participantForm!: ParticipantFields;
+  participantForm!: ParticipantFields;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -31,23 +31,17 @@ export class ValidatorsComponent implements OnInit, AfterViewInit {
   }
 
   intitializeForm() {
-    const formInputObject = {
-      required: this.participantForm.required,
-      email: this.participantForm.email,
-      maxLength: this.participantForm.maxLength,
-      minLength: this.participantForm.minLength,
-      maximum: this.participantForm.maximum,
-      minimum: this.participantForm.minimum,
-    };
-
     this.form = this.formBuilder.group({
-      required: '',
-      email: '',
-      maxLength: '',
-      minLength: '',
-      maximum: '',
-      minimum: '',
+      required: [''],
+      email: [''],
+      maxLength: [''],
+      minLength: [''],
+      maximum: [''],
+      minimum: [''],
     });
-    this.form.patchValue(formInputObject);
+  }
+
+  get validatorsFormData() {
+    return this.form.getRawValue();
   }
 }

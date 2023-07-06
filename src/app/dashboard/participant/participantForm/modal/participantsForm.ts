@@ -3,6 +3,7 @@ export interface ParticipantFields {
   fieldType: any;
   fieldValidation: any;
   required: any;
+  valuesForDropdown: string[];
   email: any;
   maxLength: number;
   minLength: number;

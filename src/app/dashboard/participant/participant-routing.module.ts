@@ -5,17 +5,15 @@ import { PresentListComponent } from './present-list/present-list.component';
 import { RegisteredListComponent } from './registered-list/registered-list.component';
 import { VirtualListComponent } from './virtual-list/virtual-list.component';
 
-
 const routes: Routes = [
   { path: 'registered', component: RegisteredListComponent },
   { path: 'attending', component: AttendanceListComponent },
-  {path: 'attending/virtual', component: VirtualListComponent},
-  {path: 'attending/present', component: PresentListComponent},
+  { path: 'attending/virtual', component: VirtualListComponent },
+  { path: 'attending/present', component: PresentListComponent },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ParticipantRoutingModule { }
+export class ParticipantRoutingModule {}

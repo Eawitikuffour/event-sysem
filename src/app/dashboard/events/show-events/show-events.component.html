@@ -59,14 +59,16 @@
         <td>{{ events.start_date }}</td>
         <td>{{ events.number_of_participants }}</td>
         <td>
-          <button
-            pButton
-            pRipple
-            icon="pi pi-plus"
-            class="p-button-rounded p-button-secondary mr-2"
-            pTooltip="Click to add participant details"
-            (click)="addNewParticipant(events.id)"
-          ></button>
+          <a [routerLink]="['add-participantFields/', events.id]">
+            <button
+              pButton
+              pRipple
+              icon="pi pi-plus"
+              class="p-button-rounded p-button-secondary mr-2"
+              pTooltip="Click to add participant details"
+            ></button>
+          </a>
+
           <!-- <button
             pButton
             pRipple

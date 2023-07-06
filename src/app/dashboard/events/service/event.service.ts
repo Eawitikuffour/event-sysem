@@ -9,7 +9,8 @@ export class EventService {
   private addEventURL = `${environment.API_URL_BASE}/event/addEventWithFile`;
   private updateEventURL = `${environment.API_URL_BASE}/event/update`;
   private deleteEventURL = `${environment.API_URL_BASE}/event/delete/`;
-  private getEventURL = `${environment.API_URL_BASE}/event/getAllEvents`;
+  private getAllEventsURL = `${environment.API_URL_BASE}/event/getAllEvents`;
+  private getEventURL = `${environment.API_URL_BASE}/event/getEventById/`;
 
   constructor(private http: HttpClient) {}
 
@@ -30,6 +31,6 @@ export class EventService {
   }
 
   getAllEvents() {
-    return this.http.get(this.getEventURL);
+    return this.http.get(this.getAllEventsURL);
   }
 }

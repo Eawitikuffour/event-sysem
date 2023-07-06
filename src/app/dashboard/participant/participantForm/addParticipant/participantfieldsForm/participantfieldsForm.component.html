@@ -1,0 +1,30 @@
+<div class="grid formgrid p-fluid w-12" [formGroup]="participantFieldsForm">
+  <div class="field mb-4 col-12">
+    <input
+      id="field_name"
+      formControlName="fieldName"
+      type="text"
+      pInputText
+      pTooltip="Enter Field Name"
+      placeholder="ex. Contact"
+    />
+  </div>
+  <div class="field mb-4 col-12">
+    <p-dropdown
+      [options]="textFieldType"
+      formControlName="fieldType"
+      placeholder="Select Field Type"
+      optionLabel="viewValue"
+      [showClear]="true"
+    >
+    </p-dropdown>
+  </div>
+  <div class="field mb-4 col-12" *ngIf="displayDropdownOptions">
+    <app-participantFieldDropdown #dropdownForm></app-participantFieldDropdown>
+  </div>
+  <div></div>
+  <div class="field mb-4 col-12">
+    <label>Validators</label>
+    <app-validators #validatorsForm></app-validators>
+  </div>
+</div>

@@ -1,10 +1,9 @@
-<span class="grid formgrid p-fluid" [formGroup]="form">
+<span class="grid formgrid p-fluid w-12" [formGroup]="form">
   <div class="field mb-4 col-12 md:col-4">
     <p-checkbox
-      name="group1"
       formControlName="required"
-      value="required"
       inputId="required"
+      [binary]="true"
     ></p-checkbox>
 
     <label for="required">Required</label>
@@ -12,10 +11,9 @@
 
   <div class="field mb-4 col-12 md:col-4">
     <p-checkbox
-      name="group1"
       formControlName="email"
-      value="email"
       inputId="email"
+      [binary]="true"
     ></p-checkbox>
 
     <label for="email">Email</label>
