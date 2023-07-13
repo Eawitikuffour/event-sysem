@@ -24,7 +24,6 @@ import { ValidatorsComponent } from './participantForm/validators/validators.com
 import { ChipsModule } from 'primeng/chips';
 import { AddNewParticipantFieldComponent } from './participantForm/addParticipant/addNewParticipantField/addNewParticipantField.component';
 import { ParticipantfieldsFormComponent } from './participantForm/addParticipant/participantfieldsForm/participantfieldsForm.component';
-import { ParticipantFieldDropdownComponent } from './participantForm/addParticipant/participantFieldDropdown/participantFieldDropdown.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +36,6 @@ import { ParticipantFieldDropdownComponent } from './participantForm/addParticip
     ValidatorsComponent,
     AddNewParticipantFieldComponent,
     ParticipantfieldsFormComponent,
-    ParticipantFieldDropdownComponent,
   ],
   exports: [],
   imports: [

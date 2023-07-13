@@ -14,7 +14,10 @@
       </ng-template>
     </p-toolbar>
     <div class="card-container grid" [formGroup]="participantFieldsForm">
-      <ng-container formArrayName="participantFieldsArray">
+      <ng-container
+        formArrayName="participantFieldsArray"
+        style="height: 60 rem !important; overflow: auto"
+      >
         <div
           *ngFor="let fieldsForm of participantFields.controls; let i = index"
           class="col-12 md:col-6 xl:col-4 p-card p-4"

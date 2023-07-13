@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppAlertService } from 'src/app/common/alerts/service/app-alert.service';
-import { EventFormService } from '../service/eventForm.service';
+
 import { EventDetails } from '../../dashboard/modal/eventDetails';
 import {
   ConfirmationService,
@@ -24,9 +24,10 @@ import {
 // import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ParticipantService } from '../../dashboard/participant/service/participant.service';
 import { ParticipantFields } from '../../dashboard/participant/participantForm/modal/participantsForm';
-import { mockData } from './data';
+
 import { BehaviorSubject } from 'rxjs';
 import { NgOptimizedImage } from '@angular/common';
+import { EventFormService } from '../service/eventForm.service';
 
 @Component({
   selector: 'app-event-form',
@@ -35,10 +36,12 @@ import { NgOptimizedImage } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventFormComponent implements OnInit, AfterViewInit {
-  fieldsArray!: ParticipantFields[];
+  // fieldsArray!: ParticipantFields[];
   fields!: any;
-  eventForm!: FormGroup;
+  fieldsArray: any;
+  participantForm!: FormGroup;
   event_name!: string;
+  event_id!: any;
   eventData!: any;
   showForm = false;
   flyer!: any;
@@ -50,14 +53,15 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     private cdref: ChangeDetectorRef,
     private fb: FormBuilder,
     private alert: AppAlertService,
-    private eventService: EventFormService,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private eventService: EventFormService
   ) {}
   ngAfterViewInit(): void {
     this.cdref.detectChanges();
     this.getEventDetails();
+    this.getEventParticipantFields();
   }
 
   getEventParticipantFields() {
@@ -69,8 +73,14 @@ export class EventFormComponent implements OnInit, AfterViewInit {
           .getParticipantField(this.event_name)
           .subscribe((response: any) => {
             if (response) {
-              this.fields = response;
-              console.log(this.fields);
+              this.event_id = response.event_id;
+              console.log(this.event_id);
+              this.fields = response.fields[0];
+
+              this.fieldsArray = Object.values(this.fields);
+
+              console.log(this.fieldsArray);
+
               this.getFieldArray();
             }
           });
@@ -80,35 +90,15 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
   getEventDetails() {
     this.eventService.getEvent(this.event_name).subscribe((data: any) => {
+      console.log(data);
       this.eventData = data.flyer;
-
-      console.log(this.eventData);
     });
   }
 
   getFieldArray() {
-    let fieldArray: any = [];
-
-    const fieldNameArray = this.fields.field_name.split('|');
-    const fieldTypeArray = this.fields.field_type.split('|');
-    const fieldMaxArray = this.fields.field_max_length.split('|');
-    const fieldMixArray = this.fields.field_min_length.split('|');
-    const fieldValidationArray = this.fields.field_validation.split('|');
-
-    for (let index = 0; index < fieldNameArray.length; index++) {
-      fieldArray.push({
-        field_name: fieldNameArray[index],
-        field_type: fieldTypeArray[index],
-        field_max_length: parseInt(fieldMaxArray[index], 10),
-        field_min_length: parseInt(fieldMixArray[index]),
-        field_validation: fieldValidationArray[index],
-      });
-    }
-    console.log(fieldNameArray);
-
-    this.fieldsArray = fieldArray;
-    if (fieldArray) {
-      this.createForm(fieldArray);
+    if (this.fieldsArray) {
+      console.log(this.fieldsArray);
+      this.createForm(this.fieldsArray);
       this.loading.next(false);
     }
   }
@@ -118,45 +108,59 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   }
 
   createForm(controls: ParticipantFields[]) {
-    this.eventForm = this.fb.group({});
+    this.participantForm = this.fb.group({});
 
     for (const control of controls) {
       const fieldValidators = [];
-      if (control.maxLength) {
-        fieldValidators.push(Validators.maxLength(control.maxLength));
-      }
-      if (control.minLength) {
-        fieldValidators.push(Validators.minLength(control.minLength));
-      }
-      if (control.maximum) {
-        fieldValidators.push(Validators.max(control.maximum));
-      }
-      if (control.minimum) {
-        fieldValidators.push(Validators.min(control.minimum));
+      if (control.validators) {
+        for (const [key, value] of Object.entries(control.validators)) {
+          switch (key) {
+            case 'required':
+              fieldValidators.push(Validators.required);
+              break;
+            case 'email':
+              fieldValidators.push(Validators.email);
+              break;
+            case 'maxLength':
+              fieldValidators.push(Validators.maxLength(value.maxLength));
+              break;
+            case 'minLength':
+              fieldValidators.push(Validators.minLength(value.minLength));
+              break;
+            case 'maximum':
+              fieldValidators.push(Validators.max(value.maximum));
+              break;
+            case 'minimum':
+              fieldValidators.push(Validators.min(value.minimum));
+          }
+        }
       }
 
-      if (control.fieldValidation) {
-        fieldValidators.push(Validators.required);
-      }
-      if (control.email) {
-        fieldValidators.push(Validators.email);
-      }
       const formControl = new FormControl(control.fieldName, fieldValidators);
 
-      this.eventForm.addControl(control.fieldName, formControl);
-      console.log(this.eventForm);
-      // this.eventForm.addControl(control.field_name, this.fb.control(''));
+      this.participantForm.addControl(control.fieldName, formControl);
+
+      // this.participantForm.addControl(
+      //   control.fieldName,
+      //   this.fb.control(control.fieldName, fieldValidators)
+      // );
     }
   }
   get controlLength() {
-    return Object.keys(this.eventForm?.controls).length || 0;
+    return Object.keys(this.participantForm?.controls).length || 0;
   }
 
   submitForm() {
-    console.log(this.eventForm.value);
+    const data = {
+      event_id: 13,
+      form_values: this.participantForm.value,
+    };
+    this.eventService.addParticipant(data).subscribe();
 
-    // if (this.eventForm.valid) {
-    //   console.log(this.eventForm.value);
+    // console.log(data);
+
+    // if (this.participantForm.valid) {
+    //   console.log(this.participantForm.value);
     // }
   }
 }

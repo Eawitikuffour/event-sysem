@@ -8,12 +8,12 @@
         icon="pi pi-plus"
         class="p-button-success mr-2"
         pTooltip="click to add new event"
-        (click)="addNewEvent()"
+        (click)="addUser()"
       ></button>
     </ng-template>
   </p-toolbar>
 
-  <p-table
+  <!-- <p-table
     #dt
     [value]="events"
     [rows]="10"
@@ -34,7 +34,7 @@
   >
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
-        <h5 class="m-0">Manage Events</h5>
+        <h5 class="m-0">Manage Users</h5>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
           <input pInputText type="text" placeholder="Search..." />
@@ -43,47 +43,24 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="min-width: 200px">Event Name</th>
-        <th style="min-width: 300px">Description</th>
-        <th style="min-width: 200px">Venue</th>
-        <th style="min-width: 200px">Date</th>
-        <th style="min-width: 150px">Expected Number</th>
-        <th style="min-width: 250px">Actions</th>
+        <th style="min-width: 200px">Name</th>
+        <th style="min-width: 300px">Email</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-events>
       <tr>
-        <td>{{ events.event_name }}</td>
+        <td>{{ events.event_name ]}}</td>
         <td>{{ events.description }}</td>
-        <td>{{ events.venue }}</td>
-        <td>{{ events.start_date }}</td>
-        <td>{{ events.number_of_participants }}</td>
         <td>
-          <a [routerLink]="['add-participantFields/', events.id]">
-            <button
-              pButton
-              pRipple
-              icon="pi pi-plus"
-              class="p-button-rounded p-button-secondary mr-2"
-              pTooltip="Click to add participant details"
-            ></button>
-          </a>
 
-          <!-- <button
-            pButton
-            pRipple
-            icon="pi pi-eye"
-            class="p-button-rounded p-button-help mr-2"
-            pTooltip="Click to add participant details"
-            (click)="viewParticipantForm(events.id)"
-          ></button> -->
+
           <button
             pButton
             pRipple
             icon="pi pi-pencil"
             class="p-button-rounded p-button-success mr-2"
-            pTooltip="Click to edit events"
-            (click)="editEvent(events)"
+            pTooltip="Click to edit user details"
+            (click)="editUserDetails(user)"
           ></button>
           <button
             pButton
@@ -91,15 +68,15 @@
             pTooltip="click to delete event"
             icon="pi pi-trash"
             class="p-button-rounded p-button-warning"
-            (click)="deleteEvent(events.id)"
+            (click)="deleteUser(user.id)"
           ></button>
         </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="flex align-items-center justify-content-between">
-        <!-- In total there are {{products ? products.length : 0 }} products. -->
+
       </div>
     </ng-template>
-  </p-table>
+  </p-table> -->
 </div>

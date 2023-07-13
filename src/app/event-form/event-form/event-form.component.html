@@ -27,29 +27,30 @@
       <div
         class="surface-ground px-4 py-4 md:px-6 lg:px-4 col-12"
         style="width: 60%"
-        *ngIf="eventForm && controlLength > 0"
-        [formGroup]="eventForm"
+        *ngIf="participantForm && controlLength > 0"
+        [formGroup]="participantForm"
       >
         <div *ngFor="let control of fieldsArray">
           <app-textArea
             [label]="control.fieldName"
             [placeholder]="control.fieldName"
             [control]="control.fieldName"
-            [form]="eventForm"
+            [form]="participantForm"
             *ngIf="control.fieldType === 'textField'"
           ></app-textArea>
           <app-dropdown
             [formLabel]="control.fieldName"
             [placeholder]="control.fieldName"
             [control]="control.fieldName"
-            [form]="eventForm"
+            [selectableOption]="control.options"
+            [form]="participantForm"
             *ngIf="control.fieldType === 'dropdown'"
           ></app-dropdown>
           <app-date
             [formLabel]="control.fieldName"
             [placeholder]="control.fieldName"
             [control]="control.fieldName"
-            [form]="eventForm"
+            [form]="participantForm"
             *ngIf="control.fieldType === 'date'"
           ></app-date>
         </div>

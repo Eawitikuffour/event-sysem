@@ -3,22 +3,13 @@ import {
   Component,
   OnInit,
   QueryList,
-  ViewChild,
   ViewChildren,
 } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from 'src/app/dashboard/events/service/event.service';
-import { ValidatorsComponent } from '../../validators/validators.component';
-import { ParticipantFields } from '../../modal/participantsForm';
-import { debounceTime } from 'rxjs';
 import { ParticipantfieldsFormComponent } from '../participantfieldsForm/participantfieldsForm.component';
+import { ParticipantService } from '../../../service/participant.service';
 
 @Component({
   selector: 'app-addNewParticipantField',
@@ -41,7 +32,8 @@ export class AddNewParticipantFieldComponent implements OnInit {
     private route: ActivatedRoute,
     private cdref: ChangeDetectorRef,
     private eventService: EventService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private participantService: ParticipantService
   ) {
     this.participantFieldsForm = this.formBuilder.group({
       participantFieldsArray: this.formBuilder.array([]),
@@ -50,6 +42,8 @@ export class AddNewParticipantFieldComponent implements OnInit {
 
   ngOnInit() {
     this.getEventFromServer();
+    this.createParticipantForm();
+    this.cdref.detectChanges();
   }
 
   getEventFromServer() {
@@ -67,8 +61,7 @@ export class AddNewParticipantFieldComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.cdref;
-
+    this.cdref.detectChanges();
     this.createParticipantForm();
   }
 
@@ -102,7 +95,7 @@ export class AddNewParticipantFieldComponent implements OnInit {
   }
 
   deleteField(i: number) {
-    this.participantFieldsArray.removeAt(i);
+    this.participantFields.removeAt(i);
   }
 
   submitFields() {
@@ -111,7 +104,18 @@ export class AddNewParticipantFieldComponent implements OnInit {
       values.push(inputField.participantFieldsFormData);
     });
 
-    console.log(values);
+    const formData = {
+      fields: values,
+      event_id: Number(this.event_id),
+    };
+
+    this.participantService
+      .addParticipantsFields(formData)
+      .subscribe((data: any) => {
+        console.log(data);
+      });
+
+    console.log(formData);
 
     const data =
       this.participantFieldsForm.value.participantFieldsArray.forEach(

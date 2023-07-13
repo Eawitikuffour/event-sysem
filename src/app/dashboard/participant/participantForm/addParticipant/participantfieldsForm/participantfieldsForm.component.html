@@ -20,7 +20,12 @@
     </p-dropdown>
   </div>
   <div class="field mb-4 col-12" *ngIf="displayDropdownOptions">
-    <app-participantFieldDropdown #dropdownForm></app-participantFieldDropdown>
+    <p-chips
+      formControlName="options"
+      separator=","
+      pTooltip="Enter Options "
+      placeholder="Hint: a, b, c"
+    ></p-chips>
   </div>
   <div></div>
   <div class="field mb-4 col-12">
