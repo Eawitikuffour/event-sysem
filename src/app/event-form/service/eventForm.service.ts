@@ -23,7 +23,7 @@ export class EventFormService {
 
   getParticipantField(event_name: string) {
     return this.http.get(
-      `${this.participantFieldURL}/getParticipantFieldByEventName/` + event_name
+      `${this.participantFieldURL}/event_name/` + event_name
     );
   }
 }

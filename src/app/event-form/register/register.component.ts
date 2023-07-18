@@ -47,38 +47,11 @@ export class RegisterComponent implements OnInit {
   }
 
   search(event: any) {
-    const searchText = event.target.value;
-    this.results = this.participantService.searchParticipant(searchText);
-
-    // for (const k in this.results) {
-    //   if (k === "name") {
-    //      this.results["Name"] = this.results[k]
-    //   }
-
-    // }
-    // this.results.subscribe((res: any) => {
-    //   const data = {
-    //     Name: res.name,
-    //     Gender: res.gender,
-    //     Organization: res.organization,
-    //     Contact: res.phone_number,
-    //     Location: res.registry_from,
-    //   };
-    //   return data;
+    // const searchText = event.target.value;
+    // this.results = this.participantService.searchParticipant(searchText);
+    // const x = this.results.subscribe((res: any) => {
+    //   console.log(res);
     // });
-    // console.log(this.results);
-    // this.results.forEach((x) => {
-    //   return {
-    //     Name: x.name,
-    //     Gender: x.gender,
-    //     Organization: x.organization,
-    //     Contact: x.phone_number,
-    //     Location: x.registry_from,
-    //   };
-    // });
-    const x = this.results.subscribe((res: any) => {
-      console.log(res);
-    });
   }
 
   register() {
