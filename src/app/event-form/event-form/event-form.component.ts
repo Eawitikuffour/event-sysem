@@ -28,6 +28,7 @@ import { ParticipantFields } from '../../dashboard/participant/participantForm/m
 import { BehaviorSubject } from 'rxjs';
 import { NgOptimizedImage } from '@angular/common';
 import { EventFormService } from '../service/eventForm.service';
+import { PrimeNgAlerts } from 'src/app/common/alerts/app-config';
 
 @Component({
   selector: 'app-event-form',
@@ -155,12 +156,8 @@ export class EventFormComponent implements OnInit, AfterViewInit {
       event_id: 13,
       form_values: this.participantForm.value,
     };
-    this.eventService.addParticipant(data).subscribe();
-
-    // console.log(data);
-
-    // if (this.participantForm.valid) {
-    //   console.log(this.participantForm.value);
-    // }
+    this.eventService.addParticipant(data).subscribe((res: any) => {
+      this.alert.showToast('data successfully added', PrimeNgAlerts.SUCCESS);
+    });
   }
 }

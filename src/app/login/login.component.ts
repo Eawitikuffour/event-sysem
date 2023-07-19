@@ -15,7 +15,7 @@ import { PrimeNgAlerts } from '../common/alerts/app-config';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
   providers: [],
 })
 export class LoginComponent implements OnInit {
@@ -37,10 +37,6 @@ export class LoginComponent implements OnInit {
 
   loginError = false;
   login(): any {
-    // const credentials = {
-    //   username: this.users.value.username,
-    //   password: this.users.value.password,
-    // };
     const credentials = new FormData();
     credentials.append('username', this.users.value.username);
     credentials.append('password', this.users.value.password);

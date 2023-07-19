@@ -1,15 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
-} from '@angular/forms';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { AddEventComponent } from '../addEvent/addEvent.component';
-import { EventService } from '../service/event.service';
 import { Store } from '@ngxs/store';
-import { UpdateEvents } from 'src/app/store/event.action';
+import { UpdateEvents } from 'src/app/store/event/event.action';
 
 @Component({
   selector: 'app-editEvent',
@@ -21,12 +14,7 @@ export class EditEventComponent implements OnInit {
   eventForm!: AddEventComponent;
 
   data: any;
-  constructor(
-    private fb: FormBuilder,
-    private eventService: EventService,
-    public config: DynamicDialogConfig,
-    private store: Store
-  ) {}
+  constructor(public config: DynamicDialogConfig, private store: Store) {}
 
   ngOnInit() {
     this.data = this.config.data;

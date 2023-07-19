@@ -8,10 +8,11 @@ import {
   GetEvents,
   UpdateEvents,
 } from './event.action';
-import { EventService } from '../dashboard/events/service/event.service';
-import { AppAlertService } from '../common/alerts/service/app-alert.service';
-import { PrimeNgAlerts } from '../common/alerts/app-config';
+
 import { error } from 'console';
+import { PrimeNgAlerts } from 'src/app/common/alerts/app-config';
+import { AppAlertService } from 'src/app/common/alerts/service/app-alert.service';
+import { EventService } from 'src/app/dashboard/events/service/event.service';
 
 export class EventStateModel {
   events: any;
@@ -53,10 +54,7 @@ export class EventState {
   addDataToState(ctx: StateContext<EventStateModel>, { payload }: AddEvents) {
     return this.eventService.addEvent(payload).pipe(
       tap((returnData) => {
-        this.alert.showToast(
-          'event added successfully',
-          PrimeNgAlerts.UNOBSTRUSIVE
-        );
+        this.alert.showToast('event added successfully', PrimeNgAlerts.SUCCESS);
         const state = ctx.getState();
         ctx.patchState({
           events: [...state.events, returnData],

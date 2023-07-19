@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { EventDetails } from '../../modal/eventDetails';
 import { EditEventComponent } from '../editEvent/editEvent.component';
 import { EventService } from '../service/event.service';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { EventState } from '../../../store/event.state';
-import { DeleteEvents, GetEvents } from 'src/app/store/event.action';
+
 import { AddEventComponent } from '../addEvent/addEvent.component';
 import { ViewParticipantFormComponent } from '../../participant/participantForm/addParticipant/viewParticipantForm/viewParticipantForm.component';
+import { GetEvents, DeleteEvents } from 'src/app/store/event/event.action';
+import { EventState } from 'src/app/store/event/event.state';
 
 @Component({
   selector: 'app-show-events',
@@ -16,18 +17,22 @@ import { ViewParticipantFormComponent } from '../../participant/participantForm/
   styleUrls: ['./show-events.component.scss'],
   providers: [DialogService],
 })
-export class ShowEventsComponent implements OnInit {
+export class ShowEventsComponent implements OnInit, AfterViewInit {
   events: EventDetails[] = [];
   @Select(EventState.selectStateData) events$: Observable<any> | undefined;
 
   selectedEvent: any;
-  constructor(
-    public dialogService: DialogService,
-    private eventService: EventService,
-    private store: Store
-  ) {}
+  constructor(public dialogService: DialogService, private store: Store) {}
 
   ngOnInit() {
+    this.getEvents();
+  }
+
+  ngAfterViewInit(): void {
+    this.getEvents();
+  }
+
+  getEvents() {
     this.store.dispatch(new GetEvents());
     this.events$?.subscribe((data: any) => {
       this.events = data;

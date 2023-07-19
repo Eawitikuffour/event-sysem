@@ -8,13 +8,12 @@ import { User } from '../model/user';
   providedIn: 'root',
 })
 export class LoginService {
-  private loginUrl = `${environment.API_URL_BASE}/admin/login`;
-  // private loginUrl = `${environment.API_URL_BASE}/login`;
+  private loginUrl = `${environment.API_URL_BASE}/admin`;
 
   constructor(private http: HttpClient) {}
   loggedInUser: any;
   login = (user: any) => {
-    return this.http.post<boolean>(this.loginUrl, user).pipe(
+    return this.http.post<boolean>(`${this.loginUrl}/login`, user).pipe(
       map((user: any) => {
         // user = user.detail;
         if (user === 'Not Found') {
@@ -42,4 +41,12 @@ export class LoginService {
     localStorage.removeItem('token');
     return true;
   };
+
+  getToken(token: string) {
+    return this.http.get(`${this.loginUrl}/token/` + token);
+  }
+
+  resetPassword(data: any) {
+    return this.http.put(`${this.loginUrl}/reset-password`, data);
+  }
 }

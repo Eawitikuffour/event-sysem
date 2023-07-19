@@ -1,4 +1,4 @@
-import { EventDetails } from '../dashboard/modal/eventDetails';
+import { EventDetails } from '../../dashboard/modal/eventDetails';
 
 //Read
 export class GetEvents {

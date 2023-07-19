@@ -1,3 +1,11 @@
-<p>
-  editUser works!
-</p>
+<app-addUser [data]="data" #user></app-addUser>
+<div>
+  <button
+    pButton
+    pRipple
+    label="Edit User"
+    (click)="editUser()"
+    icon="pi pi-file"
+    class="w-auto"
+  ></button>
+</div>

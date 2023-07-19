@@ -7,6 +7,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { LoginRoutes } from './login.routing';
 import { CheckboxModule } from 'primeng/checkbox';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ResetPasswordComponent } from './resetPassword/resetPassword.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +20,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     CheckboxModule,
     HttpClientModule,
   ],
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, ResetPasswordComponent],
 })
 export class LoginModule {}

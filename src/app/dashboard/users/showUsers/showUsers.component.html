@@ -13,9 +13,9 @@
     </ng-template>
   </p-toolbar>
 
-  <!-- <p-table
+  <p-table
     #dt
-    [value]="events"
+    [value]="users"
     [rows]="10"
     [paginator]="true"
     [scrollable]="true"
@@ -28,7 +28,7 @@
       'status'
     ]"
     [tableStyle]="{ 'min-width': '75rem' }"
-    [(selection)]="selectedEvent"
+    [(selection)]="selectedUser"
     dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   >
@@ -45,15 +45,16 @@
       <tr>
         <th style="min-width: 200px">Name</th>
         <th style="min-width: 300px">Email</th>
+        <th style="min-width: 300px">Contact</th>
+        <th style="min-width: 300px"></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-events>
+    <ng-template pTemplate="body" let-user>
       <tr>
-        <td>{{ events.event_name ]}}</td>
-        <td>{{ events.description }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.contact }}</td>
         <td>
-
-
           <button
             pButton
             pRipple
@@ -74,9 +75,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
-      <div class="flex align-items-center justify-content-between">
-
-      </div>
+      <div class="flex align-items-center justify-content-between"></div>
     </ng-template>
-  </p-table> -->
+  </p-table>
 </div>

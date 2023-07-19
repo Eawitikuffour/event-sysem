@@ -23,17 +23,7 @@
           formControlName="description"
         ></textarea>
       </div>
-      <!-- <div class="field mb-4 col-12 md:col-12">
-        <label for="invoice_date" class="font-medium text-900"
-          >Start Date</label
-        >
-        <p-calendar
-          formControlName="start_date"
-          id="invoice_date"
-          [showIcon]="true"
-          selectionMode="range"
-        ></p-calendar>
-      </div> -->
+
       <div class="field col-12 md:col-12 justify-content-center">
         <label for="invoice_date" class="font-medium text-900"
           >Select Start & End Date</label
@@ -95,12 +85,6 @@
         <label for="customer_email" class="font-medium text-900"
           >Upload Event's Flyer</label
         >
-        <!-- <p-fileUpload
-          formControlName="flyer"
-          mode="basic"
-          chooseLabel="Choose"
-          accept="image/*"
-        ></p-fileUpload> -->
         <input pInputText type="file" (change)="onChangeFyler($event)" />
       </div>
       <div class="field mb-4 col-12 md:col-12">

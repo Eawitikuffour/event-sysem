@@ -11,8 +11,7 @@ import { EventDetails } from '../../modal/eventDetails';
 import { EventService } from '../service/event.service';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { EventState } from '../../../store/event.state';
-import { AddEvents } from 'src/app/store/event.action';
+import { AddEvents } from 'src/app/store/event/event.action';
 
 @Component({
   selector: 'app-addEvent',
@@ -20,9 +19,6 @@ import { AddEvents } from 'src/app/store/event.action';
   styleUrls: ['./addEvent.component.scss'],
 })
 export class AddEventComponent implements OnInit, AfterViewInit {
-  getRawValue() {
-    throw new Error('Method not implemented.');
-  }
   @Input()
   data!: EventDetails;
   eventForm!: FormGroup;

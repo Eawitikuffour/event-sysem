@@ -7,7 +7,7 @@ import { Participant } from 'src/app/dashboard/modal/participant';
   providedIn: 'root',
 })
 export class EventFormService {
-  private getEventURL = `${environment.API_URL_BASE}/event/getEventByName/`;
+  private getEventURL = `${environment.API_URL_BASE}/event/name/`;
   private particpantURl = `${environment.API_URL_BASE}/participant`;
   private participantFieldURL = `${environment.API_URL_BASE}/participantfields`;
 

@@ -4,11 +4,11 @@ import { ResetPasswordComponent } from './resetPassword/resetPassword.component'
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  // {
-  //   path: 'resetpassword',
-  //   component: ResetPasswordComponent,
-  //   pathMatch: 'full',
-  // },
+  {
+    path: 'resetpassword/token/:token',
+    component: ResetPasswordComponent,
+    pathMatch: 'full',
+  },
 ];
 
 export const LoginRoutes = RouterModule.forChild(routes);

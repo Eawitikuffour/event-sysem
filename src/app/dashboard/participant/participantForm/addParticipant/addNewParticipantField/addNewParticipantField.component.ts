@@ -10,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 import { EventService } from 'src/app/dashboard/events/service/event.service';
 import { ParticipantfieldsFormComponent } from '../participantfieldsForm/participantfieldsForm.component';
 import { ParticipantService } from '../../../service/participant.service';
+import { AppAlertService } from 'src/app/common/alerts/service/app-alert.service';
+import { PrimeNgAlerts } from 'src/app/common/alerts/app-config';
 
 @Component({
   selector: 'app-addNewParticipantField',
@@ -33,7 +35,8 @@ export class AddNewParticipantFieldComponent implements OnInit {
     private cdref: ChangeDetectorRef,
     private eventService: EventService,
     private formBuilder: FormBuilder,
-    private participantService: ParticipantService
+    private participantService: ParticipantService,
+    private alert: AppAlertService
   ) {
     this.participantFieldsForm = this.formBuilder.group({
       participantFieldsArray: this.formBuilder.array([]),
@@ -109,13 +112,12 @@ export class AddNewParticipantFieldComponent implements OnInit {
       event_id: Number(this.event_id),
     };
 
-    this.participantService
-      .addParticipantsFields(formData)
-      .subscribe((data: any) => {
-        console.log(data);
-      });
-
-    console.log(formData);
+    this.participantService.addParticipantsFields(formData).subscribe(() => {
+      this.alert.showToast(
+        'fields created successfully',
+        PrimeNgAlerts.SUCCESS
+      );
+    });
 
     const data =
       this.participantFieldsForm.value.participantFieldsArray.forEach(

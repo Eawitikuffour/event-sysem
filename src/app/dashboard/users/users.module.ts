@@ -13,6 +13,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { UserRoutes } from './user.routing';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { UserRoutes } from './user.routing';
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
+    AutoCompleteModule,
   ],
   declarations: [AddUserComponent, EditUserComponent, ShowUsersComponent],
 })
