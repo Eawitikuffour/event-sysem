@@ -46,7 +46,6 @@ export class AddNewParticipantFieldComponent implements OnInit {
   ngOnInit() {
     this.getEventFromServer();
     this.createParticipantForm();
-    this.cdref.detectChanges();
   }
 
   getEventFromServer() {

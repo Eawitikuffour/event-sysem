@@ -19,6 +19,7 @@ import { SharedModule } from './shared/shared.module';
 import { UsersModule } from './dashboard/users/users.module';
 import { EventState } from './store/event/event.state';
 import { UserState } from './store/users/users.state';
+import { ModeratorState } from './store/moderator/moderator.state';
 
 @NgModule({
   declarations: [AppComponent, ConfirmDialogComponent],
@@ -37,7 +38,7 @@ import { UserState } from './store/users/users.state';
     HttpClientModule,
     AlertsModule,
     ConfirmDialogModule,
-    NgxsModule.forRoot([EventState, UserState]),
+    NgxsModule.forRoot([EventState, UserState, ModeratorState]),
   ],
   providers: [
     {

@@ -16,7 +16,7 @@
       </div>
       <div class="field mb-4 col-12 md:col-12">
         <label for="contact" class="font-medium text-900">Select Event</label>
-        <p-autoComplete
+        <!-- <p-autoComplete
           formControlName="event_id"
           [suggestions]="filteredEvent"
           (completeMethod)="filterEvent($event)"
@@ -28,7 +28,14 @@
               <div>{{ allEvents.event_name }}</div>
             </div>
           </ng-template>
-        </p-autoComplete>
+        </p-autoComplete> -->
+
+        <p-multiSelect
+          [options]="allEvents"
+          formControlName="event_id"
+          optionLabel="event_name"
+          [showClear]="true"
+        ></p-multiSelect>
       </div>
 
       <div class="field mb-4 col-12 md:col-6 m-0">
@@ -36,7 +43,6 @@
         <button
           pButton
           pRipple
-          [disabled]="userForm.invalid"
           styleClass="p-button-success"
           label="Create User"
           (click)="submitUserForm()"

@@ -8,6 +8,8 @@ import { LoginRoutes } from './login.routing';
 import { CheckboxModule } from 'primeng/checkbox';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ResetPasswordComponent } from './resetPassword/resetPassword.component';
+import { ForgotPasswordComponent } from './forgotPassword/forgotPassword.component';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   imports: [
@@ -19,7 +21,12 @@ import { ResetPasswordComponent } from './resetPassword/resetPassword.component'
     LoginRoutes,
     CheckboxModule,
     HttpClientModule,
+    CardModule,
   ],
-  declarations: [LoginComponent, ResetPasswordComponent],
+  declarations: [
+    LoginComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent,
+  ],
 })
 export class LoginModule {}

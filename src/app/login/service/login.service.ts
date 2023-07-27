@@ -28,8 +28,9 @@ export class LoginService {
         } else {
           this.loggedInUser = user;
           localStorage.setItem('token', user.access_token);
+          localStorage.setItem('user_id', user.user_id);
 
-          return true;
+          return user;
         }
       })
     );
@@ -48,5 +49,9 @@ export class LoginService {
 
   resetPassword(data: any) {
     return this.http.put(`${this.loginUrl}/reset-password`, data);
+  }
+
+  forgotPassword(email: any) {
+    return this.http.get(`${this.loginUrl}/email/` + email);
   }
 }

@@ -71,14 +71,14 @@
         <label for="country2" class="font-medium text-900"
           >Means of Joining Event</label
         >
-        <p-dropdown
+
+        <p-multiSelect
           [options]="joiningEvent"
           formControlName="how_to_join"
           optionLabel="viewValue"
-          [showClear]="true"
           placeholder="how to join event"
-        >
-        </p-dropdown>
+          [showClear]="true"
+        ></p-multiSelect>
       </div>
 
       <div class="field mb-4 col-12 md:col-12">

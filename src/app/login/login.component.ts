@@ -21,6 +21,7 @@ import { PrimeNgAlerts } from '../common/alerts/app-config';
 export class LoginComponent implements OnInit {
   accessToken: any;
   refreshToken: any;
+  data: any;
   constructor(
     private loginService: LoginService,
     private route: Router, // public dialog: MatDialog, // private alert: AppAlertService
@@ -46,17 +47,17 @@ export class LoginComponent implements OnInit {
         catchError((error: any) => {
           this.loginError = true;
           return error;
-          this.alert.showToast('Invalid login', PrimeNgAlerts.ERROR);
+
           error;
         })
       )
       .subscribe((result: any) => {
+        console.log(result);
         if (result) {
           console.log(result);
           this.alert.showToast('Log in successful', PrimeNgAlerts.UNOBSTRUSIVE);
           this.route.navigate(['/dashboard']);
         }
       });
-    // this.route.navigate(['/dashboard']);
   }
 }

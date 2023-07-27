@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { EventDetails } from '../../modal/eventDetails';
+import { UnassignModerator } from '../../../store/moderator/moderator.action';
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
   private eventURL = `${environment.API_URL_BASE}/event`;
+  private adminURL = `${environment.API_URL_BASE}/admin`;
 
   constructor(private http: HttpClient) {}
 
@@ -28,5 +30,21 @@ export class EventService {
 
   getAllEvents() {
     return this.http.get(`${this.eventURL}/all`);
+  }
+
+  getEventByUser(user_id: any) {
+    return this.http.get(`${this.adminURL}/get_event/` + user_id);
+  }
+
+  getUsersById(event_id: any) {
+    return this.http.get(`${this.eventURL}/event_id/` + event_id);
+  }
+
+  assignModerator(id: any, user_id: any) {
+    return this.http.put(`${this.eventURL}/assign-event`, id, user_id);
+  }
+
+  UnassignModerator(id: any, user_id: any) {
+    return this.http.put(`${this.eventURL}/unassign-event`, id, user_id);
   }
 }

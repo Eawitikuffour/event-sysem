@@ -1,96 +1,108 @@
 <div class="surface-ground px-3 py-2 md:px-3 lg:px-3">
-  <p-toolbar styleClass="mb-4 gap-2">
-    <ng-template pTemplate="left">
-      <button
-        pButton
-        pRipple
-        label="New"
-        icon="pi pi-plus"
-        class="p-button-success mr-2"
-        pTooltip="click to add new event"
-        (click)="addNewEvent()"
-      ></button>
-    </ng-template>
-  </p-toolbar>
+  <div *ngIf="user_id == 1">
+    <p-toolbar styleClass="mb-4 gap-2">
+      <ng-template pTemplate="left">
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button-success mr-2"
+          pTooltip="click to add new event"
+          (click)="addNewEvent()"
+        ></button>
+      </ng-template>
+    </p-toolbar>
 
-  <p-table
-    #dt
-    [value]="events"
-    [rows]="10"
-    [paginator]="true"
-    [scrollable]="true"
-    scrollHeight="400px"
-    responsiveLayout="scroll"
-    [globalFilterFields]="[
-      'name',
-      'country.name',
-      'representative.name',
-      'status'
-    ]"
-    [tableStyle]="{ 'min-width': '75rem' }"
-    [(selection)]="selectedEvent"
-    dataKey="id"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-  >
-    <ng-template pTemplate="caption">
-      <div class="flex align-items-center justify-content-between">
-        <h5 class="m-0">Manage Events</h5>
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input pInputText type="text" placeholder="Search..." />
-        </span>
-      </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-      <tr>
-        <th style="min-width: 200px">Event Name</th>
-        <th style="min-width: 300px">Description</th>
-        <th style="min-width: 200px">Venue</th>
-        <th style="min-width: 200px">Date</th>
-        <th style="min-width: 150px">Expected Number</th>
-        <th style="min-width: 250px">Actions</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-events>
-      <tr>
-        <td>{{ events.event_name }}</td>
-        <td>{{ events.description }}</td>
-        <td>{{ events.venue }}</td>
-        <td>{{ events.start_date }}</td>
-        <td>{{ events.number_of_participants }}</td>
-        <td>
-          <a [routerLink]="['add-participantFields/', events.id]">
+    <p-table
+      #dt
+      [value]="events"
+      [rows]="10"
+      [paginator]="true"
+      [scrollable]="true"
+      scrollHeight="400px"
+      responsiveLayout="scroll"
+      [globalFilterFields]="[
+        'name',
+        'country.name',
+        'representative.name',
+        'status'
+      ]"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [(selection)]="selectedEvent"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+          <h5 class="m-0">Manage Events</h5>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" placeholder="Search..." />
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="min-width: 200px">Event Name</th>
+          <!-- <th style="min-width: 300px">Description</th> -->
+          <th style="min-width: 200px">Venue</th>
+          <th style="min-width: 200px">Date</th>
+          <!-- <th style="min-width: 150px">Expected Number</th> -->
+          <th style="min-width: 250px">Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-events>
+        <tr>
+          <td>{{ events.event_name }}</td>
+          <!-- <td>{{ events.description }}</td> -->
+          <td>{{ events.venue }}</td>
+          <td>{{ events.start_date }}</td>
+          <!-- <td>{{ events.number_of_participants }}</td> -->
+          <td>
+            <!-- <a [routerLink]="['add-participantFields/', events.id]">
+              <button
+                pButton
+                pRipple
+                icon="pi pi-plus"
+                class="p-button-rounded p-button-secondary mr-2"
+                pTooltip="Click to add participant details"
+              ></button>
+            </a> -->
+            <a [routerLink]="['details/', events.id]">
+              <button
+                pButton
+                pRipple
+                icon="pi pi-info"
+                class="p-button-rounded p-button-info mr-2"
+                pTooltip="Click to view details of {{ events.event_name }}"
+              ></button>
+            </a>
             <button
               pButton
               pRipple
-              icon="pi pi-plus"
-              class="p-button-rounded p-button-secondary mr-2"
-              pTooltip="Click to add participant details"
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-success mr-2"
+              pTooltip="Click to edit events"
+              (click)="editEvent(events)"
             ></button>
-          </a>
-          <button
-            pButton
-            pRipple
-            icon="pi pi-pencil"
-            class="p-button-rounded p-button-success mr-2"
-            pTooltip="Click to edit events"
-            (click)="editEvent(events)"
-          ></button>
-          <button
-            pButton
-            pRipple
-            pTooltip="click to delete event"
-            icon="pi pi-trash"
-            class="p-button-rounded p-button-warning"
-            (click)="deleteEvent(events.id)"
-          ></button>
-        </td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="summary">
-      <div class="flex align-items-center justify-content-between">
-        <!-- In total there are {{products ? products.length : 0 }} products. -->
-      </div>
-    </ng-template>
-  </p-table>
+            <button
+              pButton
+              pRipple
+              pTooltip="click to delete event"
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-danger"
+              (click)="deleteEvent(events.id)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+          <!-- In total there are {{products ? products.length : 0 }} products. -->
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+  <app-userEvents *ngIf="user_id != 1"></app-userEvents>
 </div>

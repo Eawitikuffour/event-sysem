@@ -25,7 +25,7 @@ import {
 import { ParticipantService } from '../../dashboard/participant/service/participant.service';
 import { ParticipantFields } from '../../dashboard/participant/participantForm/modal/participantsForm';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { NgOptimizedImage } from '@angular/common';
 import { EventFormService } from '../service/eventForm.service';
 import { PrimeNgAlerts } from 'src/app/common/alerts/app-config';
@@ -47,6 +47,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   showForm = false;
   flyer!: any;
   image: any;
+  subcription!: Subscription;
 
   loading = new BehaviorSubject(false);
 
@@ -59,10 +60,15 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     private messageService: MessageService,
     private eventService: EventFormService
   ) {}
-  ngAfterViewInit(): void {
-    this.cdref.detectChanges();
+  ngAfterViewInit() {
     this.getEventDetails();
+    this.subcription.add(this.getEventParticipantFields());
+
+    this.cdref.detectChanges();
+  }
+  ngOnInit(): void {
     this.getEventParticipantFields();
+    this.getEventDetails();
   }
 
   getEventParticipantFields() {
@@ -102,10 +108,6 @@ export class EventFormComponent implements OnInit, AfterViewInit {
       this.createForm(this.fieldsArray);
       this.loading.next(false);
     }
-  }
-  ngOnInit() {
-    this.getEventParticipantFields();
-    this.getEventDetails();
   }
 
   createForm(controls: ParticipantFields[]) {

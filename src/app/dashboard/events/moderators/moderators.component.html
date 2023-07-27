@@ -1,0 +1,81 @@
+<div class="surface-ground px-3 py-2 md:px-3 lg:px-3">
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        pTooltip="Assign moderator"
+        (click)="addModerator()"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="moderators"
+    [rows]="10"
+    [paginator]="true"
+    [scrollable]="true"
+    scrollHeight="400px"
+    responsiveLayout="scroll"
+    [globalFilterFields]="[
+      'name',
+      'country.name',
+      'representative.name',
+      'status'
+    ]"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedModetator"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0">Manage Users</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" placeholder="Search..." />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 200px">Name</th>
+        <th style="min-width: 300px">Email</th>
+        <th style="min-width: 300px">Contact</th>
+        <th style="min-width: 300px"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.contact }}</td>
+        <td>
+          <!-- <button
+            pButton
+            pRipple
+            icon="pi pi-plus"
+            class="p-button-rounded p-button-success mr-2"
+            pTooltip="Click to edit user details"
+            (click)="addModerator()"
+          ></button> -->
+          <button
+            pButton
+            pRipple
+            pTooltip="Unassign Moderator"
+            icon="pi pi-times"
+            class="p-button-rounded p-button-warning"
+            (click)="unassignModerator()"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between"></div>
+    </ng-template>
+  </p-table>
+</div>

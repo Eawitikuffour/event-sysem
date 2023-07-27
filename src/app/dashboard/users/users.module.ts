@@ -14,6 +14,7 @@ import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { UserRoutes } from './user.routing';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   imports: [
@@ -30,7 +31,9 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     ReactiveFormsModule,
     DropdownModule,
     AutoCompleteModule,
+    MultiSelectModule,
   ],
+  exports: [ShowUsersComponent],
   declarations: [AddUserComponent, EditUserComponent, ShowUsersComponent],
 })
 export class UsersModule {}

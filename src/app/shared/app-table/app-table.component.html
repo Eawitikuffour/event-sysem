@@ -1,0 +1,185 @@
+<ng-container *ngIf="columnsDefinition && data; else loading">
+  <p-paginator
+    [rows]="DEFAULT_PAGE_SIZE"
+    [totalRecords]="totalDataLength"
+    [pageLinkSize]="3"
+    [showCurrentPageReport]="true"
+    (onPageChange)="onPageChange($event)"
+  ></p-paginator>
+  <div class="holder">
+    <p-table
+      #dt
+      [columns]="columnsDefinition"
+      [value]="dataToDisplay"
+      [scrollable]="false"
+      [(selection)]="selectedData"
+      [paginatorPosition]="'top'"
+      [rows]="DEFAULT_PAGE_SIZE"
+      [showCurrentPageReport]="true"
+      [paginator]="false"
+      scrollHeight="500px"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} records"
+      [rowsPerPageOptions]="[]"
+      dataKey="id"
+      [autoLayout]="true"
+      styleClass="p-datatable-responsive-demo p-datatable-gridlines p-datatable-striped"
+    >
+      <ng-template pTemplate="caption" *ngIf="showCaption">
+        <div
+          class="flex align-items-center justify-content-center flex-column md:flex-row"
+        >
+          <div class="md:mr-auto">
+            {{ title }}
+          </div>
+
+          <ng-container *ngIf="searchFunction">
+            <div
+              class="p-text-right p-float-right md:mr-auto"
+              style="color: white"
+            >
+              <input
+                type="text"
+                pInputText
+                [formControl]="searchFormControl"
+                [placeholder]="searchPlaceholder"
+                class="w-full md:w-20rem"
+              />
+            </div>
+          </ng-container>
+
+          <p-button
+            *ngIf="refreshDataFunction"
+            styleClass="p-button-info align-self-end"
+            pTooltip="Refresh Data"
+            tooltipPosition="bottom"
+            icon="pi pi-refresh"
+            (click)="refreshData()"
+          ></p-button>
+        </div>
+        <ng-container *ngIf="batchAction">
+          <ng-template
+            [ngTemplateOutlet]="batchActionTemplate"
+            [ngTemplateOutletContext]="{ $implicit: selectedData }"
+          ></ng-template>
+        </ng-container>
+      </ng-template>
+      <!-- header template -->
+      <ng-template pTemplate="header" let-columns>
+        <!-- custom header template -->
+        <ng-container *ngIf="headerTemplate; else defaultHeader">
+          <ng-container
+            [ngTemplateOutlet]="headerTemplate"
+            [ngTemplateOutletContext]="{ $implicit: columns }"
+          ></ng-container>
+        </ng-container>
+        <!-- default header template -->
+        <ng-template #defaultHeader>
+          <tr>
+            <th class="w-3rem" *ngIf="batchAction">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <ng-container *ngFor="let col of columns">
+              <ng-container *ngIf="col.sortable; else notSortable">
+                <th [pSortableColumn]="col.field">
+                  {{ col.header }} <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+              </ng-container>
+
+              <ng-template #notSortable>
+                <th>
+                  {{ col.header }}
+                </th>
+              </ng-template>
+            </ng-container>
+            <ng-container *ngIf="showAction">
+              <th>Action</th>
+            </ng-container>
+          </tr>
+        </ng-template>
+        <!-- end of default header -->
+      </ng-template>
+      <!-- end of header template -->
+
+      <!-- body-template -->
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [ngStyle]="renderRow(rowData)" [pSelectableRow]="rowData">
+          <td *ngIf="batchAction" class="w-3rem">
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <ng-container *ngIf="bodyTemplate; else defaultBodyTemplate">
+            <ng-container
+              [ngTemplateOutlet]="bodyTemplate"
+              [ngTemplateOutletContext]="{ $implicit: rowData }"
+            ></ng-container>
+          </ng-container>
+          <!-- action template -->
+          <ng-container *ngIf="showAction">
+            <td>
+              <ng-container
+                [ngTemplateOutlet]="actionTemplate"
+                [ngTemplateOutletContext]="{ $implicit: rowData }"
+              ></ng-container>
+            </td>
+          </ng-container>
+          <!-- end action template -->
+        </tr>
+
+        <!-- default body template -->
+        <ng-template #defaultBodyTemplate>
+          <td *ngFor="let col of columns">
+            <ng-container *ngIf="col.template; else normal">
+              <ng-template
+                [ngTemplateOutlet]="col.template"
+                [ngTemplateOutletContext]="{
+                  $implicit: col.subField
+                    ? rowData[col.field]?.[col.subField]
+                    : rowData[col.field]
+                }"
+              ></ng-template>
+            </ng-container>
+
+            <ng-template #normal>
+              <span class="p-column-title">{{ col.header }}</span>
+              {{
+                col.subField
+                  ? rowData[col.field]?.[col.subField]
+                  : rowData[col.field]
+              }}
+            </ng-template>
+          </td>
+        </ng-template>
+        <!-- end of default body template -->
+      </ng-template>
+    </p-table>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="holder">
+    <p-table [value]="[1, 2, 3, 4]">
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let i of [1, 2, 3, 4]">
+            <p-skeleton></p-skeleton>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-index>
+        <tr>
+          <td>
+            <p-skeleton></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton></p-skeleton>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</ng-template>

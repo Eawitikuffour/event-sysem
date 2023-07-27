@@ -8,6 +8,8 @@ import {
 import { UsersService } from '../service/users.service';
 import { EventService } from '../../events/service/event.service';
 import { User } from 'src/app/login/model/user';
+import { AppAlertService } from 'src/app/common/alerts/service/app-alert.service';
+import { PrimeNgAlerts } from 'src/app/common/alerts/app-config';
 
 @Component({
   selector: 'app-addUser',
@@ -18,17 +20,19 @@ export class AddUserComponent implements OnInit {
   @Input()
   data!: User;
   userForm!: FormGroup;
-  filteredEvent: any;
+  // filteredEvent: any;
   allEvents: any[] = [];
   constructor(
     private formBuilder: FormBuilder,
     private userService: UsersService,
-    private eventService: EventService
+    private eventService: EventService,
+    private alert: AppAlertService
   ) {}
 
   ngOnInit() {
     this.initializeForm();
     this.eventsData();
+    console.log(this.allEvents);
   }
 
   initializeForm() {
@@ -36,7 +40,7 @@ export class AddUserComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
       contact: ['', [Validators.minLength(10), Validators.nullValidator]],
-      event_id: ['', Validators.required],
+      event_id: [[], Validators.required],
     });
   }
 
@@ -56,28 +60,14 @@ export class AddUserComponent implements OnInit {
     return this.userForm.value;
   }
 
-  filterEvent(event: any) {
-    let filtered: any[] = [];
-    let query = event.query;
-
-    for (let i = 0; i < this.allEvents.length; i++) {
-      let event = this.allEvents[i];
-
-      if (
-        event.event_name.toLowerCase().indexOf(query.toLowerCase()) == 0 ||
-        event.event_name.toUpperCase().indexOf(query.toUpperCase()) == 0
-      ) {
-        filtered.push(event);
-      }
-    }
-
-    this.filteredEvent = filtered;
-  }
   submitUserForm() {
     const data = this.userForm.value;
-    data.event_id = Number(data.event_id.id);
-    this.userService.addUser(this.userFormValue).subscribe((data: any) => {
-      console.log(data);
+
+    let id;
+    const x = data.event_id.forEach((element: any) => {
+      id = element.id;
     });
+    console.log(id);
+    console.log(data);
   }
 }

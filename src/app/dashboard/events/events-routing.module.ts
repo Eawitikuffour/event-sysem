@@ -5,6 +5,7 @@ import { EditEventComponent } from './editEvent/editEvent.component';
 // import { EventsComponent } from './events.component';
 import { ShowEventsComponent } from './show-events/show-events.component';
 import { AddNewParticipantFieldComponent } from '../participant/participantForm/addParticipant/addNewParticipantField/addNewParticipantField.component';
+import { EventLayoutComponent } from './eventLayout/eventLayout.component';
 
 const routes: Routes = [
   { path: 'add', component: AddEventComponent },
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path: 'show-events/add-participantFields/:event_id',
     component: AddNewParticipantFieldComponent,
+  },
+  {
+    path: 'show-events/details/:event_id',
+    component: EventLayoutComponent,
   },
 ];
 

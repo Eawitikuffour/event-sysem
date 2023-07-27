@@ -4,12 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  UntypedFormControl,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-textArea',
@@ -24,7 +19,7 @@ export class TextAreaComponent implements OnInit {
   placeholder!: string;
 
   @Input()
-  control: FormControl | any = new FormControl();
+  controlName: FormControl | any = new FormControl();
   @Input() form!: FormGroup;
   constructor() {}
 

@@ -37,18 +37,25 @@ export class AddEventComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
+    this.joiningEvent;
+    this.initializeForm();
+  }
+
+  initializeForm() {
     this.eventForm = this.fb.group({
       event_name: ['', [Validators.required, Validators.minLength(5)]],
       venue: ['', [Validators.required, Validators.minLength(5)]],
       date: new FormControl(''),
       number_of_participants: new FormControl(''),
       registration_time: new FormControl(''),
-      how_to_join: new FormControl(''),
+      // how_to_join: new FormControl([]),
+      how_to_join: new FormControl<any[] | null>(null),
       description: new FormControl(''),
       flyer: new FormControl(''),
       program_outline: new FormControl(''),
     });
   }
+
   ngAfterViewInit(): void {
     if (this.data) {
       this.eventForm.patchValue(this.data);
@@ -56,31 +63,7 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // onFileChange(event: any) {
-  //   if (event.target.files.length > 0) {
-  //     const file = event.target.files[0];
-
-  //     this.eventForm.patchValue({
-  //       fileSource: file,
-  //     });
-  //   }
-  // }
-
-  addEvent(event?: any) {
-    // const EventForm = this.eventForm.getRawValue();
-    // const data = {
-    //   event_name: EventForm.event_name,
-    //   venue: EventForm.venue,
-    //   start_date: EventForm.date[0].toString(),
-    //   end_date: EventForm.date[1].toString(),
-    //   number_of_participants: EventForm.number_of_participants.toString(),
-    //   description: EventForm.description,
-    //   registration_time: EventForm.registration_time,
-    //   how_to_join: EventForm.how_to_join.value,
-    //   flyer: EventForm.flyer,
-    //   program_outline: EventForm.program_outline,
-    // };
-
+  addEvent() {
     const data = new FormData();
     data.append('event_name', this.eventForm.value.event_name);
     data.append('venue', this.eventForm.value.venue);
@@ -102,7 +85,7 @@ export class AddEventComponent implements OnInit, AfterViewInit {
       this.program_outline.name
     );
 
-    this.store.dispatch(new AddEvents(data));
+    // this.store.dispatch(new AddEvents(data));
     // this.eventForm.reset();
     console.log(data);
   }

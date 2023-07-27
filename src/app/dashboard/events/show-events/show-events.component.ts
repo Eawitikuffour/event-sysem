@@ -7,7 +7,6 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { AddEventComponent } from '../addEvent/addEvent.component';
-import { ViewParticipantFormComponent } from '../../participant/participantForm/addParticipant/viewParticipantForm/viewParticipantForm.component';
 import { GetEvents, DeleteEvents } from 'src/app/store/event/event.action';
 import { EventState } from 'src/app/store/event/event.state';
 
@@ -18,6 +17,7 @@ import { EventState } from 'src/app/store/event/event.state';
   providers: [DialogService],
 })
 export class ShowEventsComponent implements OnInit, AfterViewInit {
+  user_id: any;
   events: EventDetails[] = [];
   @Select(EventState.selectStateData) events$: Observable<any> | undefined;
 
@@ -25,6 +25,7 @@ export class ShowEventsComponent implements OnInit, AfterViewInit {
   constructor(public dialogService: DialogService, private store: Store) {}
 
   ngOnInit() {
+    this.user_id = localStorage.getItem('user_id');
     this.getEvents();
   }
 
@@ -47,14 +48,14 @@ export class ShowEventsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  viewParticipantForm(id: number) {
-    const ref = this.dialogService.open(ViewParticipantFormComponent, {
-      styleClass:
-        'w-screen md:w-6 h-screen md:h-auto px-4 pb-4 no-dialog-header',
-      header: 'Participant Details',
-      data: id,
-    });
-  }
+  // viewParticipantForm(id: number) {
+  //   const ref = this.dialogService.open(ViewParticipantFormComponent, {
+  //     styleClass:
+  //       'w-screen md:w-6 h-screen md:h-auto px-4 pb-4 no-dialog-header',
+  //     header: 'Participant Details',
+  //     data: id,
+  //   });
+  // }
   editEvent(_event: EventDetails) {
     const ref = this.dialogService.open(EditEventComponent, {
       styleClass:

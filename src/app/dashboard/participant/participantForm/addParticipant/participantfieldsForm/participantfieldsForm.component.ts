@@ -56,9 +56,10 @@ export class ParticipantfieldsFormComponent implements OnInit, AfterViewInit {
   participantFieldsControl() {
     this.participantFieldsForm
       .get('fieldType')
-      ?.valueChanges.pipe(debounceTime(500))
+      ?.valueChanges.pipe(debounceTime(100))
       .subscribe((res: any) => {
         if (res.value == 'dropdown') {
+          console.log(res);
           this.displayDropdownOptions = true;
         } else {
           this.displayDropdownOptions = false;

@@ -17,9 +17,28 @@ import { EditEventComponent } from './editEvent/editEvent.component';
 import { AddEventComponent } from './addEvent/addEvent.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { UserEventsModule } from '../userEvents/userEvents.module';
+import { EventDetailsComponent } from './eventDetails/eventDetails.component';
+import { TabViewModule } from 'primeng/tabview';
+import { EventLayoutComponent } from './eventLayout/eventLayout.component';
+import { ParticipantModule } from '../participant/participant.module';
+import { ModeratorsComponent } from './moderators/moderators.component';
+import { UsersModule } from '../users/users.module';
+import { AddModeratorComponent } from './addModerator/addModerator.component';
 
+import { AutoCompleteModule } from 'primeng/autocomplete';
 @NgModule({
-  declarations: [ShowEventsComponent, EditEventComponent, AddEventComponent],
+  declarations: [
+    ShowEventsComponent,
+    EditEventComponent,
+    AddEventComponent,
+    EventDetailsComponent,
+    EventLayoutComponent,
+    ModeratorsComponent,
+    AddModeratorComponent,
+  ],
+
   exports: [AddEventComponent],
   imports: [
     CommonModule,
@@ -37,6 +56,12 @@ import { DropdownModule } from 'primeng/dropdown';
     CalendarModule,
     TooltipModule,
     FileUploadModule,
+    MultiSelectModule,
+    UserEventsModule,
+    TabViewModule,
+    ParticipantModule,
+    UsersModule,
+    AutoCompleteModule,
   ],
 })
 export class EventsModule {}
