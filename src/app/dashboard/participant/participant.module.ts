@@ -19,6 +19,7 @@ import { ValidatorsComponent } from './participantForm/validators/validators.com
 import { ChipsModule } from 'primeng/chips';
 import { AddNewParticipantFieldComponent } from './participantForm/addParticipant/addNewParticipantField/addNewParticipantField.component';
 import { ParticipantfieldsFormComponent } from './participantForm/addParticipant/participantfieldsForm/participantfieldsForm.component';
+import { AppTableModule } from 'src/app/shared/app-table/app-table.module';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ParticipantfieldsFormComponent } from './participantForm/addParticipant
     ToolbarModule,
     TooltipModule,
     SharedModule,
+    AppTableModule,
     CardModule,
     CheckboxModule,
     ChipsModule,

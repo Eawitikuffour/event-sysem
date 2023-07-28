@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ParticipantService } from '../participant/service/participant.service';
 
-
 // export interface Attendance {
 //   name: string;
 //   gender: string;
@@ -20,8 +19,6 @@ export class AttendanceComponent implements OnInit {
   selectedAttendance: any;
   constructor(private participantService: ParticipantService) {}
   ngOnInit() {
-    this.participantService.getAllParticpant().subscribe((data: any) => {
-      // this.attendance = data;
-    });
+    this.participantService.getAllParticpant().subscribe((data: any) => {});
   }
 }

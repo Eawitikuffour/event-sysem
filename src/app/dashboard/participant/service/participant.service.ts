@@ -19,6 +19,10 @@ export class ParticipantService {
     return this.http.get(`${this.participantURL}/all`);
   }
 
+  getEventRegisteredParticipant(event_id: number) {
+    return this.http.get(`${this.participantURL}/get/` + event_id);
+  }
+
   // searchParticipant(search: any) {
   //   return this.http.get(this.searchParticpantsURL + search);
   // }

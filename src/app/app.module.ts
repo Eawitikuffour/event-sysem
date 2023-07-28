@@ -20,6 +20,7 @@ import { UsersModule } from './dashboard/users/users.module';
 import { EventState } from './store/event/event.state';
 import { UserState } from './store/users/users.state';
 import { ModeratorState } from './store/moderator/moderator.state';
+import { ParticipantState } from './store/participant/participant.state';
 
 @NgModule({
   declarations: [AppComponent, ConfirmDialogComponent],
@@ -38,7 +39,12 @@ import { ModeratorState } from './store/moderator/moderator.state';
     HttpClientModule,
     AlertsModule,
     ConfirmDialogModule,
-    NgxsModule.forRoot([EventState, UserState, ModeratorState]),
+    NgxsModule.forRoot([
+      EventState,
+      UserState,
+      ModeratorState,
+      ParticipantState,
+    ]),
   ],
   providers: [
     {

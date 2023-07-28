@@ -11,6 +11,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { AppTableModule } from './app-table/app-table.module';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     FormsModule,
     InputNumberModule,
     CalendarModule,
+    AppTableModule,
   ],
   exports: [
     DateComponent,

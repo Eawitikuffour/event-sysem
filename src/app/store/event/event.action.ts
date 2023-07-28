@@ -1,5 +1,3 @@
-import { EventDetails } from '../../dashboard/modal/eventDetails';
-
 //Read
 export class GetEvents {
   static readonly type = '[EventDetails] Fetch';

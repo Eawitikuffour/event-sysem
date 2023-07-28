@@ -59,8 +59,8 @@ export class AppTableComponent implements OnInit, AfterViewInit {
   totalDataLength = 0;
 
   @Input()
-  searchFunction: (toSearch: string) => Observable<any[]> = query => {
-    const filtered = this.data?.filter(d => {
+  searchFunction: (toSearch: string) => Observable<any[]> = (query) => {
+    const filtered = this.data?.filter((d) => {
       return (
         d.name?.toLowerCase().includes(query) ||
         d.title?.toLowerCase().includes(query)
@@ -96,27 +96,27 @@ export class AppTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getPaginatedData();
-    if (this.searchFunction) {
-      this.dataToDisplay;
-      this.searchFormControl.valueChanges
-        .pipe(
-          debounceTime(300),
-          // distinctUntilChanged(),
-          tap((_: string) => {
-            if (_ === '') {
-              this.getPaginatedData();
-            }
-          }),
-          filter(d => d.trim() !== ''),
-          switchMap(search => {
-            return this.searchFunction(search.toLocaleLowerCase());
-          })
-        )
-        .subscribe(d => {
-          this.dataToDisplay = [...d];
-          this.cdref.detectChanges();
-        });
-    }
+    // if (this.searchFunction) {
+    //   this.dataToDisplay;
+    //   this.searchFormControl.valueChanges
+    //     .pipe(
+    //       debounceTime(300),
+
+    //       tap((_: string) => {
+    //         if (_ === '') {
+    //           this.getPaginatedData();
+    //         }
+    //       }),
+    //       filter(d => d.trim() !== ''),
+    //       switchMap(search => {
+    //         return this.searchFunction(search.toLocaleLowerCase());
+    //       })
+    //     )
+    //     .subscribe(d => {
+    //       this.dataToDisplay = [...d];
+    //       this.cdref.detectChanges();
+    //     });
+    // }
   }
 
   getPaginatedData() {
