@@ -42,7 +42,7 @@ export class RegisteredListComponent implements OnInit, AfterViewInit {
     this.participantService.getAllParticpant().subscribe((data: any) => {
       this.events = data;
     });
-    this.getParticipants();
+    // this.getParticipants();
   }
 
   ngAfterViewInit(): void {
@@ -54,30 +54,27 @@ export class RegisteredListComponent implements OnInit, AfterViewInit {
     this.store.dispatch(new GetParticipants(this.event_id));
     this.participant$?.subscribe((data: any) => {
       this.participant = data;
-      console.log('participant', this.participant);
       const firstElement = this.participant[0];
-      console.log('firstElement', firstElement);
-      for (const [key, value] of Object.entries(firstElement.form_values)) {
-        // console.log(`${key}: ${value}`);
+      const columns = [];
 
+      for (const [key, value] of Object.entries(firstElement.form_values)) {
         const data = {
           header: key,
           field: key,
         };
-        this.columns.push(data);
+        columns.push(data);
       }
-      console.log('columns', this.columns);
+      this.columns = columns;
     });
-
-    // for (let col of data) {
-    //   const data = {
-    //     header: col.form_value
-    //   }
-
-    //   this.columns.push(col.form_values);
-    // }
-    console.log(this.participant);
   }
+  get tableDataFromParticipant() {
+    const data = this.participant;
+    const emptyArr: any = [];
 
+    data.forEach((x: any) => {
+      emptyArr.push({ ...x.form_values });
+    });
+    return emptyArr;
+  }
   filterEvents() {}
 }

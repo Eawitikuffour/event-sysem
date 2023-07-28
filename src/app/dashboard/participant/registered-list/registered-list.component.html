@@ -13,6 +13,9 @@
       </ng-template>
     </p-toolbar>
 
-    <app-table [data]="participant" [columnsDefinition]="columns"></app-table>
+    <app-table
+      [data]="tableDataFromParticipant"
+      [columnsDefinition]="columns"
+    ></app-table>
   </div>
 </div>
