@@ -5,7 +5,7 @@ import { EventsRoutingModule } from './events-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -28,6 +28,7 @@ import { UsersModule } from '../users/users.module';
 import { AddModeratorComponent } from './addModerator/addModerator.component';
 
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { RegistrationFormComponent } from './registration-form/registration-form.component';
 @NgModule({
   declarations: [
     ShowEventsComponent,
@@ -37,6 +38,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     EventLayoutComponent,
     ModeratorsComponent,
     AddModeratorComponent,
+    RegistrationFormComponent,
   ],
 
   exports: [AddEventComponent],
@@ -63,5 +65,6 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     UsersModule,
     AutoCompleteModule,
   ],
+  providers: [DialogService],
 })
 export class EventsModule {}

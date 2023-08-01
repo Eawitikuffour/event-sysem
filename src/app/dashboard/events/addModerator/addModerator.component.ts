@@ -4,6 +4,8 @@ import { filter } from 'rxjs/operators';
 import { UsersService } from '../../users/service/users.service';
 import { Store } from '@ngxs/store';
 import { AssignModerator } from 'src/app/store/moderator/moderator.action';
+import { ActivatedRoute } from '@angular/router';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-addModerator',
@@ -15,15 +17,21 @@ export class AddModeratorComponent implements OnInit, AfterViewInit {
   filteredModerator: any[] = [];
   user_id: any;
   id: any;
-  constructor(private userService: UsersService, private store: Store) {}
+  constructor(
+    private userService: UsersService,
+    private store: Store,
+    private route: ActivatedRoute,
+    private config: DynamicDialogConfig
+  ) {}
 
   ngOnInit() {
     this.user_id = new FormControl('');
+    this.id = this.config.data;
+    console.log(this.id);
   }
 
   ngAfterViewInit(): void {
     this.getAllUsers();
-    this.id = localStorage.getItem('id');
   }
 
   filterModerator(event: any) {
@@ -57,7 +65,11 @@ export class AddModeratorComponent implements OnInit, AfterViewInit {
   }
 
   submit() {
-    const user_id = this.user_id.value;
-    this.store.dispatch(new AssignModerator(user_id, this.id, 0));
+    const user_id = this.user_id.value.id;
+    const data = {
+      id: this.id,
+      user_id: user_id,
+    };
+    this.store.dispatch(new AssignModerator(data, this.id, 0));
   }
 }

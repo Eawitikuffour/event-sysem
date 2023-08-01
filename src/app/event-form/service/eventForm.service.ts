@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Participant } from 'src/app/dashboard/modal/participant';
+import { GetParticipants } from '../../store/participant/participant.action';
 
 @Injectable({
   providedIn: 'root',
@@ -25,5 +26,9 @@ export class EventFormService {
     return this.http.get(
       `${this.participantFieldURL}/event_name/` + event_name
     );
+  }
+
+  GetParticipantFieldByID(event_id: number) {
+    return this.http.get(`${this.participantFieldURL}/id/` + event_id);
   }
 }

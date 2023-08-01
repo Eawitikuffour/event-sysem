@@ -10,6 +10,7 @@ import {
 import { EventService } from '../service/event.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddModeratorComponent } from '../addModerator/addModerator.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-moderators',
@@ -29,18 +30,18 @@ export class ModeratorsComponent implements OnInit, AfterViewInit {
   constructor(
     private store: Store,
     private eventService: EventService,
-    public dialogService: DialogService
+    public dialogService: DialogService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.user_id = localStorage.getItem('user_id');
-    this.event_id = localStorage.getItem('id');
+    this.event_id = this.route.snapshot.params['event_id'];
 
     this.getModerator();
   }
 
   ngAfterViewInit(): void {
-    this.event_id = localStorage.getItem('id');
     this.getModerator();
   }
 
@@ -57,7 +58,11 @@ export class ModeratorsComponent implements OnInit, AfterViewInit {
   }
 
   unassignModerator() {
-    this.store.dispatch(new UnassignModerator(this.event_id, this.user_id, 0));
+    const data = {
+      id: this.event_id,
+      user_id: this.user_id,
+    };
+    this.store.dispatch(new UnassignModerator(data, this.event_id, 0));
   }
 
   addModerator() {
@@ -65,6 +70,7 @@ export class ModeratorsComponent implements OnInit, AfterViewInit {
       styleClass:
         'w-screen md:w-6 h-screen md:h-auto px-4 pb-4 no-dialog-header',
       header: 'Assign Moderator',
+      data: this.event_id,
     });
   }
 }

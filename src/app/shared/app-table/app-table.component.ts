@@ -27,7 +27,7 @@ export class AppTableComponent implements OnInit, AfterViewInit {
   dataToDisplay: any[] = [];
 
   @Input()
-  title: string = 'List of items';
+  title: string = 'List of registered participants';
 
   @Input()
   batchAction = false;

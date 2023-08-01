@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../service/event.service';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-eventLayout',
   templateUrl: './eventLayout.component.html',
   styleUrls: ['./eventLayout.component.scss'],
+  // providers: [DialogService],
 })
 export class EventLayoutComponent implements OnInit, AfterViewInit {
   event_id!: any;
@@ -19,12 +21,11 @@ export class EventLayoutComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getEventFromServer();
-    this.id = localStorage.setItem('id', this.event_id);
+    this.event_id = this.route.snapshot.params['event_id'];
+    console.log(this.event_id);
   }
 
-  ngAfterViewInit(): void {
-    this.id = localStorage.setItem('id', this.event_id);
-  }
+  ngAfterViewInit(): void {}
 
   getEventFromServer() {
     this.route.params.subscribe((params) => {

@@ -1,4 +1,9 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { EventService } from '../../events/service/event.service';
 import { Attendance, EventDetails } from '../../modal/eventDetails';
 import { ParticipantService } from '../service/participant.service';
@@ -7,6 +12,7 @@ import { Select, Store } from '@ngxs/store';
 import { GetParticipants } from 'src/app/store/participant/participant.action';
 import { Observable } from 'rxjs';
 import { ParticipantState } from 'src/app/store/participant/participant.state';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-registered-list',
@@ -31,50 +37,56 @@ export class RegisteredListComponent implements OnInit, AfterViewInit {
   constructor(
     private participantService: ParticipantService,
     private eventService: EventService,
-    private store: Store
+    private store: Store,
+    private route: ActivatedRoute,
+    private cdref: ChangeDetectorRef
   ) {}
   ngOnInit() {
     this.user_id = localStorage.getItem('user_id');
-    this.event_id = localStorage.getItem('id');
+    this.event_id = this.route.snapshot.params['event_id'];
     this.eventService.getAllEvents().subscribe((data: any) => {
       this.events = data;
     });
     this.participantService.getAllParticpant().subscribe((data: any) => {
       this.events = data;
     });
-    // this.getParticipants();
+    this.getParticipants();
+    this.cdref.detectChanges();
   }
 
   ngAfterViewInit(): void {
-    this.event_id = localStorage.getItem('id');
+    this.event_id = this.route.snapshot.params['event_id'];
     this.getParticipants();
+    this.cdref.detectChanges();
   }
 
   getParticipants() {
     this.store.dispatch(new GetParticipants(this.event_id));
     this.participant$?.subscribe((data: any) => {
       this.participant = data;
-      const firstElement = this.participant[0];
-      const columns = [];
+      console.log('data', data);
 
-      for (const [key, value] of Object.entries(firstElement.form_values)) {
+      const firstElement = this.participant[0];
+      const tableColumns = [];
+
+      for (const [key] of Object.entries(firstElement.form_values)) {
         const data = {
           header: key,
           field: key,
         };
-        columns.push(data);
+        tableColumns.push(data);
       }
-      this.columns = columns;
+      this.columns = tableColumns;
     });
   }
   get tableDataFromParticipant() {
-    const data = this.participant;
-    const emptyArr: any = [];
+    let values = this.participant;
+    const emptyArray: any = [];
 
-    data.forEach((x: any) => {
-      emptyArr.push({ ...x.form_values });
+    values.forEach((element: any) => {
+      emptyArray.push({ ...element.form_values });
     });
-    return emptyArr;
+    return emptyArray;
   }
   filterEvents() {}
 }

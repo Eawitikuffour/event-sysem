@@ -43,14 +43,10 @@ export class ModeratorState {
     return this.eventService.getUsersById(event_id).pipe(
       tap((returnData) => {
         const state = ctx.getState();
-        // const filteredArray = state.moderators.filter(
-        //   (contents: any) => contents.id !== event_id
-        // );
 
         ctx.setState({
           ...state,
           moderators: returnData,
-          // moderators: filteredArray,
         });
       })
     );

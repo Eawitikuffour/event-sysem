@@ -60,10 +60,15 @@ export class ParticipantfieldsFormComponent implements OnInit, AfterViewInit {
       .subscribe((res: any) => {
         if (res.value == 'dropdown') {
           console.log(res);
+          this.participantFieldsForm
+            .get('options')
+            ?.addValidators(Validators.required);
+
           this.displayDropdownOptions = true;
         } else {
           this.displayDropdownOptions = false;
         }
+        this.cdref.detectChanges();
       });
   }
 

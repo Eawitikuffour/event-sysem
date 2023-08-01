@@ -12,6 +12,7 @@ import { EventService } from '../service/event.service';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AddEvents } from 'src/app/store/event/event.action';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-addEvent',
@@ -28,17 +29,22 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     { value: 'Onsite', viewValue: 'Onsite' },
     { value: 'Virtual means', viewValue: 'Virtual means' },
   ];
+  event_id: any;
 
   constructor(
     private fb: FormBuilder,
     private eventService: EventService,
     private alert: AppAlertService,
-    private store: Store
+    private store: Store,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.joiningEvent;
     this.initializeForm();
+
+    this.event_id = this.route.snapshot.params['event_id'];
+    this.getEventDetails();
   }
 
   initializeForm() {
@@ -56,11 +62,17 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    if (this.data) {
-      this.eventForm.patchValue(this.data);
-      this.eventForm.updateValueAndValidity;
-    }
+  ngAfterViewInit(): void {}
+
+  getEventDetails() {
+    this.eventService.getEvent(this.event_id).subscribe((res: any) => {
+      this.data = res;
+      if (this.data) {
+        console.log('data exits', this.data);
+        this.eventForm.patchValue(this.data);
+        this.eventForm.updateValueAndValidity;
+      }
+    });
   }
 
   addEvent() {
@@ -85,9 +97,8 @@ export class AddEventComponent implements OnInit, AfterViewInit {
       this.program_outline.name
     );
 
-    // this.store.dispatch(new AddEvents(data));
+    this.store.dispatch(new AddEvents(data));
     // this.eventForm.reset();
-    console.log(data);
   }
 
   onChangeFyler(event: any) {

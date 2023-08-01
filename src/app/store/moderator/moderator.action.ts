@@ -5,10 +5,10 @@ export class GetModerators {
 
 export class AssignModerator {
   static readonly type = '[] Update';
-  constructor(public id: number, public user_id: number, public i: number) {}
+  constructor(public id: any, public user_id: number, public i: number) {}
 }
 
 export class UnassignModerator {
   static readonly type = '[] Add';
-  constructor(public id: number, public user_id: number, public i: number) {}
+  constructor(public id: any, public user_id: number, public i: number) {}
 }

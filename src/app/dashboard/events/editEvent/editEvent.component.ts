@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { AddEventComponent } from '../addEvent/addEvent.component';
 import { Store } from '@ngxs/store';
 import { UpdateEvents } from 'src/app/store/event/event.action';
@@ -8,6 +8,7 @@ import { UpdateEvents } from 'src/app/store/event/event.action';
   selector: 'app-editEvent',
   templateUrl: './editEvent.component.html',
   styleUrls: ['./editEvent.component.scss'],
+  // providers: [DialogService],
 })
 export class EditEventComponent implements OnInit {
   @ViewChild('eventForm')
@@ -18,7 +19,7 @@ export class EditEventComponent implements OnInit {
 
   ngOnInit() {
     this.data = this.config.data;
-    console.log(this.data);
+    console.log('event details', this.data);
   }
 
   editEvent() {

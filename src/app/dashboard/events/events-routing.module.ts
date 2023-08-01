@@ -11,13 +11,21 @@ const routes: Routes = [
   { path: 'add', component: AddEventComponent },
   { path: 'edit', component: EditEventComponent },
   { path: 'show-events', component: ShowEventsComponent },
-  {
-    path: 'show-events/add-participantFields/:event_id',
-    component: AddNewParticipantFieldComponent,
-  },
+
   {
     path: 'show-events/details/:event_id',
     component: EventLayoutComponent,
+  },
+  {
+    path: 'show-events/details/event_id/participant',
+    loadChildren: () =>
+      import('../participant/participant.module').then(
+        (m) => m.ParticipantModule
+      ),
+  },
+  {
+    path: 'show-events/details/:event_id/add-participantFields/:event_id',
+    component: AddNewParticipantFieldComponent,
   },
 ];
 

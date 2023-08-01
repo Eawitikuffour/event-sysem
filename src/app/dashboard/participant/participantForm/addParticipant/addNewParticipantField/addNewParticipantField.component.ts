@@ -12,6 +12,9 @@ import { ParticipantfieldsFormComponent } from '../participantfieldsForm/partici
 import { ParticipantService } from '../../../service/participant.service';
 import { AppAlertService } from 'src/app/common/alerts/service/app-alert.service';
 import { PrimeNgAlerts } from 'src/app/common/alerts/app-config';
+import { GetParticipants } from '../../../../../store/participant/participant.action';
+import { EventFormService } from 'src/app/event-form/service/eventForm.service';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-addNewParticipantField',
@@ -29,6 +32,8 @@ export class AddNewParticipantFieldComponent implements OnInit {
   dropdownValue!: string;
   fieldType: any;
   showForm = false;
+  participantFieldsData: any[] = [];
+  fields: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +41,8 @@ export class AddNewParticipantFieldComponent implements OnInit {
     private eventService: EventService,
     private formBuilder: FormBuilder,
     private participantService: ParticipantService,
-    private alert: AppAlertService
+    private alert: AppAlertService,
+    private eventFormService: EventFormService
   ) {
     this.participantFieldsForm = this.formBuilder.group({
       participantFieldsArray: this.formBuilder.array([]),
@@ -46,6 +52,10 @@ export class AddNewParticipantFieldComponent implements OnInit {
   ngOnInit() {
     this.getEventFromServer();
     this.createParticipantForm();
+    this.getEventFromServer();
+    this.getParticipantFieldsData();
+    this.event_id = this.route.snapshot.params['event_id'];
+    console.log('event id is', this.event_id);
   }
 
   getEventFromServer() {
@@ -59,6 +69,29 @@ export class AddNewParticipantFieldComponent implements OnInit {
           console.log(data);
         });
       }
+    });
+  }
+
+  getParticipantFieldsData() {
+    this.addNewField();
+    this.eventFormService
+      .GetParticipantFieldByID(this.event_id)
+      .subscribe((data: any) => {
+        this.fields = data.fields[0];
+        this.participantFieldsData = Object.values(this.fields);
+        this.initializeForm();
+      });
+  }
+
+  initializeForm() {
+    this.participantFieldsData.forEach((data, index) => {
+      console.log('fields', data);
+      if (index > 0 && this.participantFieldsData.length > 1) {
+        this.addNewField();
+      }
+      (this.participantFieldsForm.get('participantFieldsArray') as FormArray)
+        .at(index)
+        .setValue(data);
     });
   }
 
@@ -108,6 +141,7 @@ export class AddNewParticipantFieldComponent implements OnInit {
 
     const formData = {
       fields: values,
+      user_id: Number(localStorage.getItem('user_id')),
       event_id: Number(this.event_id),
     };
 

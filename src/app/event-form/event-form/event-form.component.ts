@@ -155,7 +155,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
   submitForm() {
     const data = {
-      event_id: 13,
+      event_id: this.event_id,
       form_values: this.participantForm.value,
     };
     this.eventService.addParticipant(data).subscribe((res: any) => {

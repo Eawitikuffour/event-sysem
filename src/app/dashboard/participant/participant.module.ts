@@ -28,7 +28,7 @@ import { AppTableModule } from 'src/app/shared/app-table/app-table.module';
     AddNewParticipantFieldComponent,
     ParticipantfieldsFormComponent,
   ],
-  exports: [RegisteredListComponent],
+  exports: [RegisteredListComponent, AddNewParticipantFieldComponent],
   imports: [
     CommonModule,
     ParticipantRoutingModule,
