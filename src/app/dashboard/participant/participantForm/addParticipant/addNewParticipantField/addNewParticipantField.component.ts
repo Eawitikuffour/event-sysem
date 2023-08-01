@@ -5,7 +5,7 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from 'src/app/dashboard/events/service/event.service';
 import { ParticipantfieldsFormComponent } from '../participantfieldsForm/participantfieldsForm.component';
@@ -51,11 +51,9 @@ export class AddNewParticipantFieldComponent implements OnInit {
 
   ngOnInit() {
     this.getEventFromServer();
-    this.createParticipantForm();
-    this.getEventFromServer();
     this.getParticipantFieldsData();
     this.event_id = this.route.snapshot.params['event_id'];
-    console.log('event id is', this.event_id);
+    //console.log('event id is', this.event_id);
   }
 
   getEventFromServer() {
@@ -66,14 +64,14 @@ export class AddNewParticipantFieldComponent implements OnInit {
           if (data) {
             this.showForm = true;
           }
-          console.log(data);
+          //console.log(data);
         });
       }
     });
   }
 
   getParticipantFieldsData() {
-    this.addNewField();
+    // this.addNewField();
     this.eventFormService
       .GetParticipantFieldByID(this.event_id)
       .subscribe((data: any) => {
@@ -85,13 +83,11 @@ export class AddNewParticipantFieldComponent implements OnInit {
 
   initializeForm() {
     this.participantFieldsData.forEach((data, index) => {
-      console.log('fields', data);
-      if (index > 0 && this.participantFieldsData.length > 1) {
-        this.addNewField();
-      }
-      (this.participantFieldsForm.get('participantFieldsArray') as FormArray)
-        .at(index)
-        .setValue(data);
+      //console.log('fields', data);
+      // if (index > 0 && this.participantFieldsData.length > 1) {
+      //   this.addNewField();
+      // }
+      this.participantFields.push(this.formBuilder.control({}));
     });
   }
 
@@ -155,7 +151,7 @@ export class AddNewParticipantFieldComponent implements OnInit {
     const data =
       this.participantFieldsForm.value.participantFieldsArray.forEach(
         (element: any) => {
-          console.log(element.fieldType.value);
+          //console.log(element.fieldType.value);
         }
       );
   }

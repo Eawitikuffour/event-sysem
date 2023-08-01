@@ -31,6 +31,7 @@
         <p-calendar
           formControlName="date"
           selectionMode="range"
+          (onSelect)="($event)"
           id="invoice_date"
           [showIcon]="true"
         ></p-calendar>

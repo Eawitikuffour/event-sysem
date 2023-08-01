@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Input,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -24,7 +25,10 @@ import { debounceTime } from 'rxjs';
 export class ParticipantfieldsFormComponent implements OnInit, AfterViewInit {
   @ViewChild('validatorsForm') validatorForm!: ValidatorsComponent;
 
+  @Input('data') data: any = undefined;
+
   participantFieldsForm!: FormGroup;
+
   displayDropdownOptions = false;
   textFieldType: any[] = [
     { value: 'textField', viewValue: 'Text Field' },
@@ -40,8 +44,18 @@ export class ParticipantfieldsFormComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.createParticipantFieldForm();
   }
+
   ngAfterViewInit(): void {
     this.participantFieldsControl();
+    if (this.data) {
+      this.participantFieldsForm.patchValue({
+        ...this.data,
+        fieldType: {
+          viewValue: 'Selected Value',
+          value: this.data.fieldType,
+        },
+      });
+    }
     this.cdref.detectChanges;
   }
 

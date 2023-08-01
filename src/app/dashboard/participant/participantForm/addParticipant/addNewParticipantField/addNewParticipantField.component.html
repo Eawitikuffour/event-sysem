@@ -22,7 +22,10 @@
           *ngFor="let fieldsForm of participantFields.controls; let i = index"
           class="col-12 md:col-6 xl:col-4 p-card p-4"
         >
-          <app-participantfieldsForm #pf></app-participantfieldsForm>
+          <app-participantfieldsForm
+            [data]="participantFieldsData[i]"
+            #pf
+          ></app-participantfieldsForm>
           <div>
             <p-button
               icon="pi pi-trash"

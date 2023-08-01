@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -17,9 +18,14 @@ import { ParticipantFields } from '../modal/participantsForm';
 export class ValidatorsComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
 
+  @Input() data: any;
+
   participantForm!: ParticipantFields;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private cdref: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.intitializeForm();
@@ -28,6 +34,10 @@ export class ValidatorsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.intitializeForm();
+    if (this.data) {
+      this.form.patchValue(this.data);
+      this.cdref.detectChanges();
+    }
   }
 
   intitializeForm() {

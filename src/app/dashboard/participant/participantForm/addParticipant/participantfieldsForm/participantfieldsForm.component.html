@@ -16,6 +16,7 @@
       placeholder="Select Field Type"
       optionLabel="viewValue"
       [showClear]="true"
+      dataKey="value"
     >
     </p-dropdown>
   </div>
@@ -30,6 +31,6 @@
   <div></div>
   <div class="field mb-4 col-12">
     <label>Validators</label>
-    <app-validators #validatorsForm></app-validators>
+    <app-validators #validatorsForm [data]="data?.validators"></app-validators>
   </div>
 </div>

@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -30,6 +37,9 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     { value: 'Virtual means', viewValue: 'Virtual means' },
   ];
   event_id: any;
+
+  @Output()
+  selectedEvent = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -69,7 +79,13 @@ export class AddEventComponent implements OnInit, AfterViewInit {
       this.data = res;
       if (this.data) {
         console.log('data exits', this.data);
-        this.eventForm.patchValue(this.data);
+        this.eventForm.patchValue({
+          ...this.data,
+          date: [
+            new Date(Date.parse(res.start_date)),
+            new Date(Date.parse(res.end_date)),
+          ],
+        });
         this.eventForm.updateValueAndValidity;
       }
     });
@@ -110,5 +126,8 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     // if (event.target.files.length > 0) {
     this.program_outline = event?.target.files[0];
     // }
+  }
+  selected(event: any) {
+    this.selectedEvent.next(event);
   }
 }

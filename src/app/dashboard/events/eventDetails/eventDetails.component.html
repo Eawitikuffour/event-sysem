@@ -1,17 +1,24 @@
 <app-addEvent [data]="data" #eventForm></app-addEvent>
-<div>
-  <button
-    pButton
-    pRipple
-    label="Edit Event"
-    icon="pi pi-edit"
-    class="w-auto"
-  ></button>
-  <!-- <button
-    pButton
-    pRipple
-    pTooltip="click to delete event"
-    icon="pi pi-trash"
-    class="p-button-rounded p-button-danger"
-  ></button> -->
+<div class="flex align-content-end justify-content-end">
+  <div class="flex align-content-end m-2">
+    <button
+      pButton
+      pRipple
+      label="Edit Event"
+      icon="pi pi-pencil"
+      pTooltip="click to update event"
+      class="w-auto"
+      (click)="editEvent()"
+    ></button>
+  </div>
+  <div class="flex align-content-end m-2">
+    <button
+      pButton
+      pRipple
+      pTooltip="click to deactivate event"
+      icon="pi pi-trash"
+      class="p-button-rounded p-button-danger"
+      (click)="deactivateEvent()"
+    ></button>
+  </div>
 </div>

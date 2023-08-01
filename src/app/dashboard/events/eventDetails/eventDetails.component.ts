@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../service/event.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddEventComponent } from '../addEvent/addEvent.component';
+import { Store } from '@ngxs/store';
+import { DeleteEvents, UpdateEvents } from 'src/app/store/event/event.action';
 
 @Component({
   selector: 'app-eventDetails',
@@ -18,7 +20,8 @@ export class EventDetailsComponent implements OnInit {
   data: any;
   constructor(
     private route: ActivatedRoute,
-    private eventService: EventService
+    private eventService: EventService,
+    private store: Store
   ) {}
 
   ngOnInit() {
@@ -34,7 +37,6 @@ export class EventDetailsComponent implements OnInit {
           if (data) {
             this.showForm = true;
           }
-          console.log(data);
         });
       }
       this.getEventDetails();
@@ -44,7 +46,25 @@ export class EventDetailsComponent implements OnInit {
   getEventDetails() {
     this.eventService.getEvent(this.event_id).subscribe((res: any) => {
       this.data = res;
-      console.log('event details from server', this.data);
     });
+  }
+
+  editEvent() {
+    const EventForm = this.eventForm.eventForm.getRawValue();
+    const data = {
+      id: this.data.id,
+      event_name: EventForm.event_name,
+      venue: EventForm.venue,
+      start_date: EventForm.date[0],
+      end_date: EventForm.date[1],
+      number_of_participants: EventForm.number_of_participants,
+      description: EventForm.description,
+    };
+
+    this.store.dispatch(new UpdateEvents(data, this.data.id, 0));
+  }
+
+  deactivateEvent() {
+    this.store.dispatch(new DeleteEvents(this.event_id));
   }
 }
