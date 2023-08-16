@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ShowUsersComponent } from '../../users/showUsers/showUsers.component';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -31,7 +37,8 @@ export class ModeratorsComponent implements OnInit, AfterViewInit {
     private store: Store,
     private eventService: EventService,
     public dialogService: DialogService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdref: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -43,13 +50,13 @@ export class ModeratorsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.getModerator();
+    this.cdref.detectChanges();
   }
 
   getModerator() {
     this.store.dispatch(new GetModerators(this.event_id));
     this.moderators$?.subscribe((data: any) => {
       this.moderators = data;
-      console.log(this.moderators);
     });
   }
 
@@ -63,6 +70,7 @@ export class ModeratorsComponent implements OnInit, AfterViewInit {
       user_id: this.user_id,
     };
     this.store.dispatch(new UnassignModerator(data, this.event_id, 0));
+    this.cdref.detectChanges();
   }
 
   addModerator() {

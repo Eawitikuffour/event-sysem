@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -20,6 +21,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AddEvents } from 'src/app/store/event/event.action';
 import { ActivatedRoute } from '@angular/router';
+import { UsersService } from '../../users/service/users.service';
 
 @Component({
   selector: 'app-addEvent',
@@ -30,13 +32,17 @@ export class AddEventComponent implements OnInit, AfterViewInit {
   @Input()
   data!: EventDetails;
   eventForm!: FormGroup;
+
   flyer!: any;
   program_outline: any | undefined;
-  joiningEvent: any[] = [
+  joiningEventOptions: any[] = [
     { value: 'Onsite', viewValue: 'Onsite' },
     { value: 'Virtual means', viewValue: 'Virtual means' },
   ];
+  filteredjoiningEventOptions!: any[];
   event_id: any;
+  moderators: any[] = [];
+  filteredModerator: any[] = [];
 
   @Output()
   selectedEvent = new EventEmitter();
@@ -46,12 +52,15 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     private eventService: EventService,
     private alert: AppAlertService,
     private store: Store,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService: UsersService,
+    private cdref: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.joiningEvent;
+    this.joiningEventOptions;
     this.initializeForm();
+    console.log(this.joiningEventOptions);
 
     this.event_id = this.route.snapshot.params['event_id'];
     this.getEventDetails();
@@ -63,20 +72,27 @@ export class AddEventComponent implements OnInit, AfterViewInit {
       venue: ['', [Validators.required, Validators.minLength(5)]],
       date: new FormControl(''),
       number_of_participants: new FormControl(''),
-      registration_time: new FormControl(''),
-      // how_to_join: new FormControl([]),
-      how_to_join: new FormControl<any[] | null>(null),
+      registration_time: new FormControl('', Validators.required),
+      start_time: new FormControl('', Validators.required),
+      closing_time: new FormControl('', Validators.required),
+      how_to_join: new FormControl('', Validators.required),
       description: new FormControl(''),
+      user_id: new FormControl(''),
       flyer: new FormControl(''),
       program_outline: new FormControl(''),
     });
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.joiningEventOptions;
+    this.initializeForm();
+    this.getAllUsers();
+  }
 
   getEventDetails() {
     this.eventService.getEvent(this.event_id).subscribe((res: any) => {
       this.data = res;
+      console.log(this.data.how_to_join);
       if (this.data) {
         console.log('data exits', this.data);
         this.eventForm.patchValue({
@@ -85,35 +101,97 @@ export class AddEventComponent implements OnInit, AfterViewInit {
             new Date(Date.parse(res.start_date)),
             new Date(Date.parse(res.end_date)),
           ],
+
+          how_to_join: {
+            viewValue: 'Select means of joining',
+            value: this.data.how_to_join,
+          },
         });
+        this.cdref.detectChanges;
         this.eventForm.updateValueAndValidity;
       }
     });
   }
+  getAllUsers() {
+    this.userService.getAllUsers().subscribe((data: any) => {
+      console.log(data);
+      for (let x of data) {
+        const users = {
+          name: x.name,
+          id: x.id,
+        };
+        this.moderators.push(users);
+      }
+    });
+  }
+  filterOptions(event: any) {
+    let filtered: any[] = [];
+    let query = event.query;
+
+    for (let i = 0; i < this.joiningEventOptions.length; i++) {
+      let options = this.joiningEventOptions[i];
+      if (
+        options.value.toLowerCase().indexOf(query.toLowerCase()) == 0 ||
+        options.value.toUpperCase().indexOf(query.toUpperCase()) == 0
+      ) {
+        filtered.push(options);
+      }
+    }
+
+    this.filteredjoiningEventOptions = filtered;
+  }
+
+  filterModerator(event: any) {
+    let filtered: any[] = [];
+    let query = event.query;
+
+    for (let i = 0; i < this.moderators.length; i++) {
+      let moderator = this.moderators[i];
+      if (
+        moderator.name.toLowerCase().indexOf(query.toLowerCase()) == 0 ||
+        moderator.name.toUpperCase().indexOf(query.toUpperCase()) == 0
+      ) {
+        filtered.push(moderator);
+      }
+    }
+
+    this.filteredModerator = filtered;
+  }
 
   addEvent() {
     const data = new FormData();
-    data.append('event_name', this.eventForm.value.event_name);
-    data.append('venue', this.eventForm.value.venue);
-    data.append('start_date', this.eventForm.value.date[0].toString());
-    data.append('end_date', this.eventForm.value.date[1].toString());
-    data.append('registration_time', this.eventForm.value.registration_time);
-
-    data.append('how_to_join', this.eventForm.value.how_to_join.value);
-    data.append(
-      'number_of_participants',
-      this.eventForm.value.number_of_participants
+    const formData = this.eventForm.value;
+    let optionsToJoin: any = [];
+    const joiningEvent = Object.values(formData.how_to_join).forEach(
+      (x: any) => {
+        optionsToJoin.push(x.value);
+      }
     );
-    data.append('description', this.eventForm.value.description);
 
-    data.append('flyer_name', this.flyer.name);
+    data.append('event_name', formData.event_name);
+    data.append('venue', formData.venue);
+    data.append('start_date', formData.date[0].toLocaleDateString());
+    data.append('end_date', formData.date[1].toLocaleDateString());
+    data.append('start_time', formData.start_time.toLocaleTimeString('en-GB'));
+    data.append(
+      'closing_time',
+      formData.closing_time.toLocaleTimeString('en-GB')
+    );
+    data.append('how_to_join', optionsToJoin);
+    data.append('number_of_participants', formData.number_of_participants);
+    data.append('description', formData.description);
+
+    data.append('flyer_name', formData.flyer.name);
     data.append(
       'program_outline_name',
 
-      this.program_outline.name
+      formData.program_outline.name
     );
+    data.append('user_id', formData.user_id.id);
 
-    this.store.dispatch(new AddEvents(data));
+    // this.store.dispatch(new AddEvents(data));
+    console.log(data);
+    // console.log(joiningEvent);
     // this.eventForm.reset();
   }
 

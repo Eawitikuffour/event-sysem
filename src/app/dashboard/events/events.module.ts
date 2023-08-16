@@ -13,7 +13,6 @@ import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { ShowEventsComponent } from './show-events/show-events.component';
-import { EditEventComponent } from './editEvent/editEvent.component';
 import { AddEventComponent } from './addEvent/addEvent.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
@@ -29,10 +28,10 @@ import { AddModeratorComponent } from './addModerator/addModerator.component';
 
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { AppTableModule } from 'src/app/shared/app-table/app-table.module';
 @NgModule({
   declarations: [
     ShowEventsComponent,
-    EditEventComponent,
     AddEventComponent,
     EventDetailsComponent,
     EventLayoutComponent,
@@ -64,6 +63,7 @@ import { RegistrationFormComponent } from './registration-form/registration-form
     ParticipantModule,
     UsersModule,
     AutoCompleteModule,
+    AppTableModule,
   ],
   providers: [DialogService],
 })

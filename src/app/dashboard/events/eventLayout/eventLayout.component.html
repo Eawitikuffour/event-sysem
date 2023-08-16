@@ -1,6 +1,6 @@
 <div class="card">
-  <p-tabView>
-    <p-tabPanel header="Dashboard"> </p-tabPanel>
+  <p-tabView [(activeIndex)]="activeIndex">
+    <p-tabPanel header="Overview"> </p-tabPanel>
     <p-tabPanel header="Event Details">
       <app-eventDetails></app-eventDetails>
     </p-tabPanel>
@@ -11,7 +11,7 @@
     <p-tabPanel header="Registration Form">
       <app-registration-form></app-registration-form>
     </p-tabPanel>
-    <p-tabPanel header="Participant">
+    <p-tabPanel header="Participants">
       <app-registered-list></app-registered-list>
     </p-tabPanel>
   </p-tabView>

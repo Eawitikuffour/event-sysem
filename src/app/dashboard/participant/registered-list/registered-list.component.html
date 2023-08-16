@@ -1,21 +1,5 @@
 <div class="surface-ground px-3 py-2 md:px-3 lg:px-3">
-  <div *ngIf="user_id == 1">
-    <!-- <p-toolbar styleClass="mb-4 gap-2">
-      <ng-template pTemplate="left">
-
-        <a routerLink="participant/add-fields/1">
-          <button
-            pButton
-            pRipple
-            label="New"
-            icon="pi pi-plus"
-            class="p-button-success mr-2"
-            pTooltip="Add Participant Field"
-          ></button>
-        </a>
-      </ng-template>
-    </p-toolbar> -->
-
+  <div *ngIf="user_id == user_id">
     <app-table
       [data]="tableDataFromParticipant"
       [columnsDefinition]="columns"

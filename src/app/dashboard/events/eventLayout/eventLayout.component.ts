@@ -10,6 +10,7 @@ import { DialogService } from 'primeng/dynamicdialog';
   // providers: [DialogService],
 })
 export class EventLayoutComponent implements OnInit, AfterViewInit {
+  activeIndex: number = 0;
   event_id!: any;
   showForm = false;
   id: any;

@@ -20,7 +20,7 @@ export class AddUserComponent implements OnInit {
   @Input()
   data!: User;
   userForm!: FormGroup;
-  // filteredEvent: any;
+  filteredEvent!: any[];
   allEvents: any[] = [];
   constructor(
     private formBuilder: FormBuilder,
@@ -40,7 +40,7 @@ export class AddUserComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
       contact: ['', [Validators.minLength(10), Validators.nullValidator]],
-      event_id: [[], Validators.required],
+      event_id: [<object | null>null, Validators.required],
     });
   }
 
@@ -62,12 +62,32 @@ export class AddUserComponent implements OnInit {
 
   submitUserForm() {
     const data = this.userForm.value;
-
-    let id;
-    const x = data.event_id.forEach((element: any) => {
-      id = element.id;
+    let events: any = [];
+    Object.values(data.event_id).forEach((x: any) => {
+      events.push(x.id);
     });
-    console.log(id);
+    data.event_id = events;
+    console.log(events);
     console.log(data);
+    this.userService.addUser(data).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
+
+  filterOptions(event: any) {
+    let filtered: any[] = [];
+    let query = event.query;
+
+    for (let i = 0; i < this.allEvents.length; i++) {
+      let options = this.allEvents[i];
+      if (
+        options.event_name.toLowerCase().indexOf(query.toLowerCase()) == 0 ||
+        options.event_name.toUpperCase().indexOf(query.toUpperCase()) == 0
+      ) {
+        filtered.push(options);
+      }
+    }
+
+    this.filteredEvent = filtered;
   }
 }

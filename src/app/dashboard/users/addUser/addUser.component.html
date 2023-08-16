@@ -16,26 +16,23 @@
       </div>
       <div class="field mb-4 col-12 md:col-12">
         <label for="contact" class="font-medium text-900">Select Event</label>
-        <!-- <p-autoComplete
-          formControlName="event_id"
-          [suggestions]="filteredEvent"
-          (completeMethod)="filterEvent($event)"
-          field="event_name"
-          [dropdown]="true"
-        >
-          <ng-template let-allEvents pTemplate="item">
-            <div class="country-item">
-              <div>{{ allEvents.event_name }}</div>
-            </div>
-          </ng-template>
-        </p-autoComplete> -->
 
-        <p-multiSelect
+        <!-- <p-multiSelect
           [options]="allEvents"
           formControlName="event_id"
           optionLabel="event_name"
           [showClear]="true"
-        ></p-multiSelect>
+        ></p-multiSelect> -->
+
+        <p-autoComplete
+          formControlName="event_id"
+          [suggestions]="filteredEvent"
+          (completeMethod)="filterOptions($event)"
+          field="event_name"
+          [dropdown]="true"
+          [multiple]="true"
+          appendTo="body"
+        ></p-autoComplete>
       </div>
 
       <div class="field mb-4 col-12 md:col-6 m-0">

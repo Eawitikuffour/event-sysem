@@ -1,5 +1,5 @@
 <div class="surface-ground px-3 py-2 md:px-3 lg:px-3">
-  <div *ngIf="user_id == 1">
+  <div *ngIf="user_id == user_id">
     <p-toolbar styleClass="mb-4 gap-2">
       <ng-template pTemplate="left">
         <button
@@ -23,12 +23,12 @@
       scrollHeight="400px"
       responsiveLayout="scroll"
       [globalFilterFields]="[
-        'name',
-        'country.name',
-        'representative.name',
-        'status'
+        'events.event_name',
+        'events.venue',
+        'events.start_date'
       ]"
       [tableStyle]="{ 'min-width': '75rem' }"
+      [rowHover]="true"
       [(selection)]="selectedEvent"
       dataKey="id"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -44,31 +44,22 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th style="min-width: 200px">Event Name</th>
-          <!-- <th style="min-width: 300px">Description</th> -->
-          <th style="min-width: 200px">Venue</th>
-          <th style="min-width: 200px">Date</th>
-          <!-- <th style="min-width: 150px">Expected Number</th> -->
-          <th style="min-width: 250px">Actions</th>
+          <th>Event Name</th>
+          <th>Venue</th>
+          <th>Date</th>
+          <th>Actions</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-events>
-        <tr>
+        <tr
+          [routerLink]="['details/', events.id]"
+          pTooltip="click to view details"
+          tooltipPosition="top"
+        >
           <td>{{ events.event_name }}</td>
-          <!-- <td>{{ events.description }}</td> -->
           <td>{{ events.venue }}</td>
           <td>{{ events.start_date }}</td>
-          <!-- <td>{{ events.number_of_participants }}</td> -->
           <td>
-            <!-- <a [routerLink]="['add-participantFields/', events.id]">
-              <button
-                pButton
-                pRipple
-                icon="pi pi-plus"
-                class="p-button-rounded p-button-secondary mr-2"
-                pTooltip="Click to add participant details"
-              ></button>
-            </a> -->
             <a [routerLink]="['details/', events.id]">
               <button
                 pButton
@@ -78,22 +69,6 @@
                 pTooltip="Click to view details of {{ events.event_name }}"
               ></button>
             </a>
-            <!-- <button
-              pButton
-              pRipple
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-success mr-2"
-              pTooltip="Click to edit events"
-              (click)="editEvent(events)"
-            ></button>
-            <button
-              pButton
-              pRipple
-              pTooltip="click to delete event"
-              icon="pi pi-trash"
-              class="p-button-rounded p-button-danger"
-              (click)="deleteEvent(events.id)"
-            ></button> -->
           </td>
         </tr>
       </ng-template>
@@ -104,5 +79,5 @@
       </ng-template>
     </p-table>
   </div>
-  <app-userEvents *ngIf="user_id != 1"></app-userEvents>
+  <app-userEvents *ngIf="user_id != user_id"></app-userEvents>
 </div>

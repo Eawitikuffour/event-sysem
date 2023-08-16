@@ -29,6 +29,6 @@ export class EventFormService {
   }
 
   GetParticipantFieldByID(event_id: number) {
-    return this.http.get(`${this.participantFieldURL}/id/` + event_id);
+    return this.http.get(`${this.participantFieldURL}/event_id/` + event_id);
   }
 }

@@ -15,7 +15,7 @@ import { DeleteEvents, UpdateEvents } from 'src/app/store/event/event.action';
 export class EventDetailsComponent implements OnInit {
   @ViewChild('eventForm')
   eventForm!: AddEventComponent;
-  event_id!: number;
+  event_id!: any;
   showForm = false;
   data: any;
   constructor(
@@ -55,13 +55,20 @@ export class EventDetailsComponent implements OnInit {
       id: this.data.id,
       event_name: EventForm.event_name,
       venue: EventForm.venue,
-      start_date: EventForm.date[0],
-      end_date: EventForm.date[1],
+      start_date: EventForm.date[0].toLocaleDateString(),
+      end_date: EventForm.date[1].toLocaleDateString(),
+      start_time: EventForm.start_time.toLocaleTimeString('en-GB'),
+      closing_time: EventForm.closing_time.toLocaleTimeString('en-GB'),
       number_of_participants: EventForm.number_of_participants,
       description: EventForm.description,
+      flyer: EventForm.flyer,
+      program_outline: EventForm.program_outline,
+      how_to_join: EventForm.how_to_join.value,
+      user_id: EventForm.user_id.id,
     };
 
     this.store.dispatch(new UpdateEvents(data, this.data.id, 0));
+    console.log(data);
   }
 
   deactivateEvent() {

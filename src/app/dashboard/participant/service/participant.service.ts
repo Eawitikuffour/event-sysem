@@ -34,4 +34,8 @@ export class ParticipantService {
   getParticipantFields(id: any) {
     return this.http.get(`${this.participantFieldURL}/id/` + id);
   }
+
+  updateParticipantFields(data: any) {
+    return this.http.put(`${this.participantFieldURL}/update`, data);
+  }
 }

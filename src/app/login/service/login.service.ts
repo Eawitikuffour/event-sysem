@@ -28,7 +28,7 @@ export class LoginService {
         } else {
           this.loggedInUser = user;
           localStorage.setItem('token', user.access_token);
-          localStorage.setItem('user_id', user.user_id);
+          localStorage.setItem('user_id', user.user.id);
 
           return user;
         }

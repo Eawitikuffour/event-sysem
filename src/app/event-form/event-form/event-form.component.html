@@ -28,32 +28,65 @@
         class="surface-ground px-4 py-4 md:px-6 lg:px-4 col-12"
         style="width: 60%"
         *ngIf="participantForm && controlLength > 0"
-        [formGroup]="participantForm"
       >
-        <div *ngFor="let control of fieldsArray">
-          <app-textArea
-            [label]="control.fieldName"
-            [placeholder]="control.fieldName"
-            [controlName]="control.fieldName"
-            [form]="participantForm"
-            *ngIf="control.fieldType === 'textField'"
-          ></app-textArea>
-          <app-dropdown
-            [formLabel]="control.fieldName"
-            [placeholder]="control.fieldName"
-            [control]="control.fieldName"
-            [selectableOption]="control.options"
-            [form]="participantForm"
-            *ngIf="control.fieldType === 'dropdown'"
-          ></app-dropdown>
-          <app-date
-            [formLabel]="control.fieldName"
-            [placeholder]="control.fieldName"
-            [control]="control.fieldName"
-            [form]="participantForm"
-            *ngIf="control.fieldType === 'date'"
-          ></app-date>
+        <div class="field mb-4 col-12" *ngIf="joiningEventOptions.length == 1">
+          <label class="font-medium text-900">Means of Joining Event</label>
+          <div class="col-12">
+            <input
+              type="text"
+              [disabled]="true"
+              pInputText
+              [(ngModel)]="joiningEvent"
+              class="w-full"
+            />
+          </div>
         </div>
+        <div [formGroup]="participantForm">
+          <div
+            class="field mb-4 col-12"
+            *ngIf="joiningEventOptions.length == 2"
+          >
+            <label class="font-medium text-900">Means of Joining Event</label>
+            <div class="col-12">
+              <p-dropdown
+                [options]="joiningEventOptions"
+                placeholder="Select how to partake this event"
+                formControlName="Means Of Joining Event"
+              ></p-dropdown>
+            </div>
+          </div>
+          <div *ngFor="let control of fieldsArray">
+            <app-textArea
+              [formLabel]="control.fieldName"
+              [placeholder]="control.fieldName"
+              [controlName]="control.fieldName"
+              [form]="participantForm"
+              *ngIf="control.fieldType === 'textField'"
+            ></app-textArea>
+            <app-dropdown
+              [formLabel]="control.fieldName"
+              [placeholder]="control.fieldName"
+              [control]="control.fieldName"
+              [selectableOption]="control.options"
+              [form]="participantForm"
+              *ngIf="control.fieldType === 'dropdown'"
+            ></app-dropdown>
+            <app-number
+              [formLabel]="control.fieldName"
+              [controlName]="control.fieldName"
+              [form]="participantForm"
+              *ngIf="control.fieldType === 'inputNumber'"
+            ></app-number>
+            <app-date
+              [formLabel]="control.fieldName"
+              [placeholder]="control.fieldName"
+              [control]="control.fieldName"
+              [form]="participantForm"
+              *ngIf="control.fieldType === 'date'"
+            ></app-date>
+          </div>
+        </div>
+
         <div>
           <button
             pButton
@@ -66,17 +99,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div>
-      <button
-        pButton
-        pRipple
-        class="w-6"
-        type="button"
-        label="Submit"
-        (click)="submitForm()"
-      ></button>
-    </div> -->
 
     <p-toast></p-toast>
     <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>

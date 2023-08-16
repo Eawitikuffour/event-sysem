@@ -14,7 +14,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class TextAreaComponent implements OnInit {
   @Input()
-  label!: string;
+  formLabel!: string;
   @Input()
   placeholder!: string;
 

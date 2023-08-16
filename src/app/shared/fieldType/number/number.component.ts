@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { FormControl, FormGroup, UntypedFormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-number',
@@ -17,7 +17,7 @@ export class NumberComponent implements OnInit {
   @Input()
   controlName: FormControl | any = new FormControl();
   @Input() form!: FormGroup;
-  @Input() label!: string;
+  @Input() formLabel!: string;
   constructor() {}
 
   ngOnInit() {}

@@ -5,7 +5,7 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from 'src/app/dashboard/events/service/event.service';
 import { ParticipantfieldsFormComponent } from '../participantfieldsForm/participantfieldsForm.component';
@@ -14,7 +14,6 @@ import { AppAlertService } from 'src/app/common/alerts/service/app-alert.service
 import { PrimeNgAlerts } from 'src/app/common/alerts/app-config';
 import { GetParticipants } from '../../../../../store/participant/participant.action';
 import { EventFormService } from 'src/app/event-form/service/eventForm.service';
-import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-addNewParticipantField',
@@ -24,7 +23,7 @@ import { tick } from '@angular/core/testing';
 export class AddNewParticipantFieldComponent implements OnInit {
   @ViewChildren('pf') inputFields!: QueryList<ParticipantfieldsFormComponent>;
 
-  event_id!: number;
+  event_id!: any;
 
   public participantFieldsArray!: FormArray;
   participantFieldsForm!: FormGroup;
@@ -34,6 +33,8 @@ export class AddNewParticipantFieldComponent implements OnInit {
   showForm = false;
   participantFieldsData: any[] = [];
   fields: any;
+  label!: string;
+  participantFieldId!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,7 +54,7 @@ export class AddNewParticipantFieldComponent implements OnInit {
     this.getEventFromServer();
     this.getParticipantFieldsData();
     this.event_id = this.route.snapshot.params['event_id'];
-    //console.log('event id is', this.event_id);
+    this.Label;
   }
 
   getEventFromServer() {
@@ -64,29 +65,38 @@ export class AddNewParticipantFieldComponent implements OnInit {
           if (data) {
             this.showForm = true;
           }
-          //console.log(data);
         });
       }
     });
   }
 
+  get Label() {
+    if (this.getParticipantFieldsData.length > 0) {
+      return (this.label = 'Update');
+    } else {
+      return (this.label = 'Submit');
+    }
+  }
   getParticipantFieldsData() {
-    // this.addNewField();
     this.eventFormService
       .GetParticipantFieldByID(this.event_id)
       .subscribe((data: any) => {
+        console.log('participant fields', data);
+        this.participantFieldId = data.id;
+        // console.log('id', this.participantFieldId);
         this.fields = data.fields[0];
         this.participantFieldsData = Object.values(this.fields);
         this.initializeForm();
+        if (data) {
+          this.label = 'Update';
+        } else {
+          this.label = 'Submit';
+        }
       });
   }
 
   initializeForm() {
     this.participantFieldsData.forEach((data, index) => {
-      //console.log('fields', data);
-      // if (index > 0 && this.participantFieldsData.length > 1) {
-      //   this.addNewField();
-      // }
       this.participantFields.push(this.formBuilder.control({}));
     });
   }
@@ -137,22 +147,37 @@ export class AddNewParticipantFieldComponent implements OnInit {
 
     const formData = {
       fields: values,
-      user_id: Number(localStorage.getItem('user_id')),
-      event_id: Number(this.event_id),
+      user_id: localStorage.getItem('user_id'),
+      event_id: this.event_id,
+    };
+    const updateData = {
+      id: this.participantFieldId,
+      fields: values,
+      user_id: localStorage.getItem('user_id'),
+      event_id: this.event_id,
     };
 
-    this.participantService.addParticipantsFields(formData).subscribe(() => {
-      this.alert.showToast(
-        'fields created successfully',
-        PrimeNgAlerts.SUCCESS
-      );
-    });
+    if (this.participantFieldsData.length > 0) {
+      this.participantService
+        .updateParticipantFields(updateData)
+        .subscribe(() => {
+          this.alert.showToast(
+            'fields updated successfully',
+            PrimeNgAlerts.SUCCESS
+          );
+        });
+    } else {
+      this.participantService.addParticipantsFields(formData).subscribe(() => {
+        this.alert.showToast(
+          'fields created successfully',
+          PrimeNgAlerts.SUCCESS
+        );
+      });
+    }
 
     const data =
       this.participantFieldsForm.value.participantFieldsArray.forEach(
-        (element: any) => {
-          //console.log(element.fieldType.value);
-        }
+        (element: any) => {}
       );
   }
 }

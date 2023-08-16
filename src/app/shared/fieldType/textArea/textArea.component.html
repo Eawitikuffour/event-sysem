@@ -12,12 +12,14 @@
 </div> -->
 
 <div class="field mb-4 col-12" [formGroup]="form">
-  <label [for]="controlName" class="font-medium text-900"> {{ label }}</label>
+  <label [for]="controlName" class="font-medium text-900">
+    {{ formLabel }}</label
+  >
   <div class="col-12">
     <input
       type="text"
       pInputText
-      [placeholder]="'Enter ' + placeholder"
+      [placeholder]="placeholder"
       [formControlName]="controlName"
       class="w-full"
     />

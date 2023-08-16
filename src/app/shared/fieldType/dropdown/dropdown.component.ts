@@ -25,7 +25,7 @@ export class DropdownComponent implements OnInit {
   selectableOption!: any[];
 
   @Input()
-  placeholder: string = 'Select option';
+  placeholder: string = '';
 
   @Input()
   optionsLabel!: string;
