@@ -28,15 +28,12 @@ export class ShowEventsComponent implements OnInit, AfterViewInit {
     this.getEvents();
   }
 
-  ngAfterViewInit(): void {
-    // this.getEvents();
-  }
+  ngAfterViewInit(): void {}
 
   getEvents() {
     this.store.dispatch(new GetEvents());
     this.events$?.subscribe((data: any) => {
       this.events = data;
-      console.log(this.events);
     });
   }
   addNewEvent() {

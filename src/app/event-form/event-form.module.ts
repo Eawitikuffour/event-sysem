@@ -18,9 +18,16 @@ import { ToastModule } from 'primeng/toast';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { ParticipantModule } from '../dashboard/participant/participant.module';
 import { SharedModule } from '../shared/shared.module';
+import { RegisteredParticipantFieldsComponent } from './registeredParticipantFields/registeredParticipantFields.component';
+import { EventFormRoutes } from './event-form.routing';
 
 @NgModule({
-  declarations: [EventFormComponent, RegisterComponent, ThankYouComponent],
+  declarations: [
+    EventFormComponent,
+    RegisterComponent,
+    ThankYouComponent,
+    RegisteredParticipantFieldsComponent,
+  ],
   imports: [
     CommonModule,
     InputTextModule,
@@ -38,6 +45,7 @@ import { SharedModule } from '../shared/shared.module';
     ToastModule,
     ParticipantModule,
     SharedModule,
+    EventFormRoutes,
   ],
   exports: [EventFormComponent],
   // providers: [ConfirmationService, MessageService],

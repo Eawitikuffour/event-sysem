@@ -21,9 +21,10 @@ import { EventState } from './store/event/event.state';
 import { UserState } from './store/users/users.state';
 import { ModeratorState } from './store/moderator/moderator.state';
 import { ParticipantState } from './store/participant/participant.state';
+import { PageNotFoundComponent } from './components/pageNotFound/pageNotFound.component';
 
 @NgModule({
-  declarations: [AppComponent, ConfirmDialogComponent],
+  declarations: [AppComponent, ConfirmDialogComponent, PageNotFoundComponent],
   exports: [ConfirmDialogComponent],
   imports: [
     BrowserModule,

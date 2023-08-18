@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 
-import { tap, catchError } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import {
   AddEvents,
   DeleteEvents,
   GetEvents,
   UpdateEvents,
 } from './event.action';
-
-import { error } from 'console';
 import { PrimeNgAlerts } from 'src/app/common/alerts/app-config';
 import { AppAlertService } from 'src/app/common/alerts/service/app-alert.service';
 import { EventService } from 'src/app/dashboard/events/service/event.service';
@@ -70,6 +68,10 @@ export class EventState {
   ) {
     return this.eventService.updateEvent(payload).pipe(
       tap((returnData) => {
+        this.alert.showToast(
+          'event edited successfully',
+          PrimeNgAlerts.SUCCESS
+        );
         const state = ctx.getState();
 
         let userList = [...state.events];

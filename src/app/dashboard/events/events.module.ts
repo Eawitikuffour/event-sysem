@@ -29,6 +29,7 @@ import { AddModeratorComponent } from './addModerator/addModerator.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { AppTableModule } from 'src/app/shared/app-table/app-table.module';
+import { AttendanceListComponent } from './attendanceList/attendanceList.component';
 @NgModule({
   declarations: [
     ShowEventsComponent,
@@ -38,6 +39,7 @@ import { AppTableModule } from 'src/app/shared/app-table/app-table.module';
     ModeratorsComponent,
     AddModeratorComponent,
     RegistrationFormComponent,
+    AttendanceListComponent,
   ],
 
   exports: [AddEventComponent],

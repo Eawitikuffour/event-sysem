@@ -27,7 +27,6 @@ export class AddModeratorComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.user_id = new FormControl('');
     this.id = this.config.data;
-    console.log(this.id);
   }
 
   ngAfterViewInit(): void {
@@ -53,7 +52,6 @@ export class AddModeratorComponent implements OnInit, AfterViewInit {
 
   getAllUsers() {
     this.userService.getAllUsers().subscribe((data: any) => {
-      console.log(data);
       for (let x of data) {
         const users = {
           name: x.name,

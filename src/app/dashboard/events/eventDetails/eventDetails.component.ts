@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../service/event.service';
-import { DialogService } from 'primeng/dynamicdialog';
 import { AddEventComponent } from '../addEvent/addEvent.component';
 import { Store } from '@ngxs/store';
 import { DeleteEvents, UpdateEvents } from 'src/app/store/event/event.action';
@@ -10,7 +9,6 @@ import { DeleteEvents, UpdateEvents } from 'src/app/store/event/event.action';
   selector: 'app-eventDetails',
   templateUrl: './eventDetails.component.html',
   styleUrls: ['./eventDetails.component.scss'],
-  // providers: [DialogService],
 })
 export class EventDetailsComponent implements OnInit {
   @ViewChild('eventForm')
@@ -26,7 +24,6 @@ export class EventDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getEventFromServer();
-    // this.getEventDetails();
   }
 
   getEventFromServer() {
@@ -39,20 +36,19 @@ export class EventDetailsComponent implements OnInit {
           }
         });
       }
-      this.getEventDetails();
-    });
-  }
-
-  getEventDetails() {
-    this.eventService.getEvent(this.event_id).subscribe((res: any) => {
-      this.data = res;
     });
   }
 
   editEvent() {
     const EventForm = this.eventForm.eventForm.getRawValue();
+    let optionsToJoin: any = [];
+    const joiningEvent = Object.values(EventForm.how_to_join).forEach(
+      (x: any) => {
+        optionsToJoin.push(x.value);
+      }
+    );
     const data = {
-      id: this.data.id,
+      id: this.event_id,
       event_name: EventForm.event_name,
       venue: EventForm.venue,
       start_date: EventForm.date[0].toLocaleDateString(),
@@ -63,12 +59,11 @@ export class EventDetailsComponent implements OnInit {
       description: EventForm.description,
       flyer: EventForm.flyer,
       program_outline: EventForm.program_outline,
-      how_to_join: EventForm.how_to_join.value,
+      how_to_join: optionsToJoin.toString(),
       user_id: EventForm.user_id.id,
     };
 
-    this.store.dispatch(new UpdateEvents(data, this.data.id, 0));
-    console.log(data);
+    this.store.dispatch(new UpdateEvents(data, this.event_id, 0));
   }
 
   deactivateEvent() {

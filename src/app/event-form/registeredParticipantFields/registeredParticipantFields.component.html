@@ -1,0 +1,16 @@
+<div *ngIf="showForm">
+  <app-event-form
+    #participantForm
+    [registeredParticipantDetails]="participantData"
+  ></app-event-form>
+
+  <div class="flex align-items-end justify-content-end mr-3">
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Confirm"
+      (click)="submitForm()"
+    ></button>
+  </div>
+</div>

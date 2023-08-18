@@ -7,25 +7,22 @@ import { RegisterComponent } from './event-form/register/register.component';
 import { ThankYouComponent } from './event-form/thank-you/thank-you.component';
 import { ResetPasswordComponent } from './login/resetPassword/resetPassword.component';
 import { AddNewParticipantFieldComponent } from './dashboard/participant/participantForm/addParticipant/addNewParticipantField/addNewParticipantField.component';
+import { PageNotFoundComponent } from './components/pageNotFound/pageNotFound.component';
 const routes: Routes = [
   {
     path: 'login',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginModule),
   },
-
   {
     path: 'dashboard',
     loadChildren: () =>
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
-    path: 'participant/add-new/:event_name',
-    component: EventFormComponent,
-  },
-  {
-    path: 'participant/:event_name',
-    component: RegisterComponent,
+    path: 'participant',
+    loadChildren: () =>
+      import('./event-form/event-form.module').then((m) => m.EventFormModule),
   },
   {
     path: 'dashboard/event/show-events/details/:event_id/participant/add-fields/:event_id',
@@ -36,6 +33,7 @@ const routes: Routes = [
   { path: 'confirmation', component: ThankYouComponent },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

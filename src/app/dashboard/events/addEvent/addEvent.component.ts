@@ -60,7 +60,6 @@ export class AddEventComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.joiningEventOptions;
     this.initializeForm();
-    console.log(this.joiningEventOptions);
 
     this.event_id = this.route.snapshot.params['event_id'];
     this.getEventDetails();
@@ -101,11 +100,6 @@ export class AddEventComponent implements OnInit, AfterViewInit {
             new Date(Date.parse(res.start_date)),
             new Date(Date.parse(res.end_date)),
           ],
-
-          how_to_join: {
-            viewValue: 'Select means of joining',
-            value: this.data.how_to_join,
-          },
         });
         this.cdref.detectChanges;
         this.eventForm.updateValueAndValidity;
@@ -189,10 +183,10 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     );
     data.append('user_id', formData.user_id.id);
 
-    // this.store.dispatch(new AddEvents(data));
-    console.log(data);
+    this.store.dispatch(new AddEvents(data));
+    // console.log(data);
     // console.log(joiningEvent);
-    // this.eventForm.reset();
+    this.eventForm.reset();
   }
 
   onChangeFyler(event: any) {

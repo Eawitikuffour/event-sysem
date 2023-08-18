@@ -7,13 +7,16 @@
 ></ng-container>
 
 <ng-template #elseTemplate>
-  <div class="p-4">
-    <img
-      src="assets/images/logo.png"
-      alt="Image"
-      height="40"
-      class="mr-0 lg:mr-6"
-    />
+  <div class="flex-column p-4" *ngIf="showForm">
+    <div>
+      <img
+        src="assets/images/logo.png"
+        alt="Image"
+        height="40"
+        class="mr-0 lg:mr-6"
+      />
+    </div>
+
     <div
       class="border-2 surface-border border-round surface-card grid formgrid p-fluid align-items-center justify-content-center"
     >
@@ -25,8 +28,8 @@
         <!-- <img [src]="eventData" /> -->
       </div>
       <div
-        class="surface-ground px-4 py-4 md:px-6 lg:px-4 col-12"
-        style="width: 60%"
+        class="surface-ground px-4 py-4 md:px-6 lg:px-4 col-9"
+        style="width: 80vw"
         *ngIf="participantForm && controlLength > 0"
       >
         <div class="field mb-4 col-12" *ngIf="joiningEventOptions.length == 1">
@@ -86,18 +89,21 @@
             ></app-date>
           </div>
         </div>
-
-        <div>
-          <button
-            pButton
-            pRipple
-            type="button"
-            class="w-3"
-            label="Submit"
-            (click)="submitForm()"
-          ></button>
-        </div>
       </div>
+    </div>
+    <div
+      *ngIf="!registeredParticipantDetails"
+      class="flex align-items-end justify-content-end m-2"
+    >
+      <button
+        pButton
+        pRipple
+        icon="pi pi-check"
+        type="button"
+        label="Register"
+        [disabled]="participantForm.invalid"
+        (click)="submitForm()"
+      ></button>
     </div>
 
     <p-toast></p-toast>

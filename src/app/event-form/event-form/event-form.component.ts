@@ -1,9 +1,9 @@
-// import { ParticipantFields } from './../../dashboard/participant/participantForm/modal/participantsForm';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Input,
   OnInit,
 } from '@angular/core';
 import {
@@ -15,22 +15,12 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppAlertService } from 'src/app/common/alerts/service/app-alert.service';
 
-import { EventDetails } from '../../dashboard/modal/eventDetails';
-import {
-  ConfirmationService,
-  ConfirmEventType,
-  MessageService,
-} from 'primeng/api';
-// import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { ParticipantService } from '../../dashboard/participant/service/participant.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ParticipantFields } from '../../dashboard/participant/participantForm/modal/participantsForm';
 
 import { BehaviorSubject, catchError, Subscription } from 'rxjs';
-import { NgOptimizedImage } from '@angular/common';
 import { EventFormService } from '../service/eventForm.service';
 import { PrimeNgAlerts } from 'src/app/common/alerts/app-config';
-import { error } from 'console';
-import { FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-event-form',
@@ -39,6 +29,7 @@ import { FormArray } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventFormComponent implements OnInit, AfterViewInit {
+  @Input() registeredParticipantDetails!: any;
   fields!: any;
   fieldsArray: any;
   participantForm!: FormGroup;
@@ -49,10 +40,8 @@ export class EventFormComponent implements OnInit, AfterViewInit {
   flyer!: any;
   image: any;
   subcription!: Subscription;
-  // meansOfJoiningEvent: any;
   joiningEventOptions: any[] = [];
   joiningEvent!: any;
-
   loading = new BehaviorSubject(false);
 
   constructor(
@@ -60,8 +49,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private alert: AppAlertService,
     private route: ActivatedRoute,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService,
+
     private eventService: EventFormService
   ) {
     this.participantForm = this.fb.group({});
@@ -70,14 +58,12 @@ export class EventFormComponent implements OnInit, AfterViewInit {
     this.getEventDetails();
 
     this.subcription.add(this.getEventParticipantFields());
+
     this.cdref.detectChanges();
   }
   ngOnInit(): void {
-    // this.meansOfJoiningEvent = new FormControl('');
-
     this.subcription = this.getEventParticipantFields();
-    // this.getEventParticipantFields();
-    // this.getEventDetails();
+
     this.cdref.detectChanges();
   }
 
@@ -90,6 +76,7 @@ export class EventFormComponent implements OnInit, AfterViewInit {
           .getParticipantField(this.event_name)
           .subscribe((response: any) => {
             if (response) {
+              this.showForm = true;
               this.getEventDetails();
               this.event_id = response.event_id;
 
@@ -106,11 +93,20 @@ export class EventFormComponent implements OnInit, AfterViewInit {
 
   getEventDetails() {
     this.eventService.getEvent(this.event_name).subscribe((data: any) => {
-      console.log(data);
       this.joiningEventOptions = data?.how_to_join.split(',');
       this.joiningEvent = this.joiningEventOptions[0];
       this.eventData = data.flyer;
     });
+  }
+
+  initializeParticipantForm() {
+    if (this.registeredParticipantDetails) {
+      this.participantForm.patchValue({
+        ...this.registeredParticipantDetails,
+      });
+
+      this.participantForm.updateValueAndValidity;
+    }
   }
 
   getFieldArray() {
@@ -162,14 +158,8 @@ export class EventFormComponent implements OnInit, AfterViewInit {
         'Means Of Joining Event',
         new FormControl('', Validators.required)
       );
-      // this.participantForm.patchValue({
-      //   meansOfJoiningEvent: new FormControl(''),
-      // });
 
-      // this.participantForm.addControl(
-      //   control.fieldName,
-      //   this.fb.control(control.fieldName, fieldValidators)
-      // );
+      this.initializeParticipantForm();
     }
   }
   get controlLength() {
@@ -194,30 +184,25 @@ export class EventFormComponent implements OnInit, AfterViewInit {
         event_id: this.event_id,
         form_values: this.participantForm.value,
       };
-      console.log(data);
-      // this.eventService.addParticipant(data).subscribe((res: any) => {
-      //   this.alert.showToast('data successfully added', PrimeNgAlerts.SUCCESS);
-      //   this.participantForm.reset();
-      // });
-    }
 
-    // this.eventService
-    //   .addParticipant(data)
-    //   .pipe(
-    //     catchError((error: any) => {
-    //       this.sendDataError = true;
-    //       return error;
-    //     })
-    //   )
-    //   .subscribe((res: any) => {
-    //     if (res) {
-    //       this.alert.showToast(
-    //         'data successfully added',
-    //         PrimeNgAlerts.SUCCESS
-    //       );
-    //       this.participantForm.reset();
-    //       this.meansOfJoiningEvent.reset();
-    //     }
-    //   });
+      this.eventService
+        .addParticipant(data)
+        .pipe(
+          catchError((error: any) => {
+            this.sendDataError = true;
+            this.alert.showToast('Error', PrimeNgAlerts.ERROR);
+            return error;
+          })
+        )
+        .subscribe((res: any) => {
+          if (res) {
+            this.alert.showToast(
+              'data successfully added',
+              PrimeNgAlerts.SUCCESS
+            );
+            this.participantForm.reset();
+          }
+        });
+    }
   }
 }

@@ -28,7 +28,19 @@ export class EventFormService {
     );
   }
 
-  GetParticipantFieldByID(event_id: number) {
+  GetParticipantFieldByID(event_id: any) {
     return this.http.get(`${this.participantFieldURL}/event_id/` + event_id);
+  }
+
+  searchForParticipant(data: string) {
+    return this.http.get(`${this.particpantURl}/search/` + data);
+  }
+
+  getRegisteredParticipant(id: any) {
+    return this.http.get(`${this.particpantURl}/id/` + id);
+  }
+
+  confirmAttendance(data: any) {
+    return this.http.put(`${this.particpantURl}/confirm_attendance`, data);
   }
 }

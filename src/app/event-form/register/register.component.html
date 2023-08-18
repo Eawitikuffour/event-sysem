@@ -28,102 +28,18 @@
               pInputText
               type="text"
               placeholder="Enter Email/Phone to search"
-              (keyup)="search($event)"
+              [formControl]="searchParticipant"
             />
-
-            <div *ngFor="let result of results | async | keyvalue">
-              {{ result.key }}<br />
-              <input
-                pInputText
-                type="text"
-                [disabled]="true"
-                [(ngModel)]="result.value"
-              />
-              <!-- <p>{{ data.Name }}</p> -->
-              <!-- <div class="grid formgrid p-fluid">
-                <div class="field mb-4 col-12 md:col-12">
-                  <label for="name" class="font-medium text-900"
-                    >Full Name</label
-                  >
-                  <input
-                    id="name"
-                    type="text"
-                    pInputText
-                    pInputText
-                    [(ngModel)]="data.Name"
-                  />
-                </div>
-              </div>
-              <div class="field mb-4 col-12 md:col-12">
-                <label for="gender" class="font-medium text-900">Gender</label>
-                <input
-                  id="name"
-                  type="text"
-                  pInputText
-                  pInputText
-                  [(ngModel)]="data.Gender"
-                />
-              </div>
-              <div class="field mb-4 col-12 md:col-12">
-                <label for="Email" class="font-medium text-900">Email</label>
-                <input
-                  id="name"
-                  type="text"
-                  pInputText
-                  pInputText
-                  [(ngModel)]="data.Email"
-                />
-              </div>
-              <div class="field mb-4 col-12 md:col-12">
-                <label for="occupation" class="font-medium text-900"
-                  >Organization</label
-                >
-                <input
-                  id="occupation"
-                  type="text"
-                  pInputText
-                  [(ngModel)]="data.Organization"
-                />
-              </div>
-              <div class="field mb-4 col-12 md:col-12">
-                <label for="phoneNumber" class="font-medium text-900"
-                  >Contact</label
-                >
-                <input
-                  id="phone_number"
-                  type="text"
-                  pInputText
-                  [(ngModel)]="data.Contact"
-                />
-              </div>
-
-              <div class="field mb-4 col-12 md:col-12">
-                <label for="location" class="font-medium text-900"
-                  >Location</label
-                >
-                <input
-                  id="location"
-                  type="text"
-                  pInputText
-                  [(ngModel)]="data.Location"
-                />
-              </div> -->
-              <!-- <div class="field mb-4 col-12 md:col-6">
-                    <p-dropdown
-                      [options]="joiningEvent"
-                      formControlName="gender"
-                      placeholder="How would you like to join the event?"
-                      optionLabel="viewValue"
-                      [showClear]="true"
-                    >
-                    </p-dropdown>
-                  </div> -->
-            </div>
           </div>
 
-          <!-- <div class="field mb-4 col-12 md:col-2">
-            <button pButton type="button" label="Submit"></button>
-          </div> -->
+          <div class="field mb-4 col-12 md:col-2">
+            <button
+              pButton
+              type="button"
+              label="Submit"
+              (click)="submitSearchData()"
+            ></button>
+          </div>
         </div>
         <h2 style="text-align: center">
           Click on the Register button if you have not registered
