@@ -1,49 +1,51 @@
 <div class="surface-ground px-3 py-2 md:px-3 lg:px-3" *ngIf="showForm">
-  <div class="surface-card p-4 shadow-2 border-round p-fluid">
-    <p-toolbar styleClass="mb-4 gap-2">
-      <ng-template pTemplate="left">
-        <button
-          pButton
-          pRipple
-          label="New"
-          icon="pi pi-plus"
-          class="p-button-success mr-2"
-          (click)="addNewField()"
-          pTooltip="click to add new event"
-        ></button>
-      </ng-template>
-    </p-toolbar>
-    <div class="card-container grid" [formGroup]="participantFieldsForm">
-      <ng-container
-        formArrayName="participantFieldsArray"
-        style="height: 60 rem !important; overflow: auto"
-      >
-        <div
-          *ngFor="let fieldsForm of participantFields.controls; let i = index"
-          class="col-12 md:col-6 xl:col-4 p-card p-4"
+  <div class="overflow-auto" style="height: 600px">
+    <div class="surface-card p-4 shadow-2 border-round p-fluid">
+      <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+          <button
+            pButton
+            pRipple
+            label="New"
+            icon="pi pi-plus"
+            class="p-button-success mr-2"
+            (click)="addNewField()"
+            pTooltip="click to add new event"
+          ></button>
+        </ng-template>
+      </p-toolbar>
+      <div class="card-container grid" [formGroup]="participantFieldsForm">
+        <ng-container
+          formArrayName="participantFieldsArray"
+          style="height: 60 rem !important; overflow: auto"
         >
-          <app-participantfieldsForm
-            [data]="participantFieldsData[i]"
-            #pf
-          ></app-participantfieldsForm>
-          <div>
-            <p-button
-              icon="pi pi-trash"
-              styleClass="p-button-danger"
-              pTooltip="Delete details"
-              (click)="deleteField(i)"
-            ></p-button>
+          <div
+            *ngFor="let fieldsForm of participantFields.controls; let i = index"
+            class="col-12 md:col-6 xl:col-4 p-card p-4"
+          >
+            <app-participantfieldsForm
+              [data]="participantFieldsData[i]"
+              #pf
+            ></app-participantfieldsForm>
+            <div>
+              <p-button
+                icon="pi pi-trash"
+                styleClass="p-button-danger"
+                pTooltip="Delete details"
+                (click)="deleteField(i)"
+              ></p-button>
+            </div>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
     </div>
-  </div>
-  <div class="field align-items-end m-3" style="text-align: end">
-    <p-button
-      [disabled]="!formValid"
-      label="{{ label }}"
-      icon="pi pi-check"
-      (click)="submitFields()"
-    ></p-button>
+    <div class="field align-items-end m-3" style="text-align: end">
+      <p-button
+        [disabled]="!formValid"
+        label="{{ label }}"
+        icon="pi pi-check"
+        (click)="submitFields()"
+      ></p-button>
+    </div>
   </div>
 </div>

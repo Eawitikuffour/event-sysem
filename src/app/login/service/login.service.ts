@@ -13,13 +13,11 @@ export class LoginService {
   constructor(private http: HttpClient) {}
   loggedInUser: any;
   login = (user: any) => {
-    return this.http.post<boolean>(`${this.loginUrl}/login`, user).pipe(
+    return this.http.post<boolean>(`${this.loginUrl}/token`, user).pipe(
       map((user: any) => {
-        // user = user.detail;
         if (user === 'Not Found') {
           this.loggedInUser = undefined;
           localStorage.removeItem('user');
-          // console.log(user);
           return false;
         } else if (user.detail === 'invalid password') {
           this.loggedInUser = undefined;

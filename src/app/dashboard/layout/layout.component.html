@@ -33,21 +33,12 @@
     </a>
   </div>
 
-  <div
-    class="flex relative lg:static p-5 flex-auto"
-    style="
-      @media screen {
-        .side-bar {
-          flex-direction: row;
-        }
-      }
-    "
-  >
-    <div class="">
+  <div class="flex flex-wrap:wrap relative lg:static p-3 min-h-screen">
+    <div class="min-h-screen flex">
       <app-side-bar class="side-bar"></app-side-bar>
     </div>
 
-    <div class="flex flex-column flex-auto">
+    <div class="flex flex-column flex-auto min-h-screen">
       <router-outlet></router-outlet>
     </div>
   </div>

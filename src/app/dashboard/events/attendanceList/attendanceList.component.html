@@ -1,1 +1,25 @@
-<app-table></app-table>
+<div class="surface-ground px-3 py-2 md:px-3 lg:px-3">
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+      <div class="card flex justify-content-center">
+        <div [formGroup]="dateForm">
+          <label class="font-medium text-900"
+            >Select date to view attendance</label
+          ><br /><br />
+
+          <p-dropdown
+            formControlName="date_range"
+            placeholder="Select date"
+            [options]="dateArray"
+            optionLabel="date_range"
+          ></p-dropdown>
+        </div>
+      </div>
+    </ng-template>
+  </p-toolbar>
+  <app-table
+    [data]="tableDataForAttendance"
+    [columnsDefinition]="columns"
+    [title]="title"
+  ></app-table>
+</div>

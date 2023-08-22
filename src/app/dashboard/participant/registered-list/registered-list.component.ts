@@ -28,6 +28,7 @@ export class RegisteredListComponent implements OnInit, AfterViewInit {
   eventControl = new UntypedFormControl(1);
   event_id: any;
   selectedModetator: any;
+  title: string = 'Registered Participants List';
 
   constructor(
     private participantService: ParticipantService,

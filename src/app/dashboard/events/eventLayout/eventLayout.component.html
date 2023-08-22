@@ -1,20 +1,22 @@
 <div class="card">
-  <p-tabView [(activeIndex)]="activeIndex">
-    <p-tabPanel header="Overview"> </p-tabPanel>
-    <p-tabPanel header="Event Details">
-      <app-eventDetails></app-eventDetails>
-    </p-tabPanel>
-    <p-tabPanel header="Moderators">
-      <app-moderators></app-moderators>
-    </p-tabPanel>
-    <p-tabPanel header="Registration Form">
-      <app-registration-form></app-registration-form>
-    </p-tabPanel>
-    <p-tabPanel header="Registered Participant">
-      <app-registered-list></app-registered-list>
-    </p-tabPanel>
-    <p-tabPanel header="Attendance List">
-      <app-attendanceList></app-attendanceList>
-    </p-tabPanel>
-  </p-tabView>
+  <div class="overflow-auto">
+    <p-tabView [(activeIndex)]="activeIndex">
+      <p-tabPanel header="Overview"> </p-tabPanel>
+      <p-tabPanel header="Event Details">
+        <app-eventDetails></app-eventDetails>
+      </p-tabPanel>
+      <p-tabPanel header="Moderators">
+        <app-moderators></app-moderators>
+      </p-tabPanel>
+      <p-tabPanel header="Registration Form">
+        <app-registration-form></app-registration-form>
+      </p-tabPanel>
+      <p-tabPanel header="Registered Participant">
+        <app-registered-list></app-registered-list>
+      </p-tabPanel>
+      <p-tabPanel header="Attendance List">
+        <app-attendanceList></app-attendanceList>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
 </div>

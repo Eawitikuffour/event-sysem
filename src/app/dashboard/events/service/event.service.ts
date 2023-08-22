@@ -9,6 +9,7 @@ import { UnassignModerator } from '../../../store/moderator/moderator.action';
 export class EventService {
   private eventURL = `${environment.API_URL_BASE}/event`;
   private adminURL = `${environment.API_URL_BASE}/admin`;
+  private attendanceURl = `${environment.API_URL_BASE}/attendance`;
 
   constructor(private http: HttpClient) {}
 
@@ -46,5 +47,14 @@ export class EventService {
 
   UnassignModerator(id: any, user_id: any) {
     return this.http.put(`${this.eventURL}/unassign-event`, id, user_id);
+  }
+
+  getAttendance(event_id: string, event_date: string) {
+    return this.http.get(
+      `${this.attendanceURl}/get/?event_id=${event_id}&event_date=${event_date}`
+    );
+  }
+  getAttendanceDate(event_id: string) {
+    return this.http.get(`${this.attendanceURl}/event_id/` + event_id);
   }
 }
