@@ -22,6 +22,7 @@ import { Observable } from 'rxjs';
 import { AddEvents } from 'src/app/store/event/event.action';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../users/service/users.service';
+import { object } from 'underscore';
 
 @Component({
   selector: 'app-addEvent',
@@ -74,7 +75,7 @@ export class AddEventComponent implements OnInit, AfterViewInit {
       registration_time: new FormControl('', Validators.required),
       start_time: new FormControl('', Validators.required),
       closing_time: new FormControl('', Validators.required),
-      how_to_join: new FormControl('', Validators.required),
+      how_to_join: new FormControl<object | null>(null),
       description: new FormControl(''),
       user_id: new FormControl(''),
       flyer: new FormControl(''),
@@ -158,7 +159,10 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     let optionsToJoin: any = [];
     const joiningEvent = Object.values(formData.how_to_join).forEach(
       (x: any) => {
-        optionsToJoin.push(x.value);
+        const data = {
+          value: x.value,
+        };
+        optionsToJoin.push(data);
       }
     );
 
@@ -171,7 +175,9 @@ export class AddEventComponent implements OnInit, AfterViewInit {
       'closing_time',
       formData.closing_time.toLocaleTimeString('en-GB')
     );
-    data.append('how_to_join', optionsToJoin);
+
+    data.append('how_to_join[]', optionsToJoin);
+
     data.append('number_of_participants', formData.number_of_participants);
     data.append('description', formData.description);
 
@@ -183,10 +189,11 @@ export class AddEventComponent implements OnInit, AfterViewInit {
     );
     data.append('user_id', formData.user_id.id);
 
-    this.store.dispatch(new AddEvents(data));
-    // console.log(data);
+    // this.store.dispatch(new AddEvents(data));
+    console.log(data);
+    console.log(this.eventForm.value.how_to_join);
     // console.log(joiningEvent);
-    this.eventForm.reset();
+    // this.eventForm.reset();
   }
 
   onChangeFyler(event: any) {
